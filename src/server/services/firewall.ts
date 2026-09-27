@@ -9,27 +9,56 @@ const PROXMOX_DEFAULT_NODE = env.PROXMOX_NODE
 export interface ProxmoxFirewallRuleInput {
   action: "ACCEPT" | "DROP"
   comment?: string
-  enable: 0 | 1
+  dest?: string
   dport?: string
-  proto?: "tcp" | "udp" | "icmp"
+  enable: 0 | 1
+  proto?: "icmp" | "tcp" | "udp"
   source?: string
-  type: "in"
+  type: "in" | "out"
 }
 
 interface PlatformRulesInput {
   adminCidr: string
+  internetAccess: boolean
   organizationId: string
   subnetCidr: string // cloud network
 }
 
 export function buildPlatformRules({
   adminCidr,
+  internetAccess,
   organizationId,
   subnetCidr,
 }: PlatformRulesInput): ProxmoxFirewallRuleInput[] {
-  const ipsetName = `org_${organizationId.toLowerCase()}`
+  const orgId = organizationId.toLowerCase()
+  const ipsetName = `org_${orgId}`
 
-  return [
+  const internetAccessRules: ProxmoxFirewallRuleInput[] = [
+    {
+      action: "ACCEPT",
+      comment: `Allow outbound to organization ${orgId}`,
+      dest: `+${ipsetName}`,
+      enable: 1,
+      type: "out",
+    },
+    // TODO: Future integration
+    // {
+    //   action: "ACCEPT",
+    //   comment: "Allow outbound to internal platform services",
+    //   dest: `+${internalServicesIpsetName}`,
+    //   enable: 1,
+    //   type: "out",
+    // },
+    {
+      action: "DROP",
+      comment: "Internet access disabled for this instance",
+      dest: "0.0.0.0/0",
+      enable: 1,
+      type: "out",
+    },
+  ]
+
+  const platformRules: ProxmoxFirewallRuleInput[] = [
     {
       action: "ACCEPT",
       comment: "Platform operator SSH access",
@@ -41,7 +70,7 @@ export function buildPlatformRules({
     },
     {
       action: "ACCEPT",
-      comment: `Allow access from organization ${organizationId.toLowerCase()}`,
+      comment: `Allow access from organization ${orgId}`,
       enable: 1,
       source: `+${ipsetName}`,
       type: "in",
@@ -53,7 +82,10 @@ export function buildPlatformRules({
       source: subnetCidr,
       type: "in",
     },
+    ...(internetAccess === false ? internetAccessRules : []),
   ]
+
+  return platformRules
 }
 
 export function toProxmoxRule(
@@ -115,6 +147,7 @@ export async function syncPlatformFirewallRules(
   proxmox: Proxmox.Api,
   data: {
     adminCidr: string
+    internetAccess: boolean
     organizationId: string
     subnetCidr: string
     vmid: number
@@ -122,6 +155,7 @@ export async function syncPlatformFirewallRules(
 ) {
   const platformRules = buildPlatformRules({
     adminCidr: data.adminCidr,
+    internetAccess: data.internetAccess,
     organizationId: data.organizationId,
     subnetCidr: data.subnetCidr,
   })
