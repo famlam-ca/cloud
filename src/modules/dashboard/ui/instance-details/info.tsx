@@ -75,7 +75,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
         description: error.message,
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       void utils.instance.get.invalidate({ id: data.id })
       void utils.activity.list.invalidate({
         instanceId: data.id,
@@ -90,7 +90,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
         description: error.message,
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       void utils.instance.get.invalidate({ id: data.id })
       void utils.activity.list.invalidate({
         instanceId: data.id,
@@ -105,7 +105,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
         description: error.message,
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       void utils.instance.get.invalidate({ id: data.id })
       void utils.activity.list.invalidate({
         instanceId: data.id,
@@ -120,7 +120,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
         description: error.message,
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       void utils.instance.get.invalidate({ id: data.id })
       void utils.activity.list.invalidate({
         instanceId: data.id,
@@ -135,7 +135,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
         description: error.message,
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       router.push("/instance/list")
       void utils.instance.get.invalidate({ id: data.instanceId })
       void utils.activity.list.invalidate({

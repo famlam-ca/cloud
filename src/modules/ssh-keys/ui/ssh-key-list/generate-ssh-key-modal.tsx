@@ -94,7 +94,7 @@ export function GenerateSSHKeyModal({
         position: "top-center",
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       setSSHKey(data)
       form.reset()
       void utils.sshKey.list.invalidate()

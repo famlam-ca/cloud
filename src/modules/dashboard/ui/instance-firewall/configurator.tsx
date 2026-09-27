@@ -66,7 +66,7 @@ function SyncStatusBadge({ instanceId }: { instanceId: string }) {
   )
 
   const retry = api.firewallRule.retrySync.useMutation({
-    async onSuccess() {
+    onSuccess() {
       void utils.instance.firewallStatus.invalidate({ instanceId })
     },
   })
