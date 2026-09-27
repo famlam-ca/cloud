@@ -13,7 +13,6 @@ export async function generateMetadata({
 }: PageProps<"/instance/[id]">): Promise<Metadata> {
   const { id: instanceId } = await params
   const instance = await api.instance.get({ id: instanceId })
-  if (!instance) return notFound()
   return {
     title: `${instance.hostname} Overview`,
   }
@@ -22,11 +21,16 @@ export async function generateMetadata({
 export default async function Page({ params }: PageProps<"/instance/[id]">) {
   const { id: instanceId } = await params
 
-  await api.activity.list.prefetchInfinite({
-    instanceId,
-    limit: DEFAULT_PAGE_SIZE,
-    scope: "instance",
-  })
+  if (!instanceId) return notFound()
+
+  await Promise.all([
+    api.instance.get.prefetch({ id: instanceId }),
+    api.activity.list.prefetchInfinite({
+      instanceId,
+      limit: DEFAULT_PAGE_SIZE,
+      scope: "instance",
+    }),
+  ])
 
   return (
     <HydrateClient>
