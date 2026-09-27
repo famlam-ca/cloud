@@ -100,133 +100,139 @@ export function ImportSSHKeyModal({
           </>
         )}
       </ResponsiveDialogTrigger>
-
-      <ResponsiveDialogContent size="lg">
-        <ResponsiveDialogHeader>
+      <ResponsiveDialogContent
+        className="max-h-[calc(100dvh-1rem)] max-md:h-full"
+        size="lg"
+      >
+        <ResponsiveDialogHeader className="px-0 pb-4 text-left!">
           <ResponsiveDialogTitle>Import SSH key</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             Paste an existing public key. Ed25519 and RSA (2048-bit minimum) are
             supported.
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
+        <div className="no-scrollbar overflow-y-auto md:max-h-[50dvh]">
+          <form
+            className="mt-4 space-y-4 md:mt-0"
+            id="import-ssh-key-form"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <Controller
+              control={form.control}
+              name="name"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name}>
+                    <div className="relative">
+                      Name
+                      <span className="absolute top-0 -right-2 text-destructive text-xs">
+                        *
+                      </span>
+                    </div>
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    aria-invalid={fieldState.invalid}
+                    disabled={isDisabled}
+                    id={field.name}
+                    placeholder="e.g. work_laptop"
+                    type="text"
+                  />
+                  <FieldDescription>
+                    A descriptive name for your SSH key pair. This will help you
+                    identify it later.
+                  </FieldDescription>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
 
-        <form
-          className="mt-4 space-y-4 md:mt-0"
-          id="import-ssh-key-form"
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <Controller
-            control={form.control}
-            name="name"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>
-                  <div className="relative">
-                    Name
-                    <span className="absolute top-0 -right-2 text-destructive text-xs">
-                      *
-                    </span>
-                  </div>
-                </FieldLabel>
-                <Input
-                  {...field}
-                  aria-invalid={fieldState.invalid}
-                  disabled={isDisabled}
-                  id={field.name}
-                  placeholder="e.g. work_laptop"
-                  type="text"
-                />
-                <FieldDescription>
-                  A descriptive name for your SSH key pair. This will help you
-                  identify it later.
-                </FieldDescription>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
+            <Controller
+              control={form.control}
+              name="publicKey"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name}>
+                    <div className="relative">
+                      Public key
+                      <span className="absolute top-0 -right-2 text-destructive text-xs">
+                        *
+                      </span>
+                    </div>
+                  </FieldLabel>
+                  <Textarea
+                    {...field}
+                    aria-invalid={fieldState.invalid}
+                    className="min-h-25 resize-none font-mono text-xs"
+                    disabled={isDisabled}
+                    id={field.name}
+                    placeholder="ssh-ed25519 AAAA..."
+                    value={field.value ?? ""}
+                  />
+                  <FieldDescription>
+                    Paste your existing public key here. Ed25519 and RSA
+                    (2048-bit minimum) are supported.
+                  </FieldDescription>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            <Controller
+              control={form.control}
+              name="comment"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name}>Comment</FieldLabel>
+                  <Textarea
+                    {...field}
+                    aria-invalid={fieldState.invalid}
+                    className="min-h-25 resize-none"
+                    disabled={isDisabled}
+                    id={field.name}
+                    placeholder="Optional comment for your SSH key"
+                    value={field.value ?? ""}
+                  />
+                  <FieldDescription>
+                    An optional comment for your SSH key pair. This can be used
+                    to provide additional context or information about the key.
+                  </FieldDescription>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            {form.formState.errors.root && (
+              <p className="text-destructive text-sm">
+                {form.formState.errors.root.message}
+              </p>
             )}
-          />
-
-          <Controller
-            control={form.control}
-            name="publicKey"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>
-                  <div className="relative">
-                    Public key
-                    <span className="absolute top-0 -right-2 text-destructive text-xs">
-                      *
-                    </span>
-                  </div>
-                </FieldLabel>
-                <Textarea
-                  {...field}
-                  aria-invalid={fieldState.invalid}
-                  className="min-h-25 resize-none font-mono text-xs"
-                  disabled={isDisabled}
-                  id={field.name}
-                  placeholder="ssh-ed25519 AAAA..."
-                  value={field.value ?? ""}
-                />
-                <FieldDescription>
-                  Paste your existing public key here. Ed25519 and RSA (2048-bit
-                  minimum) are supported.
-                </FieldDescription>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
-          <Controller
-            control={form.control}
-            name="comment"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Comment</FieldLabel>
-                <Textarea
-                  {...field}
-                  aria-invalid={fieldState.invalid}
-                  className="min-h-25 resize-none"
-                  disabled={isDisabled}
-                  id={field.name}
-                  placeholder="Optional comment for your SSH key"
-                  value={field.value ?? ""}
-                />
-                <FieldDescription>
-                  An optional comment for your SSH key pair. This can be used to
-                  provide additional context or information about the key.
-                </FieldDescription>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
-          {form.formState.errors.root && (
-            <p className="text-destructive text-sm">
-              {form.formState.errors.root.message}
-            </p>
-          )}
-
-          <ResponsiveDialogFooter>
-            <Button
-              disabled={importKey.isPending}
-              onClick={() => handleOpenChange(false)}
-              type="button"
-              variant="outline"
-            >
-              Cancel
-            </Button>
-            <Button disabled={importKey.isPending} type="submit">
-              {importKey.isPending ? <Spinner /> : <IconUpload />}
-              Import
-            </Button>
-          </ResponsiveDialogFooter>
-        </form>
+          </form>
+        </div>
+        <ResponsiveDialogFooter className="flex-row justify-end max-md:pt-4">
+          <Button
+            disabled={importKey.isPending}
+            onClick={() => handleOpenChange(false)}
+            type="button"
+            variant="outline"
+          >
+            Cancel
+          </Button>
+          <Button
+            disabled={importKey.isPending}
+            form="import-ssh-key-form"
+            type="submit"
+          >
+            {importKey.isPending ? <Spinner /> : <IconUpload />}
+            Import
+          </Button>
+        </ResponsiveDialogFooter>
       </ResponsiveDialogContent>
     </ResponsiveDialog>
   )

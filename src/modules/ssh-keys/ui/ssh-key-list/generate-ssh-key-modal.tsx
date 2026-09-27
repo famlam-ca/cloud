@@ -169,13 +169,19 @@ export function GenerateSSHKeyModal({
           </>
         )}
       </ResponsiveDialogTrigger>
-      <ResponsiveDialogContent size="xl">
+      <ResponsiveDialogContent
+        className="max-h-[calc(100dvh-1rem)] max-md:h-full"
+        size="xl"
+      >
         {sshKey ? (
           <>
-            <ResponsiveDialogHeader>
+            <ResponsiveDialogHeader className="px-0 pb-4 text-left!">
               <ResponsiveDialogTitle>
                 SSH Key Pair generated Successfully
               </ResponsiveDialogTitle>
+              <ResponsiveDialogDescription>
+                Please download your SSH key pair and store it securely.
+              </ResponsiveDialogDescription>
             </ResponsiveDialogHeader>
 
             <Alert variant="warning">
@@ -193,7 +199,7 @@ export function GenerateSSHKeyModal({
                 <Label className="mb-2 block font-medium">Private Key:</Label>
                 <InputGroup>
                   <InputGroupTextarea
-                    className="wrap-break-word field-sizing-fixed max-h-24 resize-none font-mono"
+                    className="wrap-break-word field-sizing-fixed max-h-48 resize-none font-mono md:max-h-24"
                     readOnly
                     rows={6}
                     value={sshKey.privateKey}
@@ -214,7 +220,7 @@ export function GenerateSSHKeyModal({
                   </InputGroupAddon>
                 </InputGroup>
               </div>
-              <ResponsiveDialogFooter>
+              <ResponsiveDialogFooter className="flex-row justify-end">
                 {downloaded && (
                   <Button
                     onClick={() => setSSHKey(null)}
@@ -242,7 +248,7 @@ export function GenerateSSHKeyModal({
           </>
         ) : (
           <>
-            <ResponsiveDialogHeader>
+            <ResponsiveDialogHeader className="px-0 pb-4 text-left!">
               <ResponsiveDialogTitle>
                 Generate New SSH Key Pair
               </ResponsiveDialogTitle>
@@ -250,131 +256,131 @@ export function GenerateSSHKeyModal({
                 Generate a new SSH key pair for secure access to your computes.
               </ResponsiveDialogDescription>
             </ResponsiveDialogHeader>
-
-            <form
-              className="mt-4 space-y-4 md:mt-0"
-              id="generate-ssh-key-form"
-              onSubmit={(e) => {
-                e.stopPropagation()
-                form.handleSubmit(onSubmit)(e)
-              }}
-            >
-              <Controller
-                control={form.control}
-                name="type"
-                render={({ field, fieldState }) => (
-                  <FieldSet className="gap-3">
-                    <FieldLegend className="relative" variant="label">
-                      Key type
-                      <span className="absolute top-0 -right-2 text-destructive text-xs">
-                        *
-                      </span>
-                    </FieldLegend>
-                    <FieldDescription>
-                      Choose the algorithm used to secure your connection.
-                    </FieldDescription>
-                    <RadioGroup
-                      aria-label="SSH key type"
-                      className="grid gap-3 sm:grid-cols-2"
-                      name={field.name}
-                      onValueChange={field.onChange}
-                      value={field.value}
-                    >
-                      {sshKeyTypeEnum.enumValues.map((type) => (
-                        <FieldLabel
-                          className="cursor-pointer hover:has-data-checked:bg-primary/10!"
-                          htmlFor={`ssh-key-type-${type}`}
-                          key={type}
-                        >
-                          <Field
-                            data-invalid={fieldState.invalid}
-                            orientation="horizontal"
-                          >
-                            <FieldContent className="gap-1">
-                              <FieldTitle className="uppercase tracking-wide">
-                                {type}
-                              </FieldTitle>
-                              <FieldDescription>
-                                {type === "ed25519"
-                                  ? "Modern, fast, and recommended"
-                                  : "Broad compatibility with older systems"}
-                              </FieldDescription>
-                            </FieldContent>
-                            <RadioGroupItem
-                              aria-invalid={fieldState.invalid}
-                              id={`ssh-key-type-${type}`}
-                              value={type}
-                            />
-                          </Field>
-                        </FieldLabel>
-                      ))}
-                    </RadioGroup>
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </FieldSet>
-                )}
-              />
-              <Controller
-                control={form.control}
-                name="name"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      <div className="relative">
-                        Name
+            <div className="no-scrollbar overflow-y-auto md:max-h-[50dvh]">
+              <form
+                className="mt-4 space-y-4 md:mt-0"
+                id="generate-ssh-key-form"
+                onSubmit={(e) => {
+                  e.stopPropagation()
+                  form.handleSubmit(onSubmit)(e)
+                }}
+              >
+                <Controller
+                  control={form.control}
+                  name="type"
+                  render={({ field, fieldState }) => (
+                    <FieldSet className="gap-3">
+                      <FieldLegend className="relative" variant="label">
+                        Key type
                         <span className="absolute top-0 -right-2 text-destructive text-xs">
                           *
                         </span>
-                      </div>
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      disabled={isDisabled}
-                      id={field.name}
-                      placeholder="e.g. work_laptop"
-                      type="text"
-                    />
-                    <FieldDescription>
-                      A descriptive name for your SSH key pair. This will help
-                      you identify it later.
-                    </FieldDescription>
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-              <Controller
-                control={form.control}
-                name="comment"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Comment</FieldLabel>
-                    <Textarea
-                      {...field}
-                      aria-invalid={fieldState.invalid}
-                      className="min-h-25 resize-none"
-                      disabled={isDisabled}
-                      id={field.name}
-                      placeholder="Optional comment for your SSH key"
-                      value={field.value ?? ""}
-                    />
-                    <FieldDescription>
-                      An optional comment for your SSH key pair. This can be
-                      used to provide additional context or information about
-                      the key.
-                    </FieldDescription>
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-            </form>
-
-            <ResponsiveDialogFooter className="mt-4">
+                      </FieldLegend>
+                      <FieldDescription>
+                        Choose the algorithm used to secure your connection.
+                      </FieldDescription>
+                      <RadioGroup
+                        aria-label="SSH key type"
+                        className="grid gap-3 sm:grid-cols-2"
+                        name={field.name}
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        {sshKeyTypeEnum.enumValues.map((type) => (
+                          <FieldLabel
+                            className="cursor-pointer hover:has-data-checked:bg-primary/10!"
+                            htmlFor={`ssh-key-type-${type}`}
+                            key={type}
+                          >
+                            <Field
+                              data-invalid={fieldState.invalid}
+                              orientation="horizontal"
+                            >
+                              <FieldContent className="gap-1">
+                                <FieldTitle className="uppercase tracking-wide">
+                                  {type}
+                                </FieldTitle>
+                                <FieldDescription>
+                                  {type === "ed25519"
+                                    ? "Modern, fast, and recommended"
+                                    : "Broad compatibility with older systems"}
+                                </FieldDescription>
+                              </FieldContent>
+                              <RadioGroupItem
+                                aria-invalid={fieldState.invalid}
+                                id={`ssh-key-type-${type}`}
+                                value={type}
+                              />
+                            </Field>
+                          </FieldLabel>
+                        ))}
+                      </RadioGroup>
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </FieldSet>
+                  )}
+                />
+                <Controller
+                  control={form.control}
+                  name="name"
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        <div className="relative">
+                          Name
+                          <span className="absolute top-0 -right-2 text-destructive text-xs">
+                            *
+                          </span>
+                        </div>
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        aria-invalid={fieldState.invalid}
+                        disabled={isDisabled}
+                        id={field.name}
+                        placeholder="e.g. work_laptop"
+                        type="text"
+                      />
+                      <FieldDescription>
+                        A descriptive name for your SSH key pair. This will help
+                        you identify it later.
+                      </FieldDescription>
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  control={form.control}
+                  name="comment"
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={field.name}>Comment</FieldLabel>
+                      <Textarea
+                        {...field}
+                        aria-invalid={fieldState.invalid}
+                        className="min-h-25 resize-none"
+                        disabled={isDisabled}
+                        id={field.name}
+                        placeholder="Optional comment for your SSH key"
+                        value={field.value ?? ""}
+                      />
+                      <FieldDescription>
+                        An optional comment for your SSH key pair. This can be
+                        used to provide additional context or information about
+                        the key.
+                      </FieldDescription>
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+              </form>
+            </div>
+            <ResponsiveDialogFooter className="flex-row justify-end max-md:pt-4">
               <Button
                 disabled={isDisabled}
                 onClick={() => onOpenChange?.(false)}
