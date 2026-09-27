@@ -14,8 +14,8 @@ import type {
   InstanceStatusEnum,
 } from "@/schemas/instance"
 import {
-  createInstanceSchema,
-  insertInstanceSchema,
+  refinedCreateInstanceSchema,
+  refinedUpdateInstanceSchema,
   selectInstanceSchema,
 } from "@/schemas/instance"
 import { selectSSHKeySchema } from "@/schemas/ssh-key"
@@ -105,7 +105,7 @@ export const instanceRouter = createTRPCRouter({
         }),
       ),
     )
-    .input(createInstanceSchema)
+    .input(refinedCreateInstanceSchema)
     .output(
       z.object({
         instanceId: z.uuid(),
@@ -623,15 +623,7 @@ export const instanceRouter = createTRPCRouter({
         }),
       ),
     )
-    .input(
-      z.object(
-        // TODO: expand allowed fields for update
-        insertInstanceSchema.pick({
-          hostname: true,
-          id: true,
-        }).shape,
-      ),
-    )
+    .input(refinedUpdateInstanceSchema)
     .output(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const instance = await getOrgInstanceOrThrow(
@@ -640,7 +632,7 @@ export const instanceRouter = createTRPCRouter({
         ctx.session.session.userId,
       )
 
-      const instanceHostname = input.hostname.toLowerCase()
+      const instanceHostname = input.hostname?.toLowerCase()
 
       // TODO: send to update instance queue
       await proxmox.nodes

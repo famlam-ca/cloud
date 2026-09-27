@@ -59,6 +59,48 @@ export const createInstanceSchema = insertInstanceSchema
     sshKeyId: z.string(),
   })
 
+export const hostnameRegex =
+  /^(?=.{3,63}$)[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+
+export const basicInfoSchema = createInstanceSchema
+  .pick({
+    hostname: true,
+    sshKeyId: true,
+  })
+  .refine((data) => hostnameRegex.test(data.hostname), {
+    message:
+      "Hostname must be 3-63 characters, alphanumeric, and may include hyphens or dots.",
+    path: ["hostname"],
+  })
+
+export const operatingSystemSchema = createInstanceSchema.pick({
+  operatingSystemId: true,
+})
+
+export const resourcePlanSchema = createInstanceSchema.pick({
+  resourcePlanId: true,
+})
+
+export const refinedCreateInstanceSchema = createInstanceSchema.refine(
+  (data) => hostnameRegex.test(data.hostname),
+  {
+    message:
+      "Hostname must be 3-63 characters, alphanumeric, and may include hyphens or dots.",
+    path: ["hostname"],
+  },
+)
+export const refinedUpdateInstanceSchema = insertInstanceSchema
+  .pick({
+    hostname: true,
+  })
+  .partial()
+  .extend({ id: z.uuid() })
+  .refine((data) => !data.hostname || hostnameRegex.test(data.hostname), {
+    message:
+      "Hostname must be 3-63 characters, alphanumeric, and may include hyphens or dots.",
+    path: ["hostname"],
+  })
+
 export type Instance = z.infer<typeof selectInstanceSchema>
 export type InstanceStatusEnum = (typeof instanceStatusEnum.enumValues)[number]
 

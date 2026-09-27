@@ -75,39 +75,13 @@ import {
   getResourcePlanIcon,
   getResourcePlanStatusColor,
 } from "@/lib/utils"
-import { createInstanceSchema } from "@/schemas/instance"
+import {
+  basicInfoSchema,
+  operatingSystemSchema,
+  refinedCreateInstanceSchema,
+  resourcePlanSchema,
+} from "@/schemas/instance"
 import type { SSHKey } from "@/schemas/ssh-key"
-
-const hostnameRegex =
-  /^(?=.{3,63}$)[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-
-const basicInfoSchema = createInstanceSchema
-  .pick({
-    hostname: true,
-    sshKeyId: true,
-  })
-  .refine((data) => hostnameRegex.test(data.hostname), {
-    message:
-      "Hostname must be 3-63 characters, alphanumeric, and may include hyphens or dots.",
-    path: ["hostname"],
-  })
-
-const operatingSystemSchema = createInstanceSchema.pick({
-  operatingSystemId: true,
-})
-
-const resourcePlanSchema = createInstanceSchema.pick({
-  resourcePlanId: true,
-})
-
-const refinedCreateInstanceSchema = createInstanceSchema.refine(
-  (data) => hostnameRegex.test(data.hostname),
-  {
-    message:
-      "Hostname must be 3-63 characters, alphanumeric, and may include hyphens or dots.",
-    path: ["hostname"],
-  },
-)
 
 type BasicInfo = z.infer<typeof basicInfoSchema>
 type OperatingSystemInfo = z.infer<typeof operatingSystemSchema>
@@ -703,7 +677,7 @@ function ReviewAndCreateForm({
         position: "top-center",
       })
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       void utils.instance.list.invalidate()
       toast.success("Instance created successfully!", {
         position: "top-center",
