@@ -61,6 +61,7 @@ const provisionWorker = new Worker(
       await configureInstanceFirewall(proxmox, {
         adminCidr: env.PLATFORM_ADMIN_CIDR,
         hostname: instance.hostname,
+        internetAccess: instance.internetAccess,
         network: data.network,
         organizationId: instance.organizationId,
         vmid: instance.pveVmid,

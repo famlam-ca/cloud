@@ -97,6 +97,7 @@ export async function configureInstanceFirewall(
   data: {
     adminCidr: string
     hostname: string
+    internetAccess: boolean
     network: {
       ip: string
     }
@@ -153,6 +154,7 @@ export async function configureInstanceFirewall(
 
   await syncPlatformFirewallRules(proxmox, {
     adminCidr: env.PLATFORM_ADMIN_CIDR,
+    internetAccess: data.internetAccess,
     organizationId: data.organizationId,
     subnetCidr: env.CLOUD_NETWORK_CIDR,
     vmid: data.vmid,
