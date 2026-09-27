@@ -2,8 +2,8 @@
 
 import {
   IconCopy,
-  IconDots,
   IconKeyFilled,
+  IconPointFilled,
   IconSparkles2,
   IconTrash,
   IconUpload,
@@ -27,15 +27,13 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import {
   Empty,
   EmptyDescription,
@@ -43,18 +41,15 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
-import { Spinner } from "@/components/ui/spinner"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item"
+import { Spinner } from "@/components/ui/spinner"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { api } from "@/lib/api/client"
-import { cn } from "@/lib/utils"
 import type { SSHKey } from "@/schemas/ssh-key"
 
 import { GenerateSSHKeyModal } from "./generate-ssh-key-modal"
@@ -81,76 +76,67 @@ export function SshKeysList({ new: newParam }: { new?: string }) {
   }, [newParam, router])
 
   return (
-    <Card className="mt-4 space-y-4">
-      <CardContent>
-        <div
-          className={cn(
-            "flex justify-end gap-2",
-            sshKeys.length === 0 && "invisible",
-          )}
-        >
+    <Card className="mt-4">
+      <CardHeader className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <CardTitle>SSH keys</CardTitle>
+          <CardDescription>
+            Use SSH keys to securely connect to your instances.
+          </CardDescription>
+        </div>
+        <div className="flex flex-wrap justify-end gap-2">
           <ImportSSHKeyModal
             onOpenChange={(open) => setOpenModal(open ? "import" : null)}
             open={openModal === "import"}
-          />
+            render={<Button size="sm" variant="outline" />}
+          >
+            <IconUpload /> Import key
+          </ImportSSHKeyModal>
           <GenerateSSHKeyModal
             onOpenChange={(open) => setOpenModal(open ? "generate" : null)}
             open={openModal === "generate"}
-          />
+            render={<Button size="sm" />}
+          >
+            <IconSparkles2 /> Generate key
+          </GenerateSSHKeyModal>
         </div>
-
+      </CardHeader>
+      <CardContent>
         {sshKeys.length === 0 ? (
-          <Empty>
+          <Empty className="mt-4 border bg-muted/20 py-16">
             <EmptyHeader>
               <EmptyMedia variant="icon">
                 <IconKeyFilled className="size-6 text-muted-foreground" />
               </EmptyMedia>
-              <EmptyTitle>No SSH keys yet</EmptyTitle>
-              <EmptyDescription className="text-muted-foreground text-sm">
-                Generate a new key or import one you already use.
+              <EmptyTitle>Add your first SSH key</EmptyTitle>
+              <EmptyDescription>
+                SSH keys let you connect to your instances without sharing a
+                password. Generate a new key or import one you already use.
               </EmptyDescription>
             </EmptyHeader>
             <div className="flex justify-center gap-2">
-              <Button
-                className="hover:bg-transparent! hover:text-foreground! hover:no-underline"
-                disabled={openModal !== null}
-                onClick={() => setOpenModal("generate")}
-                size="sm"
-                type="button"
-                variant="link"
+              <GenerateSSHKeyModal
+                onOpenChange={(open) => setOpenModal(open ? "generate" : null)}
+                open={openModal === "generate"}
+                render={<Button size="sm" />}
               >
                 <IconSparkles2 /> Generate key
-              </Button>
-              <Button
-                className="hover:bg-transparent! hover:text-foreground! hover:no-underline"
-                disabled={openModal !== null}
-                onClick={() => setOpenModal("import")}
-                size="sm"
-                type="button"
-                variant="link"
+              </GenerateSSHKeyModal>
+              <ImportSSHKeyModal
+                onOpenChange={(open) => setOpenModal(open ? "import" : null)}
+                open={openModal === "import"}
+                render={<Button size="sm" variant="outline" />}
               >
                 <IconUpload /> Import key
-              </Button>
+              </ImportSSHKeyModal>
             </div>
           </Empty>
         ) : (
-          <Table className="mt-4">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Fingerprint</TableHead>
-                <TableHead>Comment</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead className="w-10" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sshKeys.map((key) => (
-                <SshKeyRow key={key.id} sshKey={key} />
-              ))}
-            </TableBody>
-          </Table>
+          <div className="mt-4 divide-y overflow-hidden rounded-xl">
+            {sshKeys.map((key) => (
+              <SshKeyRow key={key.id} sshKey={key} />
+            ))}
+          </div>
         )}
       </CardContent>
     </Card>
@@ -183,51 +169,84 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
   }
 
   return (
-    <TableRow>
-      <TableCell className="font-medium">{sshKey.name}</TableCell>
-      <TableCell>
-        <Badge className="uppercase" variant="secondary">
-          {sshKey.type}
-        </Badge>
-      </TableCell>
-      <TableCell className="font-mono text-muted-foreground text-xs">
-        {sshKey.fingerprint}
-      </TableCell>
-      <TableCell className="text-muted-foreground">
-        {sshKey.comment ?? "—"}
-      </TableCell>
-      <TableCell className="text-muted-foreground" suppressHydrationWarning>
-        {sshKey.createdAt
-          ? formatDistanceToNowStrict(new Date(sshKey.createdAt), {
-              addSuffix: true,
-            })
-          : "—"}
-      </TableCell>
-      <TableCell>
-        <DropdownMenu>
-          <DropdownMenuTrigger render={<Button size="icon" variant="ghost" />}>
-            <IconDots className="size-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuGroup>
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={copyPublicKey}>
-                <IconCopy /> Copy public key
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={copyFingerprint}>
-                <IconCopy /> Copy fingerprint
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="text-destructive focus:bg-destructive/10 focus:text-destructive dark:focus:bg-destructive/20 *:[svg]:text-destructive"
-                disabled={deleteKey.isPending}
-                onClick={() => setOpen(true)}
-              >
-                <IconTrash />
-                <span>Delete</span>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+    <div className="group grid grid-cols-[minmax(0,1fr)_auto] gap-3 bg-card p-4 transition-colors hover:bg-muted/30 xl:grid-cols-[minmax(11rem,0.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
+      <Item size="sm">
+        <ItemContent>
+          <div className="flex items-center gap-2">
+            <ItemTitle>{sshKey.name}</ItemTitle>
+            <Badge className="uppercase" variant="secondary">
+              {sshKey.type}
+            </Badge>
+            <span
+              className="shrink-0 whitespace-nowrap text-muted-foreground text-xs"
+              suppressHydrationWarning
+            >
+              Added{" "}
+              {sshKey.createdAt
+                ? formatDistanceToNowStrict(new Date(sshKey.createdAt), {
+                    addSuffix: true,
+                  })
+                : "—"}
+            </span>
+          </div>
+          <ItemDescription className="flex flex-wrap items-center gap-x-1 truncate font-mono text-xs">
+            {sshKey.comment ?? "No comment"}
+          </ItemDescription>
+        </ItemContent>
+      </Item>
+
+      <div className="col-span-full row-start-2 grid gap-1 rounded-xl border bg-muted/20 p-1 xl:col-span-1 xl:row-start-auto xl:grid-cols-2">
+        <div className="flex items-center gap-2 overflow-hidden rounded-lg bg-background/60 px-2 py-1">
+          <span className="shrink-0 text-muted-foreground text-xs">
+            Fingerprint
+          </span>
+          <span className="flex-1 truncate font-mono text-muted-foreground text-xs">
+            {sshKey.fingerprint}
+          </span>
+          <Button
+            aria-label="Copy fingerprint"
+            onClick={copyFingerprint}
+            size="icon-xs"
+            title="Copy fingerprint"
+            type="button"
+            variant="ghost"
+          >
+            <IconCopy />
+          </Button>
+        </div>
+        <div className="flex items-center gap-2 overflow-hidden rounded-lg bg-background/60 px-2 py-1">
+          <span className="shrink-0 text-muted-foreground text-xs">
+            Public key
+          </span>
+          <span className="flex-1 truncate font-mono text-muted-foreground text-xs">
+            {sshKey.publicKey}
+          </span>
+          <Button
+            aria-label="Copy public key"
+            onClick={copyPublicKey}
+            size="icon-xs"
+            title="Copy public key"
+            type="button"
+            variant="ghost"
+          >
+            <IconCopy />
+          </Button>
+        </div>
+      </div>
+
+      <div className="col-start-2 row-start-1 flex justify-self-end xl:col-start-auto xl:row-start-auto">
+        <Button
+          aria-label="Delete SSH key"
+          className="text-destructive hover:bg-destructive/10 hover:text-destructive dark:hover:bg-destructive/20"
+          disabled={deleteKey.isPending}
+          onClick={() => setOpen(true)}
+          size="icon"
+          title="Delete SSH key"
+          type="button"
+          variant="ghost"
+        >
+          <IconTrash />
+        </Button>
 
         <AlertDialog onOpenChange={setOpen} open={open}>
           <AlertDialogContent>
@@ -259,7 +278,7 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </TableCell>
-    </TableRow>
+      </div>
+    </div>
   )
 }
