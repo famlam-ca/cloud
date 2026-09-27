@@ -53,6 +53,7 @@ const firewallSyncWorker = new Worker(
 
       const platformRules = buildPlatformRules({
         adminCidr: env.PLATFORM_ADMIN_CIDR,
+        internetAccess: instance.internetAccess,
         organizationId: instance.organizationId,
         subnetCidr: env.CLOUD_NETWORK_CIDR,
       })
