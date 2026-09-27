@@ -283,6 +283,7 @@ export const instanceTable = createTable(
       .notNull(),
     hostname: d.text("hostname").notNull(),
     id: d.text("id").primaryKey(),
+    internetAccess: d.boolean("internet_access").default(true).notNull(),
     memory: d.integer("memory").notNull(),
     networkId: d
       .text("network_id")

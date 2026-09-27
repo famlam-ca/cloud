@@ -1,0 +1,1 @@
+ALTER TABLE "instance" ADD COLUMN "internet_access" boolean DEFAULT true NOT NULL;
