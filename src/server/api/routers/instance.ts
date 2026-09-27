@@ -3,7 +3,7 @@ import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import type { inferProcedureBuilderResolverOptions } from "@trpc/server"
 import { TRPCError } from "@trpc/server"
-import { and, count, eq, inArray, isNull, lt, or } from "drizzle-orm"
+import { and, count, eq, inArray, isNull, lt, or, sql } from "drizzle-orm"
 import * as z from "zod"
 
 import { env } from "@/env"
@@ -34,6 +34,7 @@ import { addDeleteInstanceJob } from "@/server/queues/delete-instance-queue"
 import { addPowerActionJob } from "@/server/queues/power-action-queue"
 import { addProvisionJob } from "@/server/queues/provision-queue"
 import { logActivity } from "@/server/services/activity"
+import { syncPlatformFirewallRules } from "@/server/services/firewall"
 import { createDhcpReservation } from "@/server/services/network"
 
 const PROXMOX_DEFAULT_NODE = env.PROXMOX_NODE
@@ -610,6 +611,66 @@ export const instanceRouter = createTRPCRouter({
       const action: InstancePowerActionEnum = "stop"
 
       return await powerAction(action, { ctx, input })
+    }),
+
+  toggleInternetAccess: protectedProcedure
+    .meta(
+      toTRPCMeta(
+        openapi({
+          method: "POST",
+          path: "/instance/{id}/toggle-internet-access",
+          summary: "Toggle internet access for an instance",
+          tags: ["Instances"],
+        }),
+      ),
+    )
+    .input(z.object({ id: z.string() }))
+    .output(z.object({ id: z.string(), internetAccess: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      const instance = await getOrgInstanceOrThrow(
+        input.id,
+        ctx.organizationId,
+        ctx.session.session.userId,
+        { ipAllocations: true },
+      )
+
+      const [updated] = await ctx.db
+        .update(instanceTable)
+        .set({ internetAccess: sql`NOT ${instanceTable.internetAccess}` })
+        .where(eq(instanceTable.id, instance.id))
+        .returning()
+
+      if (!updated) {
+        // log failed activity
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to update instance",
+        })
+      }
+
+      try {
+        await syncPlatformFirewallRules(proxmox, {
+          adminCidr: env.PLATFORM_ADMIN_CIDR,
+          internetAccess: updated.internetAccess,
+          organizationId: instance.organizationId,
+          subnetCidr: env.CLOUD_NETWORK_CIDR,
+          vmid: instance.pveVmid,
+        })
+      } catch (err) {
+        await ctx.db
+          .update(instanceTable)
+          .set({ internetAccess: instance.internetAccess })
+          .where(eq(instanceTable.id, instance.id))
+        throw err
+      }
+
+      // log activity
+
+      return {
+        id: updated.id,
+        internetAccess: updated.internetAccess,
+      }
     }),
 
   update: protectedProcedure
