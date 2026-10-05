@@ -3,7 +3,6 @@
 import {
   IconCopy,
   IconKeyFilled,
-  IconPointFilled,
   IconSparkles2,
   IconTrash,
   IconUpload,
@@ -169,7 +168,7 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
   }
 
   return (
-    <div className="group grid grid-cols-[minmax(0,1fr)_auto] gap-3 bg-card p-4 transition-colors hover:bg-muted/30 xl:grid-cols-[minmax(11rem,0.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
+    <div className="group grid grid-cols-[minmax(0,1fr)_auto] gap-3 bg-card py-3 transition-colors hover:bg-muted/30 xl:grid-cols-[minmax(11rem,0.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
       <Item size="sm">
         <ItemContent>
           <div className="flex items-center gap-2">
