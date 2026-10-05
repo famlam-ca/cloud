@@ -4,7 +4,6 @@ import {
   IconCheck,
   IconChevronDown,
   IconCopy,
-  IconNetwork,
   IconPlayerPlayFilled,
   IconPlayerStopFilled,
   IconPower,
@@ -317,7 +316,7 @@ export function InstanceDetailsInfo({ instanceId }: { instanceId: string }) {
             {instance.ipAllocations.map((allocation) => (
               <IPAddress ipAddress={allocation.ipAddress} key={allocation.id} />
             ))}
-            <Button
+            {/* <Button
               className="gap-1.5 px-0"
               // TODO
               onClick={() => alert("Coming soon!")}
@@ -325,7 +324,7 @@ export function InstanceDetailsInfo({ instanceId }: { instanceId: string }) {
               variant="link"
             >
               <IconNetwork /> Add IP Address
-            </Button>
+            </Button> */}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>

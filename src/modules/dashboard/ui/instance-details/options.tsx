@@ -1,7 +1,6 @@
 "use client"
 
 import { IconSettings, IconWorld } from "@tabler/icons-react"
-import { DatabaseBackupIcon, GroupIcon } from "lucide-react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -40,7 +39,7 @@ export function InstanceOptions({ instanceId }: { instanceId: string }) {
       </CardHeader>
       <CardContent className="px-4">
         <div className="flex flex-row flex-wrap">
-          <Item className="w-auto shrink-0 items-start gap-2">
+          {/* <Item className="w-auto shrink-0 items-start gap-2">
             <ItemMedia className="mt-1" variant="icon">
               <DatabaseBackupIcon className="size-6 stroke-primary" />
             </ItemMedia>
@@ -54,9 +53,9 @@ export function InstanceOptions({ instanceId }: { instanceId: string }) {
                 <p className="ml-1 uppercase">Backups</p>
               </ItemContent>
             </div>
-          </Item>
+          </Item> */}
 
-          <Item className="w-auto shrink-0 items-start gap-2">
+          {/* <Item className="w-auto shrink-0 items-start gap-2">
             <ItemMedia className="mt-1" variant="icon">
               <GroupIcon className="size-6 stroke-primary" />
             </ItemMedia>
@@ -70,7 +69,7 @@ export function InstanceOptions({ instanceId }: { instanceId: string }) {
                 <p className="ml-1 uppercase">Placement Group</p>
               </ItemContent>
             </div>
-          </Item>
+          </Item> */}
 
           <Item className="w-auto shrink-0 items-start gap-2">
             <ItemMedia className="mt-1" variant="icon">

@@ -3,8 +3,7 @@
 import { CpuIcon, HardDriveIcon, MemoryStickIcon } from "lucide-react"
 import { notFound } from "next/navigation"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Item,
   ItemContent,
@@ -50,7 +49,7 @@ export function InstanceResources({ instanceId }: { instanceId: string }) {
           )
         })}
       </CardContent>
-      <CardFooter className="border-t">
+      {/* <CardFooter className="border-t">
         <Button
           className="border-dashed text-muted-foreground"
           // TODO
@@ -60,7 +59,7 @@ export function InstanceResources({ instanceId }: { instanceId: string }) {
         >
           Add labels
         </Button>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   )
 }
