@@ -7,10 +7,12 @@ import { ActivityCard } from "@/modules/dashboard/ui/activity"
 import { InstanceLocation } from "@/modules/dashboard/ui/instance-details/location"
 import { InstanceOptions } from "@/modules/dashboard/ui/instance-details/options"
 import { InstanceResources } from "@/modules/dashboard/ui/instance-details/resources"
+import { requireSession } from "@/server/auth/utils"
 
 export async function generateMetadata({
   params,
 }: PageProps<"/instance/[id]">): Promise<Metadata> {
+  await requireSession()
   const { id: instanceId } = await params
   const instance = await api.instance.get({ id: instanceId })
   return {

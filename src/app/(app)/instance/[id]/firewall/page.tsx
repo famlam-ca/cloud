@@ -4,10 +4,12 @@ import { notFound } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { api, HydrateClient } from "@/lib/api/server"
 import { InstanceFirewallConfigurator } from "@/modules/dashboard/ui/instance-firewall/configurator"
+import { requireSession } from "@/server/auth/utils"
 
 export async function generateMetadata({
   params,
 }: PageProps<"/instance/[id]/firewall">): Promise<Metadata> {
+  await requireSession()
   const { id: instanceId } = await params
   const instance = await api.instance.get({ id: instanceId })
   if (!instance) return notFound()
