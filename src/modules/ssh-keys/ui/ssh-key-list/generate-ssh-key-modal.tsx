@@ -69,7 +69,6 @@ export function GenerateSSHKeyModal({
   const utils = api.useUtils()
   const { isCopied, copyToClipboard } = useCopyToClipboard()
 
-  const [downloaded, setDownloaded] = React.useState(false)
   const [sshKey, setSSHKey] = React.useState<
     (SSHKey & { privateKey: string }) | null
   >(null)
@@ -132,18 +131,18 @@ export function GenerateSSHKeyModal({
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
     })
-    setDownloaded(true)
+  }
+
+  function handleonOpenChange(next: boolean) {
+    onOpenChange?.(next)
+    if (!next) {
+      setSSHKey(null)
+    }
   }
 
   return (
     <ResponsiveDialog
-      onOpenChange={(open) => {
-        onOpenChange?.(open)
-        if (!open) {
-          setSSHKey(null)
-          setDownloaded(false)
-        }
-      }}
+      onOpenChange={handleonOpenChange}
       open={open}
       variant="alert"
     >
@@ -221,15 +220,6 @@ export function GenerateSSHKeyModal({
                 </InputGroup>
               </div>
               <ResponsiveDialogFooter className="flex-row justify-end">
-                {downloaded && (
-                  <Button
-                    onClick={() => setSSHKey(null)}
-                    type="button"
-                    variant="secondary"
-                  >
-                    Close
-                  </Button>
-                )}
                 <Button
                   onClick={() => {
                     handleDownloadKey(
@@ -237,6 +227,7 @@ export function GenerateSSHKeyModal({
                       sshKey.publicKey,
                       sshKey.name,
                     )
+                    handleonOpenChange(false)
                   }}
                   type="button"
                 >
