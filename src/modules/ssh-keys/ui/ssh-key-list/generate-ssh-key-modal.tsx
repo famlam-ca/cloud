@@ -50,8 +50,7 @@ import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { api } from "@/lib/api/client"
 import { cn } from "@/lib/utils"
 import type { SSHKey } from "@/schemas/ssh-key"
-import { generateSSHKeySchema } from "@/schemas/ssh-key"
-import { sshKeyTypeEnum } from "@/server/db/schema"
+import { generateSSHKeySchema, sshKeyTypes } from "@/schemas/ssh-key"
 
 export function GenerateSSHKeyModal({
   onOpenChange,
@@ -277,7 +276,7 @@ export function GenerateSSHKeyModal({
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        {sshKeyTypeEnum.enumValues.map((type) => (
+                        {sshKeyTypes.map((type) => (
                           <FieldLabel
                             className="cursor-pointer hover:has-data-checked:bg-primary/10!"
                             htmlFor={`ssh-key-type-${type}`}

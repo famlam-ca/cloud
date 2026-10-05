@@ -1,25 +1,34 @@
-import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import * as z from "zod"
 
-import { sshKeyTable, sshKeyTypeEnum } from "@/server/db/schema"
+export const sshKeyTypes = ["rsa", "ed25519"] as const
 
 const sshKeyConstraints = {
   comment: z.string().max(255).nullish(),
-  createdAt: z.coerce.date().optional(),
   name: z.string().min(3).max(255),
-  updatedAt: z.coerce.date().optional(),
 }
 
-export const insertSSHKeySchema = createInsertSchema(
-  sshKeyTable,
-  sshKeyConstraints,
-).extend({
-  type: z.enum(sshKeyTypeEnum.enumValues).default("ed25519"),
+export const insertSSHKeySchema = z.object({
+  ...sshKeyConstraints,
+  fingerprint: z.string(),
+  id: z.string(),
+  organizationId: z.string(),
+  publicKey: z.string(),
+  type: z.enum(sshKeyTypes).default("ed25519"),
+  userId: z.string(),
 })
-export const selectSSHKeySchema = createSelectSchema(
-  sshKeyTable,
-  sshKeyConstraints,
-)
+
+export const selectSSHKeySchema = z.object({
+  ...sshKeyConstraints,
+  comment: z.string().nullable(),
+  createdAt: z.date(),
+  fingerprint: z.string(),
+  id: z.string(),
+  organizationId: z.string(),
+  publicKey: z.string(),
+  type: z.enum(sshKeyTypes),
+  updatedAt: z.date(),
+  userId: z.string(),
+})
 
 export const generateSSHKeySchema = insertSSHKeySchema.pick({
   comment: true,
@@ -33,4 +42,4 @@ export const importSSHKeySchema = insertSSHKeySchema.pick({
 })
 
 export type SSHKey = z.infer<typeof selectSSHKeySchema>
-export type SSHKeyTypeEnum = (typeof sshKeyTypeEnum.enumValues)[number]
+export type SSHKeyTypeEnum = (typeof sshKeyTypes)[number]
