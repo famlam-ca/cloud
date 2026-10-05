@@ -1,5 +1,7 @@
-import { IconKey } from "@tabler/icons-react"
+import type { Icon as IconType } from "@tabler/icons-react"
+import { IconKey, IconUser } from "@tabler/icons-react"
 import type { Metadata } from "next"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
@@ -7,10 +9,28 @@ import { api, HydrateClient } from "@/lib/api/server"
 import { cn, getApiVersion, getBaseUrl } from "@/lib/utils"
 import { ActivityCard } from "@/modules/dashboard/ui/activity"
 import { CloudMap } from "@/modules/dashboard/ui/cloud-map"
-import { InviteMember } from "@/modules/dashboard/ui/invite-member"
 import { OrgResources } from "@/modules/dashboard/ui/org-resources"
-import { GenerateSSHKeyModal } from "@/modules/ssh-keys/ui/ssh-key-list/generate-ssh-key-modal"
 import { requireSession } from "@/server/auth/utils"
+
+interface ActionButtonProps {
+  href: React.ComponentProps<typeof Link>["href"]
+  label: string
+  icon: IconType
+}
+
+function ActionButton({ href, label, icon: Icon }: ActionButtonProps) {
+  return (
+    <Button
+      className="h-14 w-full justify-start gap-4 rounded-2xl bg-gray-50 pl-6 hover:bg-[color-mix(in_oklch,var(--color-gray-50),var(--foreground)_5%)] lg:h-16 dark:bg-card dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
+      nativeButton={false}
+      render={<Link href={href} />}
+      variant="secondary"
+    >
+      <Icon className="size-6 stroke-primary" />
+      <span className="text-lg">{label}</span>
+    </Button>
+  )
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const org = await api.organization.get()
@@ -78,18 +98,12 @@ export default async function Page() {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
-        <InviteMember />
-        <GenerateSSHKeyModal
-          render={
-            <Button
-              className="h-14 w-full justify-start gap-4 rounded-2xl bg-gray-50 pl-6 hover:bg-[color-mix(in_oklch,var(--color-gray-50),var(--foreground)_5%)] lg:h-16 dark:bg-card dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
-              variant="secondary"
-            />
-          }
-        >
-          <IconKey className="size-6 stroke-primary" />
-          <span className="text-lg">Add SSH Key</span>
-        </GenerateSSHKeyModal>
+        <ActionButton
+          href="/organization"
+          icon={IconUser}
+          label="Invite Member"
+        />
+        <ActionButton href="/ssh-keys" icon={IconKey} label="Add SSH Key" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
