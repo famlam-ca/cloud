@@ -62,15 +62,7 @@ export default async function Page() {
   await requireSession()
 
   await Promise.all([
-    api.instance.count.prefetch(),
-    api.sshKey.count.prefetch(),
-    api.ipAllocation.count.prefetch(),
-    api.network.count.prefetch(),
-    api.firewallRule.count.prefetch(),
-    // TODO
-    // api.snapshot.count.prefetch(),
-    // api.apiKey.count.prefetch(),
-    api.organization.member.count.prefetch(),
+    api.organization.resourceSummary.prefetch(),
     api.activity.list.prefetchInfinite({
       limit: DEFAULT_PAGE_SIZE,
       scope: "organization",

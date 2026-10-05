@@ -3,7 +3,7 @@ import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import type { inferProcedureBuilderResolverOptions } from "@trpc/server"
 import { TRPCError } from "@trpc/server"
-import { and, count, eq, inArray, isNull, lt, or, sql } from "drizzle-orm"
+import { and, eq, inArray, isNull, lt, or, sql } from "drizzle-orm"
 import * as z from "zod"
 
 import { env } from "@/env"
@@ -68,32 +68,6 @@ const TRANSIENT_STATUS: Record<InstancePowerActionEnum, InstanceStatusEnum> = {
 const proxmox = getProxmoxClient()
 
 export const instanceRouter = createTRPCRouter({
-  count: protectedProcedure
-    .meta(
-      toTRPCMeta(
-        openapi({
-          method: "GET",
-          path: "/instance/count",
-          summary: "Count all instances for the active organization",
-          tags: ["Instances"],
-        }),
-      ),
-    )
-    .output(z.number())
-    .query(async ({ ctx }) => {
-      const [instanceCount] = await ctx.db
-        .select({ count: count() })
-        .from(instanceTable)
-        .where(
-          and(
-            eq(instanceTable.organizationId, ctx.organizationId),
-            isNull(instanceTable.deletedAt),
-          ),
-        )
-
-      return instanceCount.count
-    }),
-
   create: protectedProcedure
     .meta(
       toTRPCMeta(

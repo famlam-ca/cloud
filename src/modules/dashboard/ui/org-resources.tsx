@@ -17,72 +17,51 @@ import { api } from "@/lib/api/client"
 import { cn } from "@/lib/utils"
 
 export function OrgResources() {
-  const { data: instanceCount, isLoading: isInstanceCountPending } =
-    api.instance.count.useQuery()
-  const { data: sshKeyCount, isPending: isSSHKeyCountPending } =
-    api.sshKey.count.useQuery()
-  const { data: primaryIpCount, isPending: isPrimaryIpCountPending } =
-    api.ipAllocation.count.useQuery()
-  const { data: networkCount, isPending: isNetworkCountPending } =
-    api.network.count.useQuery()
-  const { data: firewallRuleCount, isPending: isFirewallRuleCountPending } =
-    api.firewallRule.count.useQuery()
-  // const { data: snapshotCount, isPending: isSnapshotCountPending } = api.snapshot.count.useQuery()
-  // const { data: apiKeyCount, isPending: isApiKeyCountPending } = api.apiKey.count.useQuery()
-  const { data: memberCount, isPending: isMemberCountPending } =
-    api.organization.member.count.useQuery()
+  const [resourceSummary] = api.organization.resourceSummary.useSuspenseQuery()
 
   const ORG_RESOURCES = [
     {
       icon: IconServer2,
-      isPending: isInstanceCountPending,
       link: "/instance/list",
       name: "Instances",
-      value: instanceCount || 0,
+      value: resourceSummary.instanceCount,
     },
     {
       icon: IconKey,
-      isPending: isSSHKeyCountPending,
       link: "/ssh-keys",
       name: "SSH Keys",
-      value: sshKeyCount || 0,
+      value: resourceSummary.sshKeyCount,
     },
     {
       icon: IconMapPin,
-      isPending: isPrimaryIpCountPending,
       name: "Primary IPs",
-      value: primaryIpCount || 0,
+      value: resourceSummary.primaryIpCount,
     },
     // TODO: per organization networks
     {
       icon: IconNetwork,
-      isPending: isNetworkCountPending,
       name: "Networks",
-      value: networkCount || 0,
+      value: resourceSummary.networkCount,
     },
     {
       icon: IconWall,
-      isPending: isFirewallRuleCountPending,
       name: "Firewall",
-      value: firewallRuleCount || 0,
+      value: resourceSummary.firewallRuleCount,
     },
     {
       icon: IconCamera,
-      isPending: false,
       name: "Snapshots",
-      value: 0,
+      value: resourceSummary.snapshotCount,
     },
     {
       icon: IconApiApp,
-      isPending: false,
       name: "API Keys",
-      value: 0,
+      value: resourceSummary.apiKeyCount,
     },
     {
       icon: IconUsers,
-      isPending: isMemberCountPending,
       name: "Members",
-      value: memberCount || 0,
+      value: resourceSummary.memberCount,
     },
   ]
 
@@ -111,11 +90,7 @@ export function OrgResources() {
               >
                 <Icon className="size-7 stroke-[1.5] stroke-primary" />
                 <div className="flex flex-col">
-                  {resource.isPending ? (
-                    <div className="h-7 w-10 animate-pulse rounded-2xl bg-muted" />
-                  ) : (
-                    <p className="font-medium text-xl">{resource.value}</p>
-                  )}
+                  <p className="font-medium text-xl">{resource.value}</p>
                   <p className="text-wrap text-[15px] text-muted-foreground">
                     {resource.name}
                   </p>

@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto"
 import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import { TRPCError } from "@trpc/server"
-import { and, count, eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import * as z from "zod"
 
 import {
@@ -29,27 +29,6 @@ import {
 } from "@/server/services/ssh-key"
 
 export const sshKeyRouter = createTRPCRouter({
-  count: protectedProcedure
-    .meta(
-      toTRPCMeta(
-        openapi({
-          method: "GET",
-          path: "/sshkey/count",
-          summary: "Count all SSH keys for the active organization",
-          tags: ["SSH Keys"],
-        }),
-      ),
-    )
-    .output(z.number())
-    .query(async ({ ctx }) => {
-      const [sshKeyCount] = await ctx.db
-        .select({ count: count() })
-        .from(sshKeyTable)
-        .where(eq(sshKeyTable.organizationId, ctx.organizationId))
-
-      return sshKeyCount.count
-    }),
-
   delete: protectedProcedure
     .meta(
       toTRPCMeta(

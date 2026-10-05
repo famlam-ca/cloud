@@ -1,12 +1,19 @@
 import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import { TRPCError } from "@trpc/server"
-import { count, eq } from "drizzle-orm"
+import { and, count, eq, inArray, isNull } from "drizzle-orm"
 import * as z from "zod"
 
 import { selectOrganizationSchema } from "@/schemas/organization"
 import { createTRPCRouter, protectedProcedure } from "@/server/api/init"
-import { member as organizationMemberTable } from "@/server/db/schema"
+import {
+  instanceFirewallRuleTable,
+  instanceTable,
+  ipAllocationTable,
+  networkTable,
+  member as organizationMemberTable,
+  sshKeyTable,
+} from "@/server/db/schema"
 
 export const organizationRouter = createTRPCRouter({
   get: protectedProcedure
@@ -39,26 +46,99 @@ export const organizationRouter = createTRPCRouter({
       return organization
     }),
 
-  member: {
-    count: protectedProcedure
-      .meta(
-        toTRPCMeta(
-          openapi({
-            method: "GET",
-            path: "/organization/member/count",
-            summary: "Count all members of the active organization",
-            tags: ["Organization Members"],
-          }),
+  resourceSummary: protectedProcedure
+    .meta(
+      toTRPCMeta(
+        openapi({
+          method: "GET",
+          path: "/organization/resource-summary",
+          summary: "Get a summary of resources for the active organization",
+          tags: ["Organization"],
+        }),
+      ),
+    )
+    .output(
+      z.object({
+        apiKeyCount: z.number(),
+        firewallRuleCount: z.number(),
+        instanceCount: z.number(),
+        memberCount: z.number(),
+        networkCount: z.number(),
+        primaryIpCount: z.number(),
+        snapshotCount: z.number(),
+        sshKeyCount: z.number(),
+      }),
+    )
+    .query(async ({ ctx }) => {
+      const orgInstanceIds = await ctx.db.query.instanceTable.findMany({
+        columns: { id: true },
+        where: and(
+          eq(instanceTable.organizationId, ctx.organizationId),
+          isNull(instanceTable.deletedAt),
         ),
-      )
-      .output(z.number())
-      .query(async ({ ctx }) => {
-        const [memberCount] = await ctx.db
+      })
+
+      const [
+        apiKeyCount,
+        firewallRuleCount,
+        instanceCount,
+        memberCount,
+        networkCount,
+        primaryIpCount,
+        snapshotCount,
+        sshKeyCount,
+      ] = await Promise.all([
+        [{ count: 0 }],
+        ctx.db
+          .select({ count: count() })
+          .from(instanceFirewallRuleTable)
+          .where(
+            inArray(
+              instanceFirewallRuleTable.instanceId,
+              orgInstanceIds.map((i) => i.id),
+            ),
+          ),
+        ctx.db
+          .select({ count: count() })
+          .from(instanceTable)
+          .where(
+            and(
+              eq(instanceTable.organizationId, ctx.organizationId),
+              isNull(instanceTable.deletedAt),
+            ),
+          ),
+        ctx.db
           .select({ count: count() })
           .from(organizationMemberTable)
-          .where(eq(organizationMemberTable.organizationId, ctx.organizationId))
+          .where(
+            eq(organizationMemberTable.organizationId, ctx.organizationId),
+          ),
+        ctx.db.select({ count: count() }).from(networkTable),
+        ctx.db
+          .select({ count: count() })
+          .from(ipAllocationTable)
+          .where(
+            inArray(
+              ipAllocationTable.instanceId,
+              orgInstanceIds.map((instance) => instance.id),
+            ),
+          ),
+        [{ count: 0 }],
+        ctx.db
+          .select({ count: count() })
+          .from(sshKeyTable)
+          .where(eq(sshKeyTable.organizationId, ctx.organizationId)),
+      ])
 
-        return memberCount.count
-      }),
-  },
+      return {
+        apiKeyCount: apiKeyCount[0].count,
+        firewallRuleCount: firewallRuleCount[0].count,
+        instanceCount: instanceCount[0].count,
+        memberCount: memberCount[0].count,
+        networkCount: networkCount[0].count,
+        primaryIpCount: primaryIpCount[0].count,
+        snapshotCount: snapshotCount[0].count,
+        sshKeyCount: sshKeyCount[0].count,
+      }
+    }),
 })
