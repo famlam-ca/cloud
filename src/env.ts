@@ -37,6 +37,7 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     CLOUD_NETWORK_CIDR: process.env.CLOUD_NETWORK_CIDR,
     DATABASE_URL: process.env.DATABASE_URL,
+    DEV_ACTIVITY_RETENTION_DAYS: process.env.DEV_ACTIVITY_RETENTION_DAYS,
     ENCRYPTION_KEY_V1: process.env.ENCRYPTION_KEY_V1,
     NEXT_PUBLIC_API_VERSION: process.env.NEXT_PUBLIC_API_VERSION,
     NEXT_PUBLIC_OAUTH_PROVIDER_ID: process.env.NEXT_PUBLIC_OAUTH_PROVIDER_ID,
@@ -66,6 +67,7 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: z.string(),
     CLOUD_NETWORK_CIDR: z.string(),
     DATABASE_URL: z.url(),
+    DEV_ACTIVITY_RETENTION_DAYS: z.coerce.number().int().positive().optional(),
     ENCRYPTION_KEY_V1: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
