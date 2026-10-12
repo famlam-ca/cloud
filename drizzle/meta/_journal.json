@@ -218,6 +218,13 @@
       "when": 1790486391237,
       "tag": "0030_eager_chronomancer",
       "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1791785677090,
+      "tag": "0031_acoustic_abomination",
+      "breakpoints": true
     }
   ]
 }

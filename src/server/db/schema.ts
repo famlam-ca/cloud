@@ -23,28 +23,33 @@ export const activityActorEnum = pgEnum("activity_actor", [
 export const activityChannelEnum = pgEnum("activity_channel", ["api", "worker"])
 
 export const activityReferenceTypeEnum = pgEnum("activity_reference_type", [
+  "activity",
   "instance",
   "ssh_key",
   "user",
 ])
 
-export const activityTable = createTable("activity", (d) => ({
-  actorId: d.text("actor_id"),
-  actorSnapshot: d
-    .jsonb("actor_snapshot")
-    .$type<z.infer<typeof activityUserSchema>>(),
-  actorType: activityActorEnum("actor_type").notNull(),
-  channel: activityChannelEnum("channel").notNull(),
-  id: d.uuid("id").primaryKey(),
-  metadata: d.jsonb("metadata").$type<Record<string, unknown>>(),
-  organizationId: d
-    .text("organization_id")
-    .references(() => organization.id, { onDelete: "cascade" }),
-  referenceId: d.text("reference_id").notNull(),
-  referenceType: activityReferenceTypeEnum("reference_type").notNull(),
-  timestamp: d.timestamp("timestamp").defaultNow().notNull(),
-  type: d.text("type").$type<ActivityType>().notNull(),
-}))
+export const activityTable = createTable(
+  "activity",
+  (d) => ({
+    actorId: d.text("actor_id"),
+    actorSnapshot: d
+      .jsonb("actor_snapshot")
+      .$type<z.infer<typeof activityUserSchema>>(),
+    actorType: activityActorEnum("actor_type").notNull(),
+    channel: activityChannelEnum("channel").notNull(),
+    id: d.uuid("id").primaryKey(),
+    metadata: d.jsonb("metadata").$type<Record<string, unknown>>(),
+    organizationId: d
+      .text("organization_id")
+      .references(() => organization.id, { onDelete: "cascade" }),
+    referenceId: d.text("reference_id").notNull(),
+    referenceType: activityReferenceTypeEnum("reference_type").notNull(),
+    timestamp: d.timestamp("timestamp").defaultNow().notNull(),
+    type: d.text("type").$type<ActivityType>().notNull(),
+  }),
+  (t) => [index("activity_timestamp_idx").on(t.timestamp)],
+)
 
 export const sshKeyTypeEnum = pgEnum("ssh_key_type", ["rsa", "ed25519"])
 

@@ -1,7 +1,15 @@
 import type { Icon as IconType } from "@tabler/icons-react"
-import { IconKey, IconServer2, IconUser, IconWall } from "@tabler/icons-react"
+import {
+  IconCalendarCancel,
+  IconCalendarRepeat,
+  IconKey,
+  IconServer2,
+  IconUser,
+  IconWall,
+} from "@tabler/icons-react"
 import { userSchema } from "better-auth"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import type { LucideIcon } from "lucide-react"
 import * as z from "zod"
 
 import { selectInstanceFirewallRuleSchema } from "@/schemas/firewall-rule"
@@ -14,7 +22,7 @@ import type { activityReferenceTypeEnum } from "@/server/db/schema"
 import { activityTable } from "@/server/db/schema"
 
 type ActivityTypeConfig<T extends z.ZodType> = {
-  icon: IconType
+  icon: IconType | LucideIcon
   metadataSchema: T
   render: (metadata: z.infer<T>) => string
 }
@@ -54,6 +62,20 @@ function powerActionActivityLabel(action: InstancePowerActionEnum) {
 }
 
 export const activityRegistry = {
+  activity_cleanup_completed: {
+    icon: IconCalendarRepeat,
+    metadataSchema: z.object({
+      deleted: z.number(),
+    }),
+    render: () => "Completed activity cleanup",
+  },
+  activity_cleanup_failed: {
+    icon: IconCalendarCancel,
+    metadataSchema: z.object({
+      error: z.string(),
+    }),
+    render: () => "Failed activity cleanup",
+  },
   firewall_rule_created: {
     icon: IconWall,
     metadataSchema: z.object({}),
