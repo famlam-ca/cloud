@@ -8,10 +8,7 @@
           "level": "on",
           "options": {
             "groups": [
-              [
-                ":PACKAGE:",
-                ":PACKAGE_WITH_PROTOCOL:"
-              ],
+              [":PACKAGE:", ":PACKAGE_WITH_PROTOCOL:"],
               ":BLANK_LINE:",
               ":ALIAS:",
               ":BLANK_LINE:",
@@ -105,11 +102,7 @@
           "fix": "safe",
           "level": "warn",
           "options": {
-            "functions": [
-              "clsx",
-              "cva",
-              "cn"
-            ]
+            "functions": ["clsx", "cva", "cn"]
           }
         }
       },
