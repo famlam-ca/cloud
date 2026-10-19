@@ -690,7 +690,7 @@ function ReviewAndCreateForm({
         position: "top-center",
       })
       onReset()
-      router.push(`../${data.instanceId}` as Route)
+      router.push(`./${data.instanceId}` as Route)
     },
   })
 
