@@ -114,20 +114,16 @@ export function SshKeysList({ new: newParam }: { new?: string }) {
               </EmptyDescription>
             </EmptyHeader>
             <div className="flex justify-center gap-2">
-              <GenerateSSHKeyModal
-                onOpenChange={(open) => setOpenModal(open ? "generate" : null)}
-                open={openModal === "generate"}
-                render={<Button size="sm" />}
-              >
+              <Button onClick={() => setOpenModal("generate")} size="sm">
                 <IconSparkles2 /> Generate key
-              </GenerateSSHKeyModal>
-              <ImportSSHKeyModal
-                onOpenChange={(open) => setOpenModal(open ? "import" : null)}
-                open={openModal === "import"}
-                render={<Button size="sm" variant="outline" />}
+              </Button>
+              <Button
+                onClick={() => setOpenModal("import")}
+                size="sm"
+                variant="outline"
               >
                 <IconUpload /> Import key
-              </ImportSSHKeyModal>
+              </Button>
             </div>
           </Empty>
         ) : (

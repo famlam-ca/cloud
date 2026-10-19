@@ -147,6 +147,7 @@ export function GenerateSSHKeyModal({
     >
       <ResponsiveDialogTrigger
         className={cn(className)}
+        onClick={() => onOpenChange?.(true)}
         render={
           render || (
             <Button
@@ -281,6 +282,7 @@ export function GenerateSSHKeyModal({
                             className="cursor-pointer hover:has-data-checked:bg-primary/10!"
                             htmlFor={`ssh-key-type-${type}`}
                             key={type}
+                            onClick={() => field.onChange(type)}
                           >
                             <Field
                               data-invalid={fieldState.invalid}
@@ -381,8 +383,8 @@ export function GenerateSSHKeyModal({
               </Button>
               <Button
                 disabled={isDisabled}
-                form="generate-ssh-key-form"
-                type="submit"
+                onClick={form.handleSubmit(onSubmit)}
+                type="button"
               >
                 {generateSSHKey.isPending ? <Spinner /> : <IconSparkles2 />}
                 Generate

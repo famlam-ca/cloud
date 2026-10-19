@@ -80,6 +80,7 @@ export function ImportSSHKeyModal({
     <ResponsiveDialog onOpenChange={handleOpenChange} open={open}>
       <ResponsiveDialogTrigger
         className={cn(className)}
+        onClick={() => onOpenChange(true)}
         render={
           render || (
             <Button
@@ -226,8 +227,8 @@ export function ImportSSHKeyModal({
           </Button>
           <Button
             disabled={importKey.isPending}
-            form="import-ssh-key-form"
-            type="submit"
+            onClick={form.handleSubmit(onSubmit)}
+            type="button"
           >
             {importKey.isPending ? <Spinner /> : <IconUpload />}
             Import
