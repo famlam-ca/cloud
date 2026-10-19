@@ -7,6 +7,8 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { APP_NAME } from "@/constants/app"
 import { Roadmap } from "@/modules/roadmap/ui/roadmap"
 
+export const dynamic = "force-static"
+
 export const metadata: Metadata = {
   description: "Things that have shipped and stuff in the works.",
   title: "Roadmap",
