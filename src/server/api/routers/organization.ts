@@ -21,8 +21,8 @@ export const organizationRouter = createTRPCRouter({
       toTRPCMeta(
         openapi({
           method: "GET",
-          path: "/organization/{id}",
-          summary: "Get an organization by ID",
+          path: "/organization",
+          summary: "Get the active organization or an organization by ID",
           tags: ["Organization"],
         }),
       ),
