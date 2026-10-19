@@ -729,8 +729,10 @@ function ReviewAndCreateForm({
               Basics
             </span>
             <Button
+              aria-label="Edit Basic Information"
               onClick={() => onEditStep("basics")}
               size="icon-sm"
+              title="Edit Basic Information"
               type="button"
               variant="ghost"
             >
@@ -772,8 +774,10 @@ function ReviewAndCreateForm({
               Operating System
             </span>
             <Button
+              aria-label="Edit Operating System"
               onClick={() => onEditStep("operating-system")}
               size="icon-sm"
+              title="Edit Operating System"
               type="button"
               variant="ghost"
             >
@@ -805,8 +809,10 @@ function ReviewAndCreateForm({
               Resource Plan
             </span>
             <Button
+              aria-label="Edit Resource Plan"
               onClick={() => onEditStep("resources")}
               size="icon-sm"
+              title="Edit Resource Plan"
               type="button"
               variant="ghost"
             >
