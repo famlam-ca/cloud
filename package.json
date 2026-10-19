@@ -58,6 +58,7 @@
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
+    "babel-plugin-react-compiler": "^1.0.0",
     "drizzle-kit": "^0.31.10",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
@@ -80,7 +81,7 @@
     "lint:unsafe": "biome check --write --unsafe .",
     "lint:write": "biome check --write .",
     "shadcn": "bunx --bun shadcn@latest",
-    "start": "bun run db:migrate && bun run db:seed && next start"
+    "start": "bun run db:migrate && bun run db:seed && bun --bun next start"
   },
   "type": "module",
   "version": "0.1.0"

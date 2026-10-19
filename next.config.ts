@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
         ? { exclude: ["error", "warn"] }
         : false,
   },
+  reactCompiler: true,
   typedRoutes: true,
 }
 
