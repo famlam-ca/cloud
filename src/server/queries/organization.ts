@@ -10,3 +10,17 @@ export async function getInitialOrganizationId(
     })
     .then((user) => user?.defaultOrganizationId || null)
 }
+
+export function getInitialOrganizationSlug(user: {
+  id: string
+  name?: string | null
+}) {
+  const nameSlug = user.name
+    ?.toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+
+  const suffix = user.id.slice(0, 8).toLowerCase()
+  return nameSlug ? `${nameSlug}-${suffix}` : `org-${suffix}`
+}

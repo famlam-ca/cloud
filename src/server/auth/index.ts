@@ -17,7 +17,10 @@ import { getRedisClient } from "@/lib/redis"
 import { ac, adminRole, memberRole } from "@/server/auth/ac"
 import { db } from "@/server/db"
 import { user as userTable } from "@/server/db/schema"
-import { getInitialOrganizationId } from "@/server/queries/organization"
+import {
+  getInitialOrganizationId,
+  getInitialOrganizationSlug,
+} from "@/server/queries/organization"
 import { logActivity } from "@/server/services/activity"
 
 const incrementScript = `
@@ -51,13 +54,7 @@ export const auth = betterAuth({
             const userCount = await db.$count(userTable)
             const isFirstUser = userCount === 1
 
-            const safeSlug = user.name
-              ? `${user.name
-                  .toLowerCase()
-                  .trim()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/(^-|-$)/g, "")}-org`
-              : `org-${user.id.slice(0, 8)}`
+            const safeSlug = getInitialOrganizationSlug(user)
 
             const org = await auth.api.createOrganization({
               body: {
