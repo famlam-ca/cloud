@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
 import { api, HydrateClient } from "@/lib/api/server"
+import { organizationPath } from "@/lib/organization-path"
 import { cn, getApiVersion, getBaseUrl } from "@/lib/utils"
 import { ActivityCard } from "@/modules/dashboard/ui/activity"
 import { CloudMap } from "@/modules/dashboard/ui/cloud-map"
@@ -37,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: `Dashboard - ${org.name}` }
 }
 
-export const DASHBOARD_INFO_CARDS = [
+export const INFO_CARDS = [
   {
     description:
       "Find all our services and features in one place. Enjoy services from media streaming to cloud computing, and everything in between, all in one convenient location.",
@@ -58,8 +59,9 @@ export const DASHBOARD_INFO_CARDS = [
   },
 ]
 
-export default async function Page() {
+export default async function Page({ params }: PageProps<"/orgs/[slug]">) {
   await requireSession()
+  const { slug } = await params
 
   await Promise.all([
     api.organization.resourceSummary.prefetch(),
@@ -91,15 +93,19 @@ export default async function Page() {
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
         <ActionButton
-          href="/organization"
+          href={organizationPath(slug)}
           icon={IconUser}
           label="Invite Member"
         />
-        <ActionButton href="/ssh-keys" icon={IconKey} label="Add SSH Key" />
+        <ActionButton
+          href={organizationPath(slug, "ssh-keys")}
+          icon={IconKey}
+          label="Add SSH Key"
+        />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
-        {DASHBOARD_INFO_CARDS.map((card) => (
+        {INFO_CARDS.map((card) => (
           <a
             className="flex h-full flex-col items-start rounded-2xl bg-gray-50 p-6 hover:bg-[color-mix(in_oklch,var(--color-gray-50),var(--foreground)_5%)] dark:bg-card dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
             href={card.link}

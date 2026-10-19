@@ -9,9 +9,11 @@ import {
 import { createColumnHelper } from "@tanstack/react-table"
 import { formatDate, formatDistanceToNowStrict } from "date-fns"
 import { CpuIcon, HardDriveIcon, MemoryStickIcon } from "lucide-react"
+import type { Route } from "next"
 import Link from "next/link"
 
 import { DataTableColumnHeader } from "@/components/data-table/column-header"
+import type { DataTableFeatures } from "@/components/data-table/features"
 import { Hint } from "@/components/hint"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -34,8 +36,6 @@ import {
 import { IPAddress } from "@/modules/dashboard/ui/ip-addres"
 import type { Instance } from "@/schemas/instance"
 
-import type { DataTableFeatures } from "../../../../components/data-table/features"
-
 const columnHelper = createColumnHelper<DataTableFeatures, Instance>()
 
 function ActionsCell({ instance }: { instance: Instance }) {
@@ -52,7 +52,7 @@ function ActionsCell({ instance }: { instance: Instance }) {
           <DropdownMenuGroup>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              render={<Link href={`/instance/${instance.id}`} />}
+              render={<Link href={`./${instance.id}` as Route} />}
             >
               <IconListDetails /> View
             </DropdownMenuItem>
@@ -105,7 +105,7 @@ export const columns = columnHelper.columns([
               )}
             />
           </Hint>
-          <Link href={`/instance/${id}`}>
+          <Link href={`./${id}` as Route}>
             <p className="font-medium text-base text-primary">{hostname}</p>
             <p className="text-sm">
               <CpuIcon className="inline-block size-3.5 stroke-foreground/70" />{" "}

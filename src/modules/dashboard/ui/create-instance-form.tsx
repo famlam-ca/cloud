@@ -14,6 +14,7 @@ import {
   IconSparkles2,
   IconUpload,
 } from "@tabler/icons-react"
+import type { Route } from "next"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import * as React from "react"
@@ -199,14 +200,20 @@ function BasicInfoForm({
                         <div className="flex items-center justify-start border-t p-2">
                           <Button
                             nativeButton={false}
-                            render={<Link href="/ssh-keys?new=generate" />}
+                            render={
+                              <Link
+                                href={"../ssh-keys?new=generate" as Route}
+                              />
+                            }
                             variant="link"
                           >
                             <IconSparkles2 /> Generate SSH Key
                           </Button>
                           <Button
                             nativeButton={false}
-                            render={<Link href="/ssh-keys?new=import" />}
+                            render={
+                              <Link href={"../ssh-keys?new=import" as Route} />
+                            }
                             variant="link"
                           >
                             <IconUpload /> Import SSH Key
@@ -683,7 +690,7 @@ function ReviewAndCreateForm({
         position: "top-center",
       })
       onReset()
-      router.push(`/instance/${data.instanceId}`)
+      router.push(`../${data.instanceId}` as Route)
     },
   })
 

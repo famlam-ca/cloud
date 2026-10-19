@@ -10,6 +10,7 @@ import {
   IconRefresh,
   IconTrash,
 } from "@tabler/icons-react"
+import type { Route } from "next"
 import { notFound, useRouter } from "next/navigation"
 import { toast } from "sonner"
 
@@ -135,7 +136,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
       })
     },
     onSuccess(data) {
-      router.push("/instance/list")
+      router.push("../" as Route)
       void utils.instance.get.invalidate({ id: data.instanceId })
       void utils.activity.list.invalidate({
         instanceId: data.instanceId,

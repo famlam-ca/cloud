@@ -11,11 +11,11 @@ import {
 
 import type { NavItem } from "./sidebar"
 
-export function MainNav({ items }: { items: NavItem[] }) {
+export function MainNav({ items, title }: { items: NavItem[]; title: string }) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel className="px-2 uppercase tracking-wider">
-        Dashboard
+        {title}
       </SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>

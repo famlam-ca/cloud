@@ -1,7 +1,7 @@
 import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import { TRPCError } from "@trpc/server"
-import { and, count, eq, inArray, isNull } from "drizzle-orm"
+import { and, count, eq, exists, inArray, isNull } from "drizzle-orm"
 import * as z from "zod"
 
 import { selectOrganizationSchema } from "@/schemas/organization"
@@ -10,6 +10,7 @@ import {
   instanceFirewallRuleTable,
   instanceTable,
   ipAllocationTable,
+  member as memberTable,
   networkTable,
   member as organizationMemberTable,
   sshKeyTable,
@@ -28,12 +29,27 @@ export const organizationRouter = createTRPCRouter({
       ),
     )
     .input(z.object({ id: z.string().optional() }).optional())
-    .output(selectOrganizationSchema)
+    .output(selectOrganizationSchema.pick({ id: true, name: true, slug: true }))
     .query(async ({ ctx, input }) => {
       const organizationId = input?.id || ctx.organizationId
 
       const organization = await ctx.db.query.organization.findFirst({
-        where: (org, { eq }) => eq(org.id, organizationId),
+        columns: { id: true, name: true, slug: true },
+        where: (org, { eq }) =>
+          and(
+            eq(org.id, organizationId),
+            exists(
+              ctx.db
+                .select({ id: memberTable.id })
+                .from(memberTable)
+                .where(
+                  and(
+                    eq(memberTable.organizationId, org.id),
+                    eq(memberTable.userId, ctx.session.user.id),
+                  ),
+                ),
+            ),
+          ),
       })
 
       if (!organization) {

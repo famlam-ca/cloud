@@ -125,7 +125,7 @@ export function UserMenu({ user }: { user: User }) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem render={<Link href="/organization" />}>
+          <DropdownMenuItem render={<Link href="/" />}>
             <IconUsers />
             <span>Organization</span>
           </DropdownMenuItem>

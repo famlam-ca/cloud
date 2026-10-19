@@ -8,7 +8,9 @@ export const metadata: Metadata = {
   title: "SSH Keys",
 }
 
-export default async function Page({ searchParams }: PageProps<"/ssh-keys">) {
+export default async function Page({
+  searchParams,
+}: PageProps<"/orgs/[slug]/ssh-keys">) {
   const { new: newParamValue } = await searchParams
   const newParam = typeof newParamValue === "string" ? newParamValue : undefined
 

@@ -8,7 +8,7 @@ import { requireSession } from "@/server/auth/utils"
 
 export async function generateMetadata({
   params,
-}: PageProps<"/instance/[id]/firewall">): Promise<Metadata> {
+}: PageProps<"/orgs/[slug]/instances/[id]/firewall">): Promise<Metadata> {
   await requireSession()
   const { id: instanceId } = await params
   const instance = await api.instance.get({ id: instanceId })
@@ -20,7 +20,7 @@ export async function generateMetadata({
 
 export default async function Page({
   params,
-}: PageProps<"/instance/[id]/firewall">) {
+}: PageProps<"/orgs/[slug]/instances/[id]/firewall">) {
   const { id: instanceId } = await params
 
   if (!instanceId) return notFound()

@@ -4,7 +4,7 @@ import { parseActivityMetadata } from "@/schemas/activity"
 
 export default async function Page({
   params,
-}: PageProps<"/organization/activity/[id]">) {
+}: PageProps<"/orgs/[slug]/activity/[id]">) {
   const { id } = await params
 
   const activity = await api.activity.get({ id })

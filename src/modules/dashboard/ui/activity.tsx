@@ -3,7 +3,9 @@
 import { IconBell, IconChevronRight } from "@tabler/icons-react"
 import { formatDate, formatDistanceToNowStrict } from "date-fns"
 import { CircleQuestionMarkIcon } from "lucide-react"
+import type { Route } from "next"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { Hint } from "@/components/hint"
 import { InfiniteScroll } from "@/components/infinite-scroll"
@@ -27,6 +29,10 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
 import type { RouterInputs } from "@/lib/api/client"
 import { api } from "@/lib/api/client"
+import {
+  organizationPath,
+  organizationSlugFromPath,
+} from "@/lib/organization-path"
 import { cn } from "@/lib/utils"
 import { activityRegistry, renderActivity } from "@/schemas/activity"
 
@@ -41,6 +47,10 @@ export function ActivityCard({
   instanceId,
   className,
 }: ActivityCardProps) {
+  const pathname = usePathname()
+  const slug = pathname ? organizationSlugFromPath(pathname) : undefined
+  const activityPath = slug ? organizationPath(slug, "activity") : "/"
+
   const [activity, query] = api.activity.list.useSuspenseInfiniteQuery(
     {
       ...(scope === "instance" ? { instanceId } : {}),
@@ -64,7 +74,7 @@ export function ActivityCard({
           <Button
             className="px-0"
             nativeButton={false}
-            render={<Link href="/organization/activity" />}
+            render={<Link href={activityPath} />}
             size="sm"
             variant="link"
           >
@@ -86,7 +96,13 @@ export function ActivityCard({
                       className="group/activity flex-row items-start @lg:px-4 px-1"
                       key={item.id}
                       render={
-                        <Link href={`/organization/activity/${item.id}`} />
+                        <Link
+                          href={
+                            (slug
+                              ? organizationPath(slug, `activity/${item.id}`)
+                              : "/") as Route
+                          }
+                        />
                       }
                     >
                       <ItemMedia>

@@ -1,10 +1,12 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { api } from "@/lib/api/server"
 import { DashboardHeader } from "@/modules/dashboard/layout/header"
 import { DashboardSidebar } from "@/modules/dashboard/layout/sidebar/sidebar"
 import { requireSession } from "@/server/auth/utils"
 
 export default async function Layout({ children }: LayoutProps<"/">) {
   const session = await requireSession()
+  const organization = await api.organization.get()
 
   return (
     <SidebarProvider>
@@ -18,7 +20,7 @@ export default async function Layout({ children }: LayoutProps<"/">) {
           } as React.CSSProperties
         }
       >
-        <DashboardSidebar />
+        <DashboardSidebar orgSlug={organization.slug} />
         <SidebarInset className="z-1 mx-auto max-w-360 bg-transparent py-6">
           <DashboardHeader session={session} />
           <div className="size-full flex-1 px-4 py-6 sm:px-6">{children}</div>

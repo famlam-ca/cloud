@@ -1,10 +1,12 @@
 "use client"
 
+import type { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { organizationSlugFromPath } from "@/lib/organization-path"
 
 export const INSTANCE_DETAILS_TABS = [
   { label: "Overview", value: "overview" },
@@ -25,10 +27,12 @@ export const INSTANCE_DETAILS_TABS = [
 
 export function InstanceDetailsTabs({ instanceId }: { instanceId: string }) {
   const pathname = usePathname()
+  const slug = pathname ? organizationSlugFromPath(pathname) : undefined
+  const instancePath = slug ? `/orgs/${slug}/instances/${instanceId}` : ""
 
   const activeTab =
     INSTANCE_DETAILS_TABS.find((tab) =>
-      pathname?.startsWith(`/instance/${instanceId}/${tab.value}`),
+      pathname?.startsWith(`${instancePath}/${tab.value}`),
     )?.value || "overview"
 
   return (
@@ -42,8 +46,9 @@ export function InstanceDetailsTabs({ instanceId }: { instanceId: string }) {
               nativeButton={false}
               render={
                 <Link
-                  // @ts-expect-error: typedRoutes cannot be used here
-                  href={`/instance/${instanceId}/${tab.value === "overview" ? "" : tab.value}`}
+                  href={
+                    `${instancePath}/${tab.value === "overview" ? "" : tab.value}` as Route
+                  }
                 />
               }
               value={tab.value}

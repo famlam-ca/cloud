@@ -2,6 +2,7 @@
 
 import type { Icon as IconType } from "@tabler/icons-react"
 import {
+  IconActivity,
   IconApi,
   IconChevronRight,
   IconHeartHandshake,
@@ -10,11 +11,13 @@ import {
   IconPlus,
   IconSearch,
   IconServer2,
+  IconSettings2,
   IconSparkles2,
   IconTimeline,
   IconUpload,
   IconUsers,
 } from "@tabler/icons-react"
+import type { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -37,10 +40,11 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { APP_NAME } from "@/constants/app"
+import { organizationPath } from "@/lib/organization-path"
 import { getApiVersion, getBaseUrl } from "@/lib/utils"
-import { FooterNav } from "@/modules/dashboard/layout/sidebar/footer-nav"
-import { MainNav } from "@/modules/dashboard/layout/sidebar/main-nav"
-import { OrgNav } from "@/modules/dashboard/layout/sidebar/org-nav"
+
+import { FooterNav } from "./footer-nav"
+import { MainNav } from "./main-nav"
 
 export type NavItem = {
   extra?: {
@@ -54,12 +58,13 @@ export type NavItem = {
 
 type NavItems = {
   main: NavItem[]
-  organization: NavItem[]
   footer: NavItem[]
+  settings: NavItem[]
 }
 
-export function DashboardSidebar() {
+export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
   const pathname = usePathname()
+  const orgPath = (path = "") => organizationPath(orgSlug, path)
 
   const NAV_ITEMS: NavItems = {
     footer: [
@@ -90,23 +95,25 @@ export function DashboardSidebar() {
     ],
     main: [
       {
-        href: "/dashboard",
+        href: orgPath(),
         icon: IconLayoutDashboard,
-        isActive: pathname === "/dashboard",
-        label: "Dashboard",
+        isActive: pathname === orgPath(),
+        label: "Overview",
       },
       {
         extra: {
           render: (
-            <SidebarMenuAction render={<Link href="/instance/create" />}>
+            <SidebarMenuAction
+              render={<Link href={orgPath("instances/create")} />}
+            >
               <IconPlus />
               <span className="sr-only">Create Instance</span>
             </SidebarMenuAction>
           ),
         },
-        href: "/instance/list",
+        href: orgPath("instances"),
         icon: IconServer2,
-        isActive: pathname.startsWith("/instance"),
+        isActive: pathname.startsWith(orgPath("instances")),
         label: "Instances",
       },
       {
@@ -119,29 +126,49 @@ export function DashboardSidebar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" side="right">
                 <DropdownMenuItem
-                  render={<Link href="/ssh-keys?new=generate" />}
+                  render={
+                    <Link
+                      href={`${orgPath("ssh-keys")}?new=generate` as Route}
+                    />
+                  }
                 >
                   <IconSparkles2 /> Generate New
                 </DropdownMenuItem>
-                <DropdownMenuItem render={<Link href="/ssh-keys?new=import" />}>
+                <DropdownMenuItem
+                  render={
+                    <Link href={`${orgPath("ssh-keys")}?new=import` as Route} />
+                  }
+                >
                   <IconUpload /> Import Existing
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ),
         },
-        href: "/ssh-keys",
+        href: orgPath("ssh-keys"),
         icon: IconKey,
-        isActive: pathname.startsWith("/ssh-keys"),
+        isActive: pathname.startsWith(orgPath("ssh-keys")),
         label: "SSH Keys",
       },
-    ],
-    organization: [
       {
-        href: "/organization",
+        href: orgPath("members"),
         icon: IconUsers,
-        isActive: pathname.startsWith("/organization"),
-        label: "Organization",
+        isActive: pathname.startsWith(orgPath("members")),
+        label: "Members",
+      },
+      {
+        href: orgPath("activity"),
+        icon: IconActivity,
+        isActive: pathname.startsWith(orgPath("activity")),
+        label: "Activity",
+      },
+    ],
+    settings: [
+      {
+        href: orgPath("settings"),
+        icon: IconSettings2,
+        isActive: pathname.startsWith(orgPath("settings")),
+        label: "General Settings",
       },
     ],
   }
@@ -157,7 +184,7 @@ export function DashboardSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               className="gap-2.5 bg-transparent! p-2 group-data-[collapsible=icon]:p-0! [&>svg]:size-8 [&_svg]:size-4"
-              render={<Link href="/dashboard" />}
+              render={<Link href={orgPath()} />}
               size="lg"
             >
               <Icons.logo />
@@ -174,8 +201,8 @@ export function DashboardSidebar() {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className="group-data-[collapsible=icon]:overflow-y-auto">
-        <MainNav items={NAV_ITEMS.main} />
-        <OrgNav items={NAV_ITEMS.organization} />
+        <MainNav items={NAV_ITEMS.main} title="Organization" />
+        <MainNav items={NAV_ITEMS.settings} title="Settings" />
       </SidebarContent>
       <SidebarFooter className="px-0">
         <FooterNav items={NAV_ITEMS.footer} />

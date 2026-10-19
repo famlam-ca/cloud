@@ -11,24 +11,31 @@ import {
   IconUsers,
   IconWall,
 } from "@tabler/icons-react"
+import { usePathname } from "next/navigation"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { api } from "@/lib/api/client"
+import {
+  organizationPath,
+  organizationSlugFromPath,
+} from "@/lib/organization-path"
 import { cn } from "@/lib/utils"
 
 export function OrgResources() {
+  const pathname = usePathname()
+  const slug = pathname ? organizationSlugFromPath(pathname) : undefined
   const [resourceSummary] = api.organization.resourceSummary.useSuspenseQuery()
 
   const ORG_RESOURCES = [
     {
       icon: IconServer2,
-      link: "/instance/list",
+      link: slug ? organizationPath(slug, "instances") : undefined,
       name: "Instances",
       value: resourceSummary.instanceCount,
     },
     {
       icon: IconKey,
-      link: "/ssh-keys",
+      link: slug ? organizationPath(slug, "ssh-keys") : undefined,
       name: "SSH Keys",
       value: resourceSummary.sshKeyCount,
     },

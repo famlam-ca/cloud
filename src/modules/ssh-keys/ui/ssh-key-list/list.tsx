@@ -75,7 +75,7 @@ export function SshKeysList({ new: newParam }: { new?: string }) {
   }, [newParam, router])
 
   return (
-    <Card className="mt-4">
+    <Card>
       <CardHeader className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <CardTitle>SSH keys</CardTitle>
