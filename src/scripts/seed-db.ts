@@ -45,14 +45,6 @@ async function main() {
     .values([
       {
         categoryId: categories[0].id,
-        codename: "bionic beaver",
-        family: "ubuntu",
-        id: randomUUID(),
-        isLts: true,
-        version: "18.04",
-      },
-      {
-        categoryId: categories[0].id,
         codename: "noble numbat",
         family: "ubuntu",
         id: randomUUID(),
@@ -123,15 +115,6 @@ async function main() {
   await db
     .insert(operatingSystemTable)
     .values([
-      {
-        cloudInitEnabled: true,
-        id: randomUUID(),
-        name: "Ubuntu 18.04 LTS",
-        pveVmid: 9002,
-        releaseId: findReleaseId("ubuntu", "18.04"),
-        slug: "ubuntu-18.04-lts",
-        status: "active",
-      },
       {
         cloudInitEnabled: true,
         id: randomUUID(),
