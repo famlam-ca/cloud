@@ -21,9 +21,9 @@ export default async function Layout({ children }: LayoutProps<"/">) {
         }
       >
         <DashboardSidebar orgSlug={organization.slug} />
-        <SidebarInset className="z-1 mx-auto max-w-360 bg-transparent py-6">
+        <SidebarInset className="z-1 mx-auto max-w-360 bg-transparent max-md:px-4 max-md:py-4 md:mt-1!">
           <DashboardHeader session={session} />
-          <div className="size-full flex-1 px-4 py-6 sm:px-6">{children}</div>
+          <div className="size-full flex-1 py-6">{children}</div>
         </SidebarInset>
       </div>
     </SidebarProvider>

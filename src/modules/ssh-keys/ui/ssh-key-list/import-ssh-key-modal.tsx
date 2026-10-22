@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { IconUpload } from "@tabler/icons-react"
+import { cn } from "cn"
 import type * as React from "react"
 import { Controller, useForm } from "react-hook-form"
 import type * as z from "zod"
@@ -26,7 +27,6 @@ import {
 import { Spinner } from "@/components/ui/spinner"
 import { Textarea } from "@/components/ui/textarea"
 import { api } from "@/lib/api/client"
-import { cn } from "@/lib/utils"
 import { importSSHKeySchema } from "@/schemas/ssh-key"
 
 export function ImportSSHKeyModal({

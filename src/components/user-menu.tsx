@@ -92,7 +92,7 @@ export function UserMenu({ user }: { user: User }) {
               <IconSunMoon className="size-4" />
               <span>Theme</span>
             </div>
-            <ToggleGroup className="overflow-hidden rounded-full bg-primary/10 p-0.5">
+            <ToggleGroup className="overflow-hidden bg-primary/10 p-0.5">
               {THEME_TOGGLE_ITEMS.map((item) => {
                 const Icon = item.icon
                 return (
@@ -105,14 +105,14 @@ export function UserMenu({ user }: { user: User }) {
                     value={item.value}
                   >
                     <div
-                      className="flex h-full w-full items-center justify-center text-foreground **:data-[slot=active-toggle-group-item]:rounded-full! **:data-[slot=active-toggle-group-item]:bg-background"
+                      className="flex h-full w-full items-center justify-center text-foreground **:data-[slot=active-toggle-group-item]:rounded-none **:data-[slot=active-toggle-group-item]:bg-background"
                       data-slot="toggle-group-item-motion"
                     >
                       <span className="z-1">
                         <Icon className="size-3.5 text-primary" />
                       </span>
                       <span
-                        className="absolute inset-0 z-0 rounded-md"
+                        className="absolute inset-0 z-0"
                         data-slot="active-toggle-group-item"
                         style={{ opacity: item.value === theme ? 1 : 0 }}
                       />

@@ -1,12 +1,12 @@
 "use client"
 
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
+import { cn } from "cn"
 import type { UseEmblaCarouselType } from "embla-carousel-react"
 import useEmblaCarousel from "embla-carousel-react"
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -183,7 +183,7 @@ function CarouselPrevious({
   return (
     <Button
       className={cn(
-        "absolute touch-manipulation rounded-full",
+        "absolute touch-manipulation",
         orientation === "horizontal"
           ? "inset-y-0 -left-12 my-auto"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -213,7 +213,7 @@ function CarouselNext({
   return (
     <Button
       className={cn(
-        "absolute touch-manipulation rounded-full",
+        "absolute touch-manipulation",
         orientation === "horizontal"
           ? "inset-y-0 -right-12 my-auto"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",

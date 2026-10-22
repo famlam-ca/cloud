@@ -39,7 +39,7 @@ export default function Page() {
       />
       <header className="relative z-10 flex shrink-0 items-center justify-between gap-4 px-6 py-4 sm:px-8">
         <Link
-          className="flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="flex items-center gap-2.5 outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
           href="/"
         >
           <Icons.logo className="size-6" />

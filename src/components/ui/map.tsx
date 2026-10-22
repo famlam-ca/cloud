@@ -10,12 +10,12 @@ import {
   IconPlus,
   IconX,
 } from "@tabler/icons-react"
+import { cn } from "cn"
 import type * as GeoJSON from "geojson"
 import * as React from "react"
 import { createPortal } from "react-dom"
 
 import { Spinner } from "@/components/ui/spinner"
-import { cn } from "@/lib/utils"
 
 if (typeof window !== "undefined" && !MapLibreGL.getWorkerUrl()) {
   MapLibreGL.setWorkerUrl(
@@ -212,9 +212,9 @@ function DefaultLoader() {
   return (
     <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/50 backdrop-blur-xs">
       <div className="flex gap-1">
-        <span className="size-1.5 animate-pulse rounded-full bg-muted-foreground/60" />
-        <span className="size-1.5 animate-pulse rounded-full bg-muted-foreground/60 [animation-delay:150ms]" />
-        <span className="size-1.5 animate-pulse rounded-full bg-muted-foreground/60 [animation-delay:300ms]" />
+        <span className="size-1.5 animate-pulse bg-muted-foreground/60" />
+        <span className="size-1.5 animate-pulse bg-muted-foreground/60 [animation-delay:150ms]" />
+        <span className="size-1.5 animate-pulse bg-muted-foreground/60 [animation-delay:300ms]" />
       </div>
     </div>
   )
@@ -605,7 +605,7 @@ function MarkerContent({ children, className }: MarkerContentProps) {
 
 function DefaultMarkerIcon() {
   return (
-    <div className="relative h-4 w-4 rounded-full border-2 border-white bg-blue-500 shadow-lg" />
+    <div className="relative h-4 w-4 border-2 border-white bg-blue-500 shadow-lg" />
   )
 }
 
@@ -1349,7 +1349,7 @@ function MapGeoJSON<
   const mergedFillPaint = React.useMemo(
     () =>
       mergeHoverPaint(
-        { "fill-color": defaults.fill, ...(fillPaint || {}) },
+        { "fill-color": defaults.fill, ...fillPaint },
         fillHoverPaint,
       ),
     [defaults.fill, fillPaint, fillHoverPaint],
@@ -1358,7 +1358,7 @@ function MapGeoJSON<
     () => ({
       "line-color": defaults.line,
       "line-width": 0.5,
-      ...(linePaint || {}),
+      ...linePaint,
     }),
     [defaults.line, linePaint],
   )

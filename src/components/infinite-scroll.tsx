@@ -1,9 +1,9 @@
+import { cn } from "cn"
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
-import { cn } from "@/lib/utils"
 
 interface InfiniteScrollProps {
   fetchNextPage: () => void

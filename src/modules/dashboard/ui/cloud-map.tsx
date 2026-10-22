@@ -15,7 +15,7 @@ export function CloudMap(props: CloudMapProps) {
   return (
     <MapComponent
       center={[-122.8059, 49.294]}
-      className="bg-gray-50 dark:bg-card"
+      className="bg-card"
       zoom={12}
       {...props}
     >
@@ -26,7 +26,7 @@ export function CloudMap(props: CloudMapProps) {
           longitude={location.lng}
         >
           <MarkerContent>
-            <div className="size-4 rounded-full border-2 border-white bg-primary shadow-lg" />
+            <div className="size-4 rounded-full border-2 border-foreground bg-primary shadow-lg" />
           </MarkerContent>
           <MarkerTooltip>{location.name}</MarkerTooltip>
           <MarkerPopup>

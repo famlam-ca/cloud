@@ -4,6 +4,7 @@ import {
   IconSortDescending,
 } from "@tabler/icons-react"
 import type { Column, RowData } from "@tanstack/react-table"
+import { cn } from "cn"
 import { ChevronsUpDownIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -14,7 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
 
 import type { DataTableFeatures } from "./features"
 

@@ -1,10 +1,10 @@
 import { IconCheck, IconCopy } from "@tabler/icons-react"
+import { cn } from "cn"
 import { GlobeIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { useRevealOnClick } from "@/hooks/use-reveal-on-click"
-import { cn } from "@/lib/utils"
 
 interface IPAddressProps {
   ipAddress: string

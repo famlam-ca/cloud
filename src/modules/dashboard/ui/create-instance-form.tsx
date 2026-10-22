@@ -14,6 +14,7 @@ import {
   IconSparkles2,
   IconUpload,
 } from "@tabler/icons-react"
+import { cn } from "cn"
 import type { Route } from "next"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -69,7 +70,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { api } from "@/lib/api/client"
 import {
-  cn,
   getOperatingSystemCategoryIcon,
   getOperatingSystemFamilyIcon,
   getOperatingSystemStatusColor,
@@ -367,7 +367,7 @@ function OperatingSystemForm({
                       key={category.id}
                       value={category.id}
                     >
-                      <div className="rounded-md border border-dashed p-8 text-center">
+                      <div className="border border-dashed p-8 text-center">
                         <p className="mt-2 font-medium text-sm">
                           No{" "}
                           <strong className="capitalize">
@@ -723,7 +723,7 @@ function ReviewAndCreateForm({
       </div>
 
       <div className="grid @2xl:grid-cols-2 gap-4">
-        <div className="@container flex flex-col gap-4 rounded-lg border bg-input/30 p-4">
+        <div className="@container flex flex-col gap-4 border bg-input/30 p-4">
           <div className="flex items-center justify-between">
             <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
               Basics
@@ -743,7 +743,7 @@ function ReviewAndCreateForm({
 
           <div className="flex @sm:flex-row flex-col @sm:items-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
                 <IconServer className="size-5" />
               </div>
               <div className="flex min-w-0 flex-col text-left">
@@ -755,7 +755,7 @@ function ReviewAndCreateForm({
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
                 <IconKey className="size-5" />
               </div>
               <div className="flex min-w-0 flex-col text-left">
@@ -768,7 +768,7 @@ function ReviewAndCreateForm({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 rounded-lg border bg-input/30 p-4">
+        <div className="flex flex-col gap-4 border bg-input/30 p-4">
           <div className="flex items-center justify-between">
             <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
               Operating System
@@ -787,7 +787,7 @@ function ReviewAndCreateForm({
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
               <OsIcon className="size-5" />
             </div>
             <div className="flex min-w-0 flex-col text-left">
@@ -803,7 +803,7 @@ function ReviewAndCreateForm({
           </div>
         </div>
 
-        <div className="@2xl:col-span-2 flex flex-col gap-4 rounded-lg border bg-input/30 p-4">
+        <div className="@2xl:col-span-2 flex flex-col gap-4 border bg-input/30 p-4">
           <div className="flex items-center justify-between">
             <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
               Resource Plan
@@ -822,7 +822,7 @@ function ReviewAndCreateForm({
           </div>
 
           <div className="@container flex flex-wrap items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
               <PlanIcon className="size-5" />
             </div>
             <div className="flex min-w-0 flex-col text-left">

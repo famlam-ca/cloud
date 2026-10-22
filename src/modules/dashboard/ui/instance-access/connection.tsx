@@ -47,7 +47,7 @@ export function InstanceAccessConnection({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center gap-2 rounded-lg border bg-background px-3 py-3">
+        <div className="flex items-center gap-2 border bg-background px-3 py-3">
           <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-sm">
             <span className="text-muted-foreground">ssh -i</span>{" "}
             <span className="text-amber-500">~/.ssh/id_{keyName}</span>
@@ -79,7 +79,6 @@ export function InstanceAccessConnection({
 
         <div className="flex flex-wrap items-center gap-3">
           <Button
-            className="rounded-lg"
             disabled={isDisabled}
             nativeButton={isDisabled}
             render={
@@ -105,7 +104,7 @@ export function InstanceAccessConnection({
           <AlertDescription className="w-full text-foreground/60! text-xs">
             Your key file needs owner-only permissions, or OpenSSH will refuse
             it:{" "}
-            <span className="rounded-lg bg-yellow-500/15 p-1 font-mono">
+            <span className="bg-yellow-500/15 p-1 font-mono">
               chmod 600 ~/.ssh/id_{keyName}
             </span>
           </AlertDescription>

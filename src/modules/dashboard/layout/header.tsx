@@ -15,21 +15,20 @@ export function DashboardHeader({ session }: { session: Session }) {
 
   return (
     <header className="text-primary-foreground">
-      <div className="mx-auto flex w-full items-center justify-between gap-6 px-4 max-md:gap-1.5 sm:px-6">
+      <div className="@container mx-auto flex w-full items-center justify-between gap-6 max-md:gap-1.5">
         <div className="flex items-center gap-4">
           <Button
-            className="size-10 border-primary-foreground! bg-primary-foreground! text-primary! shadow-none outline-none hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+            className="border-primary-foreground! bg-primary-foreground! text-primary!"
             onClick={toggleSidebar}
+            size="icon"
           >
             <PanelLeftCloseIcon className="size-5" />
           </Button>
-          <div className="hidden sm:flex sm:flex-col sm:items-start">
+          <div className="@sm:flex hidden @sm:flex-col @sm:items-start">
             <p className="font-semibold text-lg">
               {getDashboardWelcomeMessage()}, {session.user.name}
             </p>
-            <p className="text-primary-foreground/80 md:max-lg:hidden">
-              {APP_NAME} Dashboard
-            </p>
+            <p className="text-primary-foreground/80">{APP_NAME} Dashboard</p>
           </div>
         </div>
         <div className="flex items-center gap-1.5">

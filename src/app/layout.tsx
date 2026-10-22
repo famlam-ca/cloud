@@ -1,3 +1,4 @@
+import { cn } from "cn"
 import type { Metadata } from "next"
 import { Roboto_Mono, Source_Code_Pro, Space_Grotesk } from "next/font/google"
 
@@ -6,7 +7,6 @@ import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { APP_DESCRIPTION, APP_NAME } from "@/constants/app"
 import { TRPCReactProvider } from "@/lib/api/client"
-import { cn } from "@/lib/utils"
 
 import "@/styles/globals.css"
 

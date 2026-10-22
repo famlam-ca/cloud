@@ -11,6 +11,7 @@ import {
   IconUsers,
   IconWall,
 } from "@tabler/icons-react"
+import { cn } from "cn"
 import { usePathname } from "next/navigation"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -19,7 +20,6 @@ import {
   organizationPath,
   organizationSlugFromPath,
 } from "@/lib/organization-path"
-import { cn } from "@/lib/utils"
 
 export function OrgResources() {
   const pathname = usePathname()
@@ -73,13 +73,13 @@ export function OrgResources() {
   ]
 
   return (
-    <div className="flex w-full flex-col rounded-2xl bg-gray-50 lg:max-w-sm lg:rounded-l-none dark:bg-card">
-      <div className="flex items-center justify-between rounded-b-none border-b bg-muted px-4 py-2 lg:rounded-tl-none lg:rounded-tr-2xl">
+    <div className="flex w-full flex-col bg-card lg:max-w-sm dark:bg-card">
+      <div className="flex items-center justify-between border-b bg-muted px-4 py-2">
         <p className="text-muted-foreground uppercase">Org Resources</p>
         <IconMap className="size-4" />
       </div>
       <ScrollArea className="h-[calc(var(--dashboard-card-height)-var(--dashboard-0rg-resources-header-height))]">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-lg:[&>*:last-child]:rounded-br-2xl max-lg:[&>*:nth-last-child(2)]:rounded-bl-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           {ORG_RESOURCES.map((resource) => {
             const Icon = resource.icon
 

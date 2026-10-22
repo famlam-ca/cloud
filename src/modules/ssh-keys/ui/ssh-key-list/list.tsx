@@ -127,7 +127,7 @@ export function SshKeysList({ new: newParam }: { new?: string }) {
             </div>
           </Empty>
         ) : (
-          <div className="mt-4 divide-y overflow-hidden rounded-xl">
+          <div className="mt-4 divide-y overflow-hidden">
             {sshKeys.map((key) => (
               <SshKeyRow key={key.id} sshKey={key} />
             ))}
@@ -190,8 +190,8 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
         </ItemContent>
       </Item>
 
-      <div className="col-span-full row-start-2 grid gap-1 rounded-xl border bg-muted/20 p-1 xl:col-span-1 xl:row-start-auto xl:grid-cols-2">
-        <div className="flex items-center gap-2 overflow-hidden rounded-lg bg-background/60 px-2 py-1">
+      <div className="col-span-full row-start-2 grid gap-1 border bg-muted/20 p-1 xl:col-span-1 xl:row-start-auto xl:grid-cols-2">
+        <div className="flex items-center gap-2 overflow-hidden bg-background/60 px-2 py-1">
           <span className="shrink-0 text-muted-foreground text-xs">
             Fingerprint
           </span>
@@ -209,7 +209,7 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
             <IconCopy />
           </Button>
         </div>
-        <div className="flex items-center gap-2 overflow-hidden rounded-lg bg-background/60 px-2 py-1">
+        <div className="flex items-center gap-2 overflow-hidden bg-background/60 px-2 py-1">
           <span className="shrink-0 text-muted-foreground text-xs">
             Public key
           </span>

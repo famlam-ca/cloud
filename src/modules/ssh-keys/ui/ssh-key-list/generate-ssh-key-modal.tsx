@@ -8,6 +8,7 @@ import {
   IconDownload,
   IconSparkles2,
 } from "@tabler/icons-react"
+import { cn } from "cn"
 import JSZip from "jszip"
 import * as React from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -48,7 +49,6 @@ import { Spinner } from "@/components/ui/spinner"
 import { Textarea } from "@/components/ui/textarea"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { api } from "@/lib/api/client"
-import { cn } from "@/lib/utils"
 import type { SSHKey } from "@/schemas/ssh-key"
 import { generateSSHKeySchema, sshKeyTypes } from "@/schemas/ssh-key"
 

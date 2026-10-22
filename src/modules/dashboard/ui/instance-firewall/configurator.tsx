@@ -24,6 +24,7 @@ import {
   IconPower,
   IconTrash,
 } from "@tabler/icons-react"
+import { cn } from "cn"
 import { RotateCcwIcon } from "lucide-react"
 import * as React from "react"
 import { toast } from "sonner"
@@ -45,7 +46,6 @@ import {
 import { FIREWALL_RULE_PRIORITY_STEP } from "@/constants/app"
 import { useIsMobile } from "@/hooks/use-is-mobile"
 import { api } from "@/lib/api/client"
-import { cn } from "@/lib/utils"
 import { useDebouncedReorder } from "@/modules/dashboard/hooks/use-debounced-reorder"
 import type { InstanceFirewallRule } from "@/schemas/firewall-rule"
 import {
@@ -75,7 +75,7 @@ function SyncStatusBadge({ instanceId }: { instanceId: string }) {
 
   if (data.firewallSyncStatus === "synced") {
     return (
-      <Badge className="gap-1.5" variant="success">
+      <Badge variant="success">
         <span className="size-1.5 rounded-full bg-green-600 dark:bg-green-500" />
         Fully applied
       </Badge>
@@ -84,7 +84,7 @@ function SyncStatusBadge({ instanceId }: { instanceId: string }) {
 
   if (data.firewallSyncStatus === "pending") {
     return (
-      <Badge className="gap-1.5" variant="warning">
+      <Badge variant="warning">
         <span className="size-1.5 animate-pulse rounded-full bg-yellow-600 dark:bg-yellow-500" />
         Syncing…
       </Badge>
@@ -93,7 +93,7 @@ function SyncStatusBadge({ instanceId }: { instanceId: string }) {
 
   return (
     <div className="flex items-center gap-2">
-      <Badge className="gap-1.5" variant="destructive">
+      <Badge variant="destructive">
         <span className="size-1.5 rounded-full bg-destructive" />
         Sync failed
       </Badge>

@@ -37,7 +37,6 @@ import {
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
 } from "@/components/ui/sidebar"
 import { APP_NAME } from "@/constants/app"
 import { organizationPath } from "@/lib/organization-path"
@@ -174,11 +173,7 @@ export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
   }
 
   return (
-    <Sidebar
-      className="p-6 pr-0 *:data-[slot=sidebar-inner]:group-data-[variant=floating]:rounded-xl"
-      collapsible="icon"
-      variant="floating"
-    >
+    <Sidebar className="pr-4" collapsible="icon" variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -207,7 +202,6 @@ export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
       <SidebarFooter className="px-0">
         <FooterNav items={NAV_ITEMS.footer} />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   )
 }

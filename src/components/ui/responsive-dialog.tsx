@@ -1,5 +1,6 @@
 "use client"
 
+import { cn } from "cn"
 import * as React from "react"
 
 import {
@@ -37,7 +38,6 @@ import {
 import { useControllableState } from "@/hooks/use-controllable"
 import type { Breakpoint } from "@/hooks/use-media-query"
 import { useIsBreakpoint } from "@/hooks/use-media-query"
-import { cn } from "@/lib/utils"
 
 type Variant = "default" | "alert"
 

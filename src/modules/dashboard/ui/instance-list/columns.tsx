@@ -7,6 +7,7 @@ import {
   IconListDetails,
 } from "@tabler/icons-react"
 import { createColumnHelper } from "@tanstack/react-table"
+import { cn } from "cn"
 import { formatDate, formatDistanceToNowStrict } from "date-fns"
 import { CpuIcon, HardDriveIcon, MemoryStickIcon } from "lucide-react"
 import type { Route } from "next"
@@ -28,11 +29,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { CLOUD_LOCATIONS } from "@/constants/app"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
-import {
-  cn,
-  getInstanceStatusAnimation,
-  getInstanceStatusColor,
-} from "@/lib/utils"
+import { getInstanceStatusAnimation, getInstanceStatusColor } from "@/lib/utils"
 import { IPAddress } from "@/modules/dashboard/ui/ip-addres"
 import type { Instance } from "@/schemas/instance"
 

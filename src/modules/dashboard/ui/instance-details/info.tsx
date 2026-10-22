@@ -10,6 +10,7 @@ import {
   IconRefresh,
   IconTrash,
 } from "@tabler/icons-react"
+import { cn } from "cn"
 import type { Route } from "next"
 import { notFound, useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -41,11 +42,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Spinner } from "@/components/ui/spinner"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { api } from "@/lib/api/client"
-import {
-  cn,
-  getInstanceStatusAnimation,
-  getInstanceStatusColor,
-} from "@/lib/utils"
+import { getInstanceStatusAnimation, getInstanceStatusColor } from "@/lib/utils"
 import { IPAddress } from "@/modules/dashboard/ui/ip-addres"
 import type {
   Instance,

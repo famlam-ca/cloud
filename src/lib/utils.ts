@@ -7,9 +7,6 @@ import {
   IconStack3Filled,
   IconStackFilled,
 } from "@tabler/icons-react"
-import type { ClassValue } from "clsx"
-import { clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
 
 import { Icons } from "@/components/icons"
 import { env } from "@/env"
@@ -20,10 +17,6 @@ import type {
   OperatingSystemFamilyEnum,
 } from "@/schemas/operatingSystem"
 import type { ResourcePlan } from "@/schemas/resource-plan"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
 
 export function getBaseUrl() {
   if (typeof window !== "undefined") return window.location.origin

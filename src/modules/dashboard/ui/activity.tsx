@@ -1,6 +1,7 @@
 "use client"
 
 import { IconBell, IconChevronRight } from "@tabler/icons-react"
+import { cn } from "cn"
 import { formatDate, formatDistanceToNowStrict } from "date-fns"
 import { CircleQuestionMarkIcon } from "lucide-react"
 import type { Route } from "next"
@@ -33,7 +34,6 @@ import {
   organizationPath,
   organizationSlugFromPath,
 } from "@/lib/organization-path"
-import { cn } from "@/lib/utils"
 import { activityRegistry, renderActivity } from "@/schemas/activity"
 
 interface ActivityCardProps {
