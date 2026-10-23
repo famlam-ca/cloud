@@ -18,16 +18,24 @@ export const roadmap = [
     category: "Shipped & shipping",
     items: [
       {
+        status: "in-progress",
+        title: "Snapshots/backups per instance",
+      },
+      {
+        note: "Additional pages are planned",
+        status: "in-progress",
+        title: "Instance details",
+      },
+      {
         status: "completed",
-        title: "Activity log noise fixed",
+        title: "Activity log noise",
       },
       {
         status: "completed",
         title: "Firewall rule editing",
       },
       {
-        note: "Mostly done, a few things still need attention",
-        status: "in-progress",
+        status: "completed",
         title: "SSH key management",
       },
       {
@@ -35,13 +43,9 @@ export const roadmap = [
         title: "`ciuser` standardized to `cloud-user`",
       },
       {
-        status: "todo",
-        title: "`qemu-guest-agent` missing from VM template",
-      },
-      {
-        note: "Additional pages are planned, and existing pages will need improvements.",
-        status: "in-progress",
-        title: "Instance details",
+        note: "Flat 90-day purge, built as a queue/worker",
+        status: "completed",
+        title: "Activity log retention",
       },
     ],
   },
@@ -49,8 +53,18 @@ export const roadmap = [
     category: "Stuff coming up",
     items: [
       {
+        note: "DB-backed permission matrix with editable roles and per-member overrides",
         status: "todo",
-        title: "Snapshots/backups per instance",
+        title: "Per-org permissions / access control",
+      },
+      {
+        note: "Bell in the header for system announcements, ahead of backups",
+        status: "todo",
+        title: "Notification system",
+      },
+      {
+        status: "todo",
+        title: "`qemu-guest-agent` missing from VM template",
       },
       {
         status: "todo",
@@ -58,23 +72,20 @@ export const roadmap = [
       },
       {
         status: "todo",
-        title: "Billing/usage tracking",
+        title: "Usage tracking",
       },
       {
         status: "todo",
-        title: "Instance templates/images",
+        title: "Additional instance templates/images",
       },
       {
         status: "todo",
         title: "SSE upgrade (tRPC v11 + Redis pub/sub)",
       },
       {
+        note: "Ties into the audit log read permission",
         status: "todo",
         title: "Audit/admin dashboard",
-      },
-      {
-        status: "todo",
-        title: "Console access (noVNC)",
       },
     ],
   },
@@ -89,6 +100,10 @@ export const roadmap = [
         status: "todo",
         title: "Polish/document `apiKey` plugin for API access",
       },
+      {
+        status: "todo",
+        title: "Console access (noVNC)",
+      },
     ],
   },
   {
@@ -96,7 +111,7 @@ export const roadmap = [
     items: [
       {
         status: "todo",
-        title: "VM migration between nodes",
+        title: "VM migration between nodes (cold + live)",
       },
     ],
   },
