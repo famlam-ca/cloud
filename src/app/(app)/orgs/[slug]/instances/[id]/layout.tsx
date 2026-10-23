@@ -17,13 +17,13 @@ export default async function Layout({
 
   return (
     <HydrateClient>
-      <Card className="pb-0">
+      <Card className="min-h-[calc(100dvh-var(--header-height)-2.3rem)]">
         <CardContent>
           <InstanceDetailsInfo instanceId={instanceId} />
           <InstanceDetailsTabs instanceId={instanceId} />
+          <div className="mt-4">{children}</div>
         </CardContent>
       </Card>
-      <div className="mt-4">{children}</div>
     </HydrateClient>
   )
 }

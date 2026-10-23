@@ -36,7 +36,11 @@ export function InstanceDetailsTabs({ instanceId }: { instanceId: string }) {
     )?.value || "overview"
 
   return (
-    <Tabs className="w-full" suppressHydrationWarning value={activeTab}>
+    <Tabs
+      className="relative w-full"
+      suppressHydrationWarning
+      value={activeTab}
+    >
       <ScrollArea>
         <TabsList className="mb-[0.05rem] gap-4 px-0" variant="line">
           {INSTANCE_DETAILS_TABS.map((tab) => (
@@ -58,6 +62,7 @@ export function InstanceDetailsTabs({ instanceId }: { instanceId: string }) {
           ))}
         </TabsList>
       </ScrollArea>
+      <div className="absolute right-0 bottom-px left-0 border-b-2" />
     </Tabs>
   )
 }

@@ -14,7 +14,7 @@ export function DashboardHeader({ session }: { session: Session }) {
   const { toggleSidebar } = useSidebar()
 
   return (
-    <header className="text-primary-foreground">
+    <header className="h-(--header-height) text-primary-foreground">
       <div className="@container mx-auto flex w-full items-center justify-between gap-6 max-md:gap-1.5">
         <div className="flex items-center gap-4">
           <Button
