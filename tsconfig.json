@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "allowUnreachableCode": false,
     /* Path Aliases */
     "checkJs": true,
     /* Base Options: */
@@ -13,6 +14,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"]
     },
