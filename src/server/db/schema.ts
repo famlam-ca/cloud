@@ -5,14 +5,67 @@ import {
   index,
   pgEnum,
   pgTableCreator,
+  primaryKey,
   unique,
   uniqueIndex,
 } from "drizzle-orm/pg-core"
 import type * as z from "zod"
 
 import type { ActivityType, activityUserSchema } from "@/schemas/activity"
+import type { NotificationType } from "@/schemas/notification"
 
 export const createTable = pgTableCreator((name) => name)
+
+export const notificationSeverityEnum = pgEnum("notification_severity", [
+  "info",
+  "warning",
+  "critical",
+])
+
+export const notificationTable = createTable(
+  "notification",
+  (d) => ({
+    body: d.text("body"),
+    createdAt: d.timestamp("created_at").defaultNow().notNull(),
+    createdBy: d
+      .text("created_by")
+      .references(() => user.id, { onDelete: "set null" }),
+    expiresAt: d.timestamp("expires_at"),
+    href: d.text("href"),
+    id: d.text("id").primaryKey(),
+    metadata: d.jsonb("metadata").$type<Record<string, unknown>>(),
+    publishedAt: d.timestamp("published_at").defaultNow().notNull(),
+    severity: notificationSeverityEnum("severity").default("info").notNull(),
+    title: d.text("title").notNull(),
+    type: d.text("type").$type<NotificationType>().notNull(),
+    userId: d
+      .text("user_id")
+      .references(() => user.id, { onDelete: "cascade" }),
+  }),
+  (t) => [
+    index("notification_published_at_idx").on(t.publishedAt),
+    index("notification_userId_published_at_idx").on(t.userId, t.publishedAt),
+  ],
+)
+
+export const notificationReadTable = createTable(
+  "notification_read",
+  (d) => ({
+    notificationId: d
+      .text("notification_id")
+      .notNull()
+      .references(() => notificationTable.id, { onDelete: "cascade" }),
+    readAt: d.timestamp("read_at").defaultNow().notNull(),
+    userId: d
+      .text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+  }),
+  (t) => [
+    primaryKey({ columns: [t.notificationId, t.userId] }),
+    index("notification_read_userId_idx").on(t.userId),
+  ],
+)
 
 export const activityActorEnum = pgEnum("activity_actor", [
   "system",

@@ -225,6 +225,13 @@
       "when": 1791785677090,
       "tag": "0031_acoustic_abomination",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1793065663328,
+      "tag": "0032_sweet_beast",
+      "breakpoints": true
     }
   ]
 }
