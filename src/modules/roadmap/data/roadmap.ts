@@ -1,12 +1,12 @@
 import * as z from "zod"
 
-export const roadmapItemSchema = z.object({
+const roadmapItemSchema = z.object({
   note: z.string().optional(),
   status: z.enum(["completed", "in-progress", "todo"]),
   title: z.string(),
 })
 
-export const roadmapCategorySchema = z.object({
+const roadmapCategorySchema = z.object({
   category: z.string(),
   items: z.array(roadmapItemSchema),
 })

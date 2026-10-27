@@ -222,9 +222,9 @@ const activityTypeKeys = Object.keys(activityRegistry) as [
   ActivityType,
   ...ActivityType[],
 ]
-export const activityTypeSchema = z.enum(activityTypeKeys)
+const activityTypeSchema = z.enum(activityTypeKeys)
 
-export const insertActivitySchema = createInsertSchema(activityTable, {
+const insertActivitySchema = createInsertSchema(activityTable, {
   type: activityTypeSchema,
 })
 export const selectActivitySchema = createSelectSchema(activityTable, {

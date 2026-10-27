@@ -54,7 +54,7 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
   return result
 })
 
-export const authMiddleware = t.middleware(async ({ ctx, next }) => {
+const authMiddleware = t.middleware(async ({ ctx, next }) => {
   if (!ctx.session?.user) throw new TRPCError({ code: "UNAUTHORIZED" })
 
   const { apiKey } = await getApiKeyFromHeaders(ctx.headers, false)
@@ -84,3 +84,17 @@ export const protectedProcedure = t.procedure
       }),
     ),
   )
+
+function isPlatformAdmin(role: string | null | undefined): boolean {
+  return !!role?.split(",").some((r) => r.trim() === "admin")
+}
+
+export const adminProcedure = protectedProcedure.use(async ({ ctx, next }) => {
+  if (!isPlatformAdmin(ctx.session.user.role)) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "You do not have permission to access this resource.",
+    })
+  }
+  return next()
+})

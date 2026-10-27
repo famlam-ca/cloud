@@ -1,6 +1,6 @@
 import * as React from "react"
 
-export function useMediaQuery(query: string): boolean {
+function useMediaQuery(query: string): boolean {
   const [value, setValue] = React.useState(false)
 
   React.useEffect(() => {
@@ -18,7 +18,7 @@ export function useMediaQuery(query: string): boolean {
   return value
 }
 
-export const BREAKPOINTS = {
+const BREAKPOINTS = {
   "2xl": 1536,
   lg: 1024,
   md: 768,

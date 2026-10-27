@@ -161,7 +161,7 @@ export async function configureInstanceFirewall(
   })
 }
 
-export async function waitForVmStatus(
+async function waitForVmStatus(
   proxmox: Proxmox.Api,
   vmid: number,
   desiredStatus: "running" | "stopped",

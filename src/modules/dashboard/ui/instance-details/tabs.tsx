@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { organizationSlugFromPath } from "@/lib/organization-path"
 
-export const INSTANCE_DETAILS_TABS = [
+const INSTANCE_DETAILS_TABS = [
   { label: "Overview", value: "overview" },
   { label: "Access", value: "access" },
   // { label: "Graphs", value: "graphs" },

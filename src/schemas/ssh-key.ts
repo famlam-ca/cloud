@@ -7,7 +7,7 @@ const sshKeyConstraints = {
   name: z.string().min(3).max(255),
 }
 
-export const insertSSHKeySchema = z.object({
+const insertSSHKeySchema = z.object({
   ...sshKeyConstraints,
   fingerprint: z.string(),
   id: z.string(),

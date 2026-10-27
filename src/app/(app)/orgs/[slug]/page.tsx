@@ -39,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: `Dashboard - ${org.name}` }
 }
 
-export const INFO_CARDS = [
+const INFO_CARDS = [
   {
     description:
       "Find all our services and features in one place. Enjoy services from media streaming to cloud computing, and everything in between, all in one convenient location.",

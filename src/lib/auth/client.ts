@@ -19,5 +19,3 @@ export const authClient = createAuthClient({
     apiKeyClient(),
   ],
 })
-
-export const { signIn, signOut, useSession } = authClient

@@ -22,7 +22,7 @@ const instanceSchemaConstraints = {
   updatedAt: z.coerce.date().optional(),
 }
 
-export const insertInstanceSchema = createInsertSchema(
+const insertInstanceSchema = createInsertSchema(
   instanceTable,
   instanceSchemaConstraints,
 )
@@ -34,7 +34,7 @@ export const selectInstanceSchema = createSelectSchema(
   sshKeys: z.array(selectInstanceSSHKeySchema),
 })
 
-export const createInstanceSchema = insertInstanceSchema
+const createInstanceSchema = insertInstanceSchema
   .omit({
     cores: true,
     createdAt: true,
@@ -59,7 +59,7 @@ export const createInstanceSchema = insertInstanceSchema
     sshKeyId: z.string(),
   })
 
-export const hostnameRegex =
+const hostnameRegex =
   /^(?=.{3,63}$)[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
 export const basicInfoSchema = createInstanceSchema

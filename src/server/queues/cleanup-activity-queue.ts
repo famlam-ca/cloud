@@ -1,4 +1,3 @@
-import type { Job } from "bullmq"
 import { createNodeRedisClient, Queue } from "bullmq"
 
 import { getRedisClient } from "@/lib/redis"
@@ -33,13 +32,4 @@ export function getCleanupActivityQueue(): Queue {
       )
   }
   return cleanupActivityQueue
-}
-
-export async function addCleanupActivityJob(): Promise<{ jobId: Job["id"] }> {
-  const cleanupActivityJob = await getCleanupActivityQueue().add(
-    CLEANUP_ACTIVITY_QUEUE_KEY,
-    {},
-  )
-
-  return { jobId: cleanupActivityJob.id }
 }

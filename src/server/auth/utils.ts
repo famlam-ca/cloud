@@ -4,7 +4,7 @@ import { cache } from "react"
 
 import { auth } from "@/server/auth"
 
-export const getSession = cache(
+const getSession = cache(
   async () =>
     await auth.api.getSession({
       headers: await headers(),

@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-export const leaseSchema = z.object({
+const leaseSchema = z.object({
   address: z.ipv4(),
   client_id: z.string().regex(/^01:([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$/),
   duid: z.string().optional(),
@@ -19,7 +19,7 @@ export const leaseSchema = z.object({
   valid_lifetime: z.int(),
 })
 
-export const reservationSchema = z.object({
+const reservationSchema = z.object({
   "%subnet": z.string().regex(/^192\.168\.80\.0\/24$/),
   client_id: z.string().regex(/^01:([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$/),
   description: z.string().optional(),
@@ -42,7 +42,7 @@ export const reservationSchema = z.object({
   uuid: z.string(),
 })
 
-export const subnetSchema = z.object({
+const subnetSchema = z.object({
   allocator: z.string().optional(),
   ddns_conflict_resolution_mode: z.string().optional(),
   ddns_dns_port: z.string().optional(),
