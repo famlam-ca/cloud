@@ -15,12 +15,12 @@ import {
 import { env } from "@/env"
 import { getRedisClient } from "@/lib/redis"
 import { ac, adminRole, memberRole } from "@/server/auth/ac"
-import { db } from "@/server/db"
-import { user as userTable } from "@/server/db/schema"
 import {
   getInitialOrganizationId,
   getInitialOrganizationSlug,
-} from "@/server/queries/organization"
+} from "@/server/auth/organization"
+import { db } from "@/server/db"
+import { user as userTable } from "@/server/db/schema"
 import { logActivity } from "@/server/services/activity"
 
 const incrementScript = `

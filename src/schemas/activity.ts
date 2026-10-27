@@ -18,7 +18,6 @@ import {
   instancePowerActionEnum,
   selectInstanceSchema,
 } from "@/schemas/instance"
-import type { activityReferenceTypeEnum } from "@/server/db/schema"
 import { activityTable } from "@/server/db/schema"
 
 type ActivityTypeConfig<T extends z.ZodType> = {
@@ -234,9 +233,6 @@ export const selectActivitySchema = createSelectSchema(activityTable, {
 export type InsertActivity = z.infer<typeof insertActivitySchema>
 
 export type Activity = z.infer<typeof selectActivitySchema>
-export type ActivityReferenceTypeEnum =
-  (typeof activityReferenceTypeEnum.enumValues)[number]
-
 export function parseActivityMetadata<T extends ActivityType>(
   type: T,
   metadata: unknown,

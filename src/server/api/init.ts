@@ -84,17 +84,3 @@ export const protectedProcedure = t.procedure
       }),
     ),
   )
-
-function isPlatformAdmin(role: string | null | undefined): boolean {
-  return !!role?.split(",").some((r) => r.trim() === "admin")
-}
-
-export const adminProcedure = protectedProcedure.use(async ({ ctx, next }) => {
-  if (!isPlatformAdmin(ctx.session.user.role)) {
-    throw new TRPCError({
-      code: "FORBIDDEN",
-      message: "You do not have permission to access this resource.",
-    })
-  }
-  return next()
-})

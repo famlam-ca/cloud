@@ -2,11 +2,7 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import * as z from "zod"
 
 import { validateSourcePair } from "@/lib/network"
-import type {
-  firewallRuleActionEnum,
-  firewallRuleProtocolEnum,
-  firewallRuleSourceTypeEnum,
-} from "@/server/db/schema"
+import type { firewallRuleSourceTypeEnum } from "@/server/db/schema"
 import { instanceFirewallRuleTable } from "@/server/db/schema"
 
 const instanceFirewallRuleSchemaConstraints = {
@@ -42,10 +38,6 @@ export const createInstanceFirewallRuleSchema = insertInstanceFirewallRuleSchema
     }
   })
 
-export type FirewallRuleActionEnum =
-  (typeof firewallRuleActionEnum.enumValues)[number]
-export type FirewallRuleProtocolEnum =
-  (typeof firewallRuleProtocolEnum.enumValues)[number]
 export type FirewallRuleSourceTypeEnum =
   (typeof firewallRuleSourceTypeEnum.enumValues)[number]
 export type InstanceFirewallRule = z.infer<

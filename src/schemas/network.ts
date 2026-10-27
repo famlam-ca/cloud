@@ -1,10 +1,8 @@
-import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import { createSelectSchema } from "drizzle-zod"
 import * as z from "zod"
 
 import { env } from "@/env"
 import { networkTable } from "@/server/db/schema"
-
-export type Network = typeof networkTable.$inferInsert
 
 const networkSchemaConstraints = {
   createdAt: z.coerce.date().optional(),
@@ -15,10 +13,6 @@ const networkSchemaConstraints = {
     .max(Number(env.OPNSENSE_CLOUD_NETWORK_VLAN_ID)),
 }
 
-export const insertNetworkSchema = createInsertSchema(
-  networkTable,
-  networkSchemaConstraints,
-)
 export const selectNetworkSchema = createSelectSchema(
   networkTable,
   networkSchemaConstraints,

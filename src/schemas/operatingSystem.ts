@@ -1,4 +1,4 @@
-import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import { createSelectSchema } from "drizzle-zod"
 import * as z from "zod"
 
 import { env } from "@/env"
@@ -34,7 +34,7 @@ export const selectOperatingSystemCategorySchema = createSelectSchema(
     updatedAt: z.coerce.date().optional(),
   },
 )
-export const selectOperatingSystemReleaseSchema = createSelectSchema(
+const selectOperatingSystemReleaseSchema = createSelectSchema(
   operatingSystemReleaseTable,
   {
     createdAt: z.coerce.date().optional(),
@@ -44,10 +44,6 @@ export const selectOperatingSystemReleaseSchema = createSelectSchema(
   category: selectOperatingSystemCategorySchema.optional(),
 })
 
-export const insertOperatingSystemSchema = createInsertSchema(
-  operatingSystemTable,
-  operatingSystemSchemaConstraints,
-)
 export const selectOperatingSystemSchema = createSelectSchema(
   operatingSystemTable,
   operatingSystemSchemaConstraints,
