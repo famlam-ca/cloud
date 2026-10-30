@@ -1,6 +1,6 @@
 "use client"
 
-import { IconActivity, IconBell } from "@tabler/icons-react"
+import { IconActivity } from "@tabler/icons-react"
 import { PanelLeftCloseIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -8,6 +8,7 @@ import { useSidebar } from "@/components/ui/sidebar"
 import { UserMenu } from "@/components/user-menu"
 import { APP_NAME } from "@/constants/app"
 import { getDashboardWelcomeMessage } from "@/lib/utils"
+import { NotificationBell } from "@/modules/notifications/ui/bell"
 import type { Session } from "@/server/auth/utils"
 
 export function DashboardHeader({ session }: { session: Session }) {
@@ -35,10 +36,7 @@ export function DashboardHeader({ session }: { session: Session }) {
           <Button size="icon" variant="ghost">
             <IconActivity className="size-5" />
           </Button>
-          <Button className="relative" size="icon" variant="ghost">
-            <IconBell className="size-5" />
-            <span className="bg-destructive absolute top-[14%] right-[23%] size-2 rounded-full" />
-          </Button>
+          <NotificationBell />
           <UserMenu user={session.user} />
         </div>
       </div>
