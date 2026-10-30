@@ -23,7 +23,7 @@ interface ActionButtonProps {
 function ActionButton({ href, label, icon: Icon }: ActionButtonProps) {
   return (
     <Button
-      className="dark:bg-card h-14 w-full justify-start gap-4 bg-gray-50 pl-6 hover:bg-[color-mix(in_oklch,var(--color-gray-50),var(--foreground)_5%)] lg:h-16 dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
+      className="bg-card h-14 w-full justify-start gap-4 pl-6 hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)] lg:h-16"
       nativeButton={false}
       render={<Link href={href} />}
       variant="secondary"

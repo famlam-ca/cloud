@@ -31,7 +31,7 @@ export default async function Layout({ children }: LayoutProps<"/">) {
             <NotificationBanner />
           </HydrateClient>
           <DashboardHeader session={session} />
-          <div className="size-full flex-1 pt-6">{children}</div>
+          <main className="size-full flex-1 pt-6">{children}</main>
         </SidebarInset>
       </div>
     </SidebarProvider>
