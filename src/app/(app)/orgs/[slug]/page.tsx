@@ -23,12 +23,12 @@ interface ActionButtonProps {
 function ActionButton({ href, label, icon: Icon }: ActionButtonProps) {
   return (
     <Button
-      className="h-14 w-full justify-start gap-4 bg-gray-50 pl-6 hover:bg-[color-mix(in_oklch,var(--color-gray-50),var(--foreground)_5%)] lg:h-16 dark:bg-card dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
+      className="dark:bg-card h-14 w-full justify-start gap-4 bg-gray-50 pl-6 hover:bg-[color-mix(in_oklch,var(--color-gray-50),var(--foreground)_5%)] lg:h-16 dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
       nativeButton={false}
       render={<Link href={href} />}
       variant="secondary"
     >
-      <Icon className="size-6 stroke-primary" />
+      <Icon className="stroke-primary size-6" />
       <span className="text-lg">{label}</span>
     </Button>
   )
@@ -108,16 +108,16 @@ export default async function Page({ params }: PageProps<"/orgs/[slug]">) {
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
         {INFO_CARDS.map((card) => (
           <a
-            className="flex h-full flex-col items-start bg-card p-6 dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
+            className="bg-card flex h-full flex-col items-start p-6 dark:hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)]"
             href={card.link}
             key={card.title}
             rel="noopener noreferrer"
             target="_blank"
           >
             <div className="flex items-center gap-2">
-              <p className="font-medium text-lg uppercase">{card.title}</p>
+              <p className="text-lg font-medium uppercase">{card.title}</p>
             </div>
-            <p className="mt-4 text-foreground/95 text-sm">
+            <p className="text-foreground/95 mt-4 text-sm">
               {card.description}
             </p>
           </a>

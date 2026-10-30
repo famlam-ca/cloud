@@ -10,7 +10,7 @@ export function ThemeToggle() {
 
   return (
     <Button
-      className="relative bg-accent hover:bg-accent/80 dark:bg-accent dark:hover:bg-accent/80"
+      className="bg-accent hover:bg-accent/80 dark:bg-accent dark:hover:bg-accent/80 relative"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       size="icon-sm"
       variant="outline"

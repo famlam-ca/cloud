@@ -84,7 +84,7 @@ export function ImportSSHKeyModal({
         render={
           render || (
             <Button
-              className="hover:bg-transparent! hover:text-foreground! hover:no-underline"
+              className="hover:text-foreground! hover:bg-transparent! hover:no-underline"
               disabled={isDisabled}
               size="sm"
               type="button"
@@ -126,7 +126,7 @@ export function ImportSSHKeyModal({
                   <FieldLabel htmlFor={field.name}>
                     <div className="relative">
                       Name
-                      <span className="absolute top-0 -right-2 text-destructive text-xs">
+                      <span className="text-destructive absolute top-0 -right-2 text-xs">
                         *
                       </span>
                     </div>
@@ -158,7 +158,7 @@ export function ImportSSHKeyModal({
                   <FieldLabel htmlFor={field.name}>
                     <div className="relative">
                       Public key
-                      <span className="absolute top-0 -right-2 text-destructive text-xs">
+                      <span className="text-destructive absolute top-0 -right-2 text-xs">
                         *
                       </span>
                     </div>

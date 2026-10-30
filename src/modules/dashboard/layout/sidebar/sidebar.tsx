@@ -178,16 +178,16 @@ export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              className="gap-2.5 bg-transparent! p-2 group-data-[collapsible=icon]:p-0! [&>svg]:size-8 [&_svg]:size-4"
+              className="gap-2.5 bg-transparent! p-2 group-data-[collapsible=icon]:p-0! [&_svg]:size-4 [&>svg]:size-8"
               render={<Link href={orgPath()} />}
               size="lg"
             >
               <Icons.logo />
               <div className="flex flex-col items-start">
-                <span className="text-nowrap font-semibold text-lg">
+                <span className="text-lg font-semibold text-nowrap">
                   {APP_NAME}
                 </span>
-                <span className="text-nowrap font-light text-xs">
+                <span className="text-xs font-light text-nowrap">
                   Dashboard
                 </span>
               </div>

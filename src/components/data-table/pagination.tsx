@@ -29,16 +29,16 @@ export function DataTablePagination<TData extends RowData>({
 
   return (
     <div className="@container flex items-center justify-between px-2">
-      <div className="@lg:block hidden flex-1 text-muted-foreground text-sm">
+      <div className="text-muted-foreground hidden flex-1 text-sm @lg:block">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length}{" "}
-        <span className="@2xl:inline hidden">row(s)</span>{" "}
-        <span className="@xl:inline hidden">selected.</span>
+        <span className="hidden @2xl:inline">row(s)</span>{" "}
+        <span className="hidden @xl:inline">selected.</span>
       </div>
       <div className="flex items-center space-x-6 max-sm:w-full lg:space-x-8">
-        <div className="@lg:flex hidden flex-1 items-center space-x-2">
-          <p className="font-medium text-sm">
-            Rows <span className="@3xl:inline hidden">per page</span>
+        <div className="hidden flex-1 items-center space-x-2 @lg:flex">
+          <p className="text-sm font-medium">
+            Rows <span className="hidden @3xl:inline">per page</span>
           </p>
           <Select
             onValueChange={(value) => {
@@ -59,13 +59,13 @@ export function DataTablePagination<TData extends RowData>({
           </Select>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-6 lg:space-x-8">
-          <div className="flex w-25 items-center justify-center font-medium text-sm">
+          <div className="flex w-25 items-center justify-center text-sm font-medium">
             Page {table.state.pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">
             <Button
-              className="@lg:flex hidden size-8"
+              className="hidden size-8 @lg:flex"
               disabled={isHydrated && !table.getCanPreviousPage()}
               onClick={() => table.setPageIndex(0)}
               size="icon"
@@ -95,7 +95,7 @@ export function DataTablePagination<TData extends RowData>({
               <ChevronRight />
             </Button>
             <Button
-              className="@lg:flex hidden size-8"
+              className="hidden size-8 @lg:flex"
               disabled={isHydrated && !table.getCanNextPage()}
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               size="icon"

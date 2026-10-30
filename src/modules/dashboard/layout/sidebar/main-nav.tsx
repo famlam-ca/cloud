@@ -14,7 +14,7 @@ import type { NavItem } from "./sidebar"
 export function MainNav({ items, title }: { items: NavItem[]; title: string }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="px-2 uppercase tracking-wider">
+      <SidebarGroupLabel className="px-2 tracking-wider uppercase">
         {title}
       </SidebarGroupLabel>
       <SidebarGroupContent>

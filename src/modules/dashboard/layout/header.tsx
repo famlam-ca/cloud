@@ -14,7 +14,7 @@ export function DashboardHeader({ session }: { session: Session }) {
   const { toggleSidebar } = useSidebar()
 
   return (
-    <header className="h-(--header-height) text-primary-foreground">
+    <header className="text-primary-foreground h-(--header-height)">
       <div className="@container mx-auto flex w-full items-center justify-between gap-6 max-md:gap-1.5">
         <div className="flex items-center gap-4">
           <Button
@@ -24,8 +24,8 @@ export function DashboardHeader({ session }: { session: Session }) {
           >
             <PanelLeftCloseIcon className="size-5" />
           </Button>
-          <div className="@sm:flex hidden @sm:flex-col @sm:items-start">
-            <p className="font-semibold text-lg">
+          <div className="hidden @sm:flex @sm:flex-col @sm:items-start">
+            <p className="text-lg font-semibold">
               {getDashboardWelcomeMessage()}, {session.user.name}
             </p>
             <p className="text-primary-foreground/80">{APP_NAME} Dashboard</p>
@@ -37,7 +37,7 @@ export function DashboardHeader({ session }: { session: Session }) {
           </Button>
           <Button className="relative" size="icon" variant="ghost">
             <IconBell className="size-5" />
-            <span className="absolute top-[14%] right-[23%] size-2 rounded-full bg-destructive" />
+            <span className="bg-destructive absolute top-[14%] right-[23%] size-2 rounded-full" />
           </Button>
           <UserMenu user={session.user} />
         </div>

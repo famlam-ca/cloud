@@ -39,7 +39,7 @@ export function DataTableColumnHeader<TData extends RowData, TValue>({
         <DropdownMenuTrigger
           render={
             <Button
-              className="-ml-3 h-8 data-[state=open]:bg-accent"
+              className="data-[state=open]:bg-accent -ml-3 h-8"
               size="sm"
               variant="ghost"
             />

@@ -173,14 +173,14 @@ function BasicInfoForm({
                         </InputGroupAddon>
                         <InputGroupAddon
                           align="inline-end"
-                          className="order-2 @md:inline-flex hidden text-xs"
+                          className="order-2 hidden text-xs @md:inline-flex"
                         >
                           {sshKeys?.length || 0} available
                         </InputGroupAddon>
                       </ComboboxInput>
                       <ComboboxContent
                         alignOffset={-14}
-                        className="w-full bg-input/30"
+                        className="bg-input/30 w-full"
                       >
                         <ComboboxList>
                           <ComboboxGroup>
@@ -241,10 +241,10 @@ function BasicInfoForm({
 
       <Alert className="py-4" variant="warning">
         <IconShieldCheck />
-        <AlertTitle className="font-semibold dark:text-primary-foreground">
+        <AlertTitle className="dark:text-primary-foreground font-semibold">
           Security Notice
         </AlertTitle>
-        <AlertDescription className="mt-1 text-foreground/70!">
+        <AlertDescription className="text-foreground/70! mt-1">
           SSH access is the only connection method enabled. Password-based
           logins are disabled for security reasons.
         </AlertDescription>
@@ -252,10 +252,10 @@ function BasicInfoForm({
 
       <Alert className="py-4" variant="info">
         <IconShieldCheck />
-        <AlertTitle className="font-semibold dark:text-primary-foreground">
+        <AlertTitle className="dark:text-primary-foreground font-semibold">
           SSH Access Delay
         </AlertTitle>
-        <AlertDescription className="mt-1 text-foreground/70!">
+        <AlertDescription className="text-foreground/70! mt-1">
           After the instance reports as running, there may be a short delay
           before SSH access is available due to boot timing. Please wait a few
           moments before attempting to connect.
@@ -330,13 +330,13 @@ function OperatingSystemForm({
 
                     return (
                       <TabsTrigger
-                        className="cursor-pointer after:bg-primary group-data-[variant=line]/tabs-list:data-active:border group-data-[variant=line]/tabs-list:data-active:border-primary/50! group-data-[variant=line]/tabs-list:data-active:bg-primary/10! group-data-[variant=line]/tabs-list:data-active:after:opacity-0"
+                        className="after:bg-primary group-data-[variant=line]/tabs-list:data-active:border-primary/50! group-data-[variant=line]/tabs-list:data-active:bg-primary/10! cursor-pointer group-data-[variant=line]/tabs-list:data-active:border group-data-[variant=line]/tabs-list:data-active:after:opacity-0"
                         key={category.id}
                         value={category.id}
                       >
                         <div className="flex items-center gap-2">
                           <Icon className="size-6" />
-                          <span className="font-semibold text-base capitalize">
+                          <span className="text-base font-semibold capitalize">
                             {category.name}
                           </span>
                         </div>
@@ -368,14 +368,14 @@ function OperatingSystemForm({
                       value={category.id}
                     >
                       <div className="border border-dashed p-8 text-center">
-                        <p className="mt-2 font-medium text-sm">
+                        <p className="mt-2 text-sm font-medium">
                           No{" "}
                           <strong className="capitalize">
                             {category.name}{" "}
                           </strong>
                           images found
                         </p>
-                        <p className="mx-auto mt-2 max-w-md text-balance text-muted-foreground text-sm">
+                        <p className="text-muted-foreground mx-auto mt-2 max-w-md text-sm text-balance">
                           Unfortunately, there are no images available in this
                           category.
                         </p>
@@ -401,13 +401,13 @@ function OperatingSystemForm({
 
                             return (
                               <TabsTrigger
-                                className="cursor-pointer after:bg-primary group-data-[variant=line]/tabs-list:data-active:border group-data-[variant=line]/tabs-list:data-active:border-primary/50! group-data-[variant=line]/tabs-list:data-active:bg-primary/10! group-data-[variant=line]/tabs-list:data-active:after:opacity-0"
+                                className="after:bg-primary group-data-[variant=line]/tabs-list:data-active:border-primary/50! group-data-[variant=line]/tabs-list:data-active:bg-primary/10! cursor-pointer group-data-[variant=line]/tabs-list:data-active:border group-data-[variant=line]/tabs-list:data-active:after:opacity-0"
                                 key={family}
                                 value={family}
                               >
                                 <div className="flex items-center gap-2">
                                   <Icon className="size-6" />
-                                  <span className="font-semibold text-base capitalize">
+                                  <span className="text-base font-semibold capitalize">
                                     {family}
                                   </span>
                                 </div>
@@ -430,7 +430,7 @@ function OperatingSystemForm({
                             value={family}
                           >
                             <RadioGroup
-                              className="grid @4xl:grid-cols-3 @lg:grid-cols-2 grid-cols-1 gap-4"
+                              className="grid grid-cols-1 gap-4 @lg:grid-cols-2 @4xl:grid-cols-3"
                               name={field.name}
                               onValueChange={field.onChange}
                               value={field.value}
@@ -447,7 +447,7 @@ function OperatingSystemForm({
                                         operatingSystem.status !== "active"
                                       }
                                       className={cn(
-                                        "border-l-4! bg-input/30 text-foreground! has-data-checked:border-primary/50! has-data-checked:hover:bg-primary/10!",
+                                        "bg-input/30 text-foreground! has-data-checked:border-primary/50! has-data-checked:hover:bg-primary/10! border-l-4!",
                                         getOperatingSystemStatusColor(
                                           operatingSystem.status,
                                         ),
@@ -559,7 +559,7 @@ function ResourcePlanForm({
               allocations.
             </FieldDescription>
             <RadioGroup
-              className="grid @3xl:grid-cols-2 @6xl:grid-cols-3 grid-cols-1 gap-4"
+              className="grid grid-cols-1 gap-4 @3xl:grid-cols-2 @6xl:grid-cols-3"
               name={field.name}
               onValueChange={field.onChange}
               value={field.value}
@@ -573,7 +573,7 @@ function ResourcePlanForm({
                     <FieldLabel
                       aria-disabled={plan.status !== "active"}
                       className={cn(
-                        "border-l-4! bg-input/30 text-foreground! has-data-checked:border-primary/50! has-data-checked:hover:bg-primary/10!",
+                        "bg-input/30 text-foreground! has-data-checked:border-primary/50! has-data-checked:hover:bg-primary/10! border-l-4!",
                         getResourcePlanStatusColor(plan.status),
                       )}
                       htmlFor={`plan-${plan.id}`}
@@ -716,16 +716,16 @@ function ReviewAndCreateForm({
       onSubmit={form.handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-1 text-left">
-        <h3 className="font-semibold text-lg">Review & Create</h3>
+        <h3 className="text-lg font-semibold">Review & Create</h3>
         <p className="text-muted-foreground text-sm">
           Confirm everything looks right before launching your instance.
         </p>
       </div>
 
-      <div className="grid @2xl:grid-cols-2 gap-4">
-        <div className="@container flex flex-col gap-4 border bg-input/30 p-4">
+      <div className="grid gap-4 @2xl:grid-cols-2">
+        <div className="bg-input/30 @container flex flex-col gap-4 border p-4">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+            <span className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
               Basics
             </span>
             <Button
@@ -741,9 +741,9 @@ function ReviewAndCreateForm({
             </Button>
           </div>
 
-          <div className="flex @sm:flex-row flex-col @sm:items-center gap-6">
+          <div className="flex flex-col gap-6 @sm:flex-row @sm:items-center">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center">
                 <IconServer className="size-5" />
               </div>
               <div className="flex min-w-0 flex-col text-left">
@@ -755,7 +755,7 @@ function ReviewAndCreateForm({
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center">
                 <IconKey className="size-5" />
               </div>
               <div className="flex min-w-0 flex-col text-left">
@@ -768,9 +768,9 @@ function ReviewAndCreateForm({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border bg-input/30 p-4">
+        <div className="bg-input/30 flex flex-col gap-4 border p-4">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+            <span className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
               Operating System
             </span>
             <Button
@@ -787,7 +787,7 @@ function ReviewAndCreateForm({
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
+            <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center">
               <OsIcon className="size-5" />
             </div>
             <div className="flex min-w-0 flex-col text-left">
@@ -795,7 +795,7 @@ function ReviewAndCreateForm({
                 {selectedOs?.name ?? "—"}
               </span>
               {selectedOs?.release?.codename && (
-                <span className="line-clamp-1 text-muted-foreground text-xs capitalize">
+                <span className="text-muted-foreground line-clamp-1 text-xs capitalize">
                   {selectedOs.release.codename}
                 </span>
               )}
@@ -803,9 +803,9 @@ function ReviewAndCreateForm({
           </div>
         </div>
 
-        <div className="@2xl:col-span-2 flex flex-col gap-4 border bg-input/30 p-4">
+        <div className="bg-input/30 flex flex-col gap-4 border p-4 @2xl:col-span-2">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+            <span className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
               Resource Plan
             </span>
             <Button
@@ -822,7 +822,7 @@ function ReviewAndCreateForm({
           </div>
 
           <div className="@container flex flex-wrap items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center bg-primary/10 text-primary">
+            <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center">
               <PlanIcon className="size-5" />
             </div>
             <div className="flex min-w-0 flex-col text-left">
@@ -830,7 +830,7 @@ function ReviewAndCreateForm({
                 {selectedPlan?.name ?? "—"}
               </span>
               {selectedPlan?.description && (
-                <span className="line-clamp-2 text-wrap text-muted-foreground text-xs">
+                <span className="text-muted-foreground line-clamp-2 text-xs text-wrap">
                   {selectedPlan.description}
                 </span>
               )}

@@ -58,7 +58,7 @@ export default function Page() {
 
   return (
     <div className="size-full">
-      <div className="group/backdrop relative isolate flex min-h-svh flex-col overflow-hidden bg-background">
+      <div className="group/backdrop bg-background relative isolate flex min-h-svh flex-col overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-30 scale-105">
           <Image
             alt=""
@@ -77,7 +77,7 @@ export default function Page() {
         </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-20 bg-muted/75 dark:bg-background/80"
+          className="bg-muted/75 dark:bg-background/80 pointer-events-none absolute inset-0 -z-20"
         />
         <div
           aria-hidden="true"
@@ -104,27 +104,27 @@ export default function Page() {
         </div>
         <header className="relative z-10 flex items-center justify-between gap-4 px-6 py-4 sm:px-8">
           <Link
-            className="flex items-center gap-2.5 outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+            className="focus-visible:ring-ring/50 flex items-center gap-2.5 outline-none focus-visible:ring-3"
             href="/"
           >
             <Icons.logo className="size-6" />
-            <span className="font-semibold text-base tracking-tight">
+            <span className="text-base font-semibold tracking-tight">
               {APP_NAME}
             </span>
           </Link>
           <ThemeToggle />
         </header>
         <main className="relative z-10 flex flex-1 items-center justify-center px-4 pt-2 pb-14 sm:px-6">
-          <div className="w-full max-w-md border bg-linear-to-b bg-size-[100%_101%] from-primary/10 to-50% to-card/50 shadow-2xl backdrop-blur-2xl lg:max-w-lg dark:from-primary/15">
-            <div className="flex flex-col gap-6 p-6 sm:p-8 [&_input]:bg-background/80 dark:[&_input]:bg-input/60">
+          <div className="from-primary/10 to-card/50 dark:from-primary/15 w-full max-w-md border bg-linear-to-b to-50% bg-size-[100%_101%] shadow-2xl backdrop-blur-2xl lg:max-w-lg">
+            <div className="[&_input]:bg-background/80 dark:[&_input]:bg-input/60 flex flex-col gap-6 p-6 sm:p-8">
               <div className="mb-4 flex flex-col items-center gap-2">
-                <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-primary/10 sm:mx-0">
-                  <IconLogin2 className="size-6 text-primary" />
+                <div className="bg-primary/10 mb-4 flex size-12 items-center justify-center rounded-full sm:mx-0">
+                  <IconLogin2 className="text-primary size-6" />
                 </div>
-                <h1 className="text-center font-semibold text-2xl tracking-tight">
+                <h1 className="text-center text-2xl font-semibold tracking-tight">
                   {APP_NAME}
                 </h1>
-                <p className="text-pretty text-center text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-center text-sm text-pretty">
                   {APP_DESCRIPTION.replace(/ \|/g, ".")}.
                 </p>
               </div>

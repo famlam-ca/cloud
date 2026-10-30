@@ -37,11 +37,11 @@ export function InstanceResources({ instanceId }: { instanceId: string }) {
           return (
             <Item className="items-center md:w-auto" key={index}>
               <ItemMedia variant="icon">
-                <Icon className="size-6 stroke-primary" />
+                <Icon className="stroke-primary size-6" />
               </ItemMedia>
               <ItemContent>
                 <ItemTitle className="text-2xl">{resource.value}</ItemTitle>
-                <ItemDescription className="text-base text-foreground">
+                <ItemDescription className="text-foreground text-base">
                   {resource.label}
                 </ItemDescription>
               </ItemContent>

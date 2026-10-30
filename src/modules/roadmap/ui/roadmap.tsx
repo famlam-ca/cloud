@@ -66,29 +66,29 @@ export function Roadmap() {
       <div className="grid h-full auto-cols-max grid-flow-col items-start gap-4 pb-4 lg:gap-8">
         {roadmap.map((cat) => (
           <div
-            className="flex max-h-[calc(100%-1rem)] min-h-0 w-[min(24rem,calc(100dvw-2rem))] flex-col border bg-card p-6 shadow-sm backdrop-blur-sm"
+            className="bg-card flex max-h-[calc(100%-1rem)] min-h-0 w-[min(24rem,calc(100dvw-2rem))] flex-col border p-6 shadow-sm backdrop-blur-sm"
             data-roadmap-card
             key={cat.category}
           >
-            <h2 className="mb-6 flex items-center justify-between border-b pb-3 font-semibold text-xl">
+            <h2 className="mb-6 flex items-center justify-between border-b pb-3 text-xl font-semibold">
               {cat.category}
               <Badge className="px-1.5" variant="secondary">
                 {cat.items.length}
               </Badge>
             </h2>
 
-            <div className="-mr-4 flex-1 overflow-y-auto overflow-x-hidden">
+            <div className="-mr-4 flex-1 overflow-x-hidden overflow-y-auto">
               <ul className="space-y-4 pr-4">
                 {cat.items.map((item, idx) => (
                   <li
-                    className="group relative flex flex-col border border-muted/50 bg-input/30 p-3 shadow-sm transition-colors hover:border-muted dark:bg-muted"
+                    className="group border-muted/50 bg-input/30 hover:border-muted dark:bg-muted relative flex flex-col border p-3 shadow-sm transition-colors"
                     data-roadmap-item
                     key={idx}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <span
                         className={cn(
-                          "font-medium text-sm leading-relaxed",
+                          "text-sm leading-relaxed font-medium",
                           item.status === "completed"
                             ? "text-muted-foreground line-through"
                             : "text-foreground",
@@ -97,7 +97,7 @@ export function Roadmap() {
                         {item.title.split("`").map((text, i) =>
                           i % 2 === 1 ? (
                             <code
-                              className="-mx-1 bg-muted px-1.5 py-0.5 font-bold font-mono text-xs dark:bg-input/30"
+                              className="bg-muted dark:bg-input/30 -mx-1 px-1.5 py-0.5 font-mono text-xs font-bold"
                               key={i}
                             >
                               {text}
@@ -111,7 +111,7 @@ export function Roadmap() {
                     </div>
 
                     {item.note && (
-                      <p className="mt-2 border border-dashed bg-muted p-2 text-foreground/70 text-xs italic dark:bg-background/75">
+                      <p className="bg-muted text-foreground/70 dark:bg-background/75 mt-2 border border-dashed p-2 text-xs italic">
                         {item.note}
                       </p>
                     )}

@@ -50,10 +50,10 @@ export function InstanceList({ slug }: { slug: string }) {
       </CardHeader>
       <CardContent>
         {instanceData.length === 0 ? (
-          <Empty className="mt-4 border bg-muted/20 py-16">
+          <Empty className="bg-muted/20 mt-4 border py-16">
             <EmptyHeader>
               <EmptyMedia variant="icon">
-                <IconServer2 className="size-6 text-muted-foreground" />
+                <IconServer2 className="text-muted-foreground size-6" />
               </EmptyMedia>
               <EmptyTitle>Add your first instance</EmptyTitle>
               <EmptyDescription>

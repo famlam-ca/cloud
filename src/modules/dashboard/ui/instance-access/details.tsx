@@ -25,7 +25,7 @@ export function InstanceAccessDetails({ instanceId }: { instanceId: string }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-semibold text-muted-foreground text-sm">
+        <CardTitle className="text-muted-foreground text-sm font-semibold">
           Details
         </CardTitle>
       </CardHeader>

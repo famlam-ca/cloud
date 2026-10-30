@@ -11,7 +11,7 @@ export default async function Layout({ children }: LayoutProps<"/">) {
   return (
     <SidebarProvider>
       <div
-        className="relative flex min-h-dvh w-full bg-muted before:fixed before:inset-x-0 before:top-0 before:h-105 before:bg-primary/80 dark:bg-background"
+        className="bg-muted before:bg-primary/80 dark:bg-background relative flex min-h-dvh w-full before:fixed before:inset-x-0 before:top-0 before:h-105"
         style={
           {
             "--header-height": "3rem",

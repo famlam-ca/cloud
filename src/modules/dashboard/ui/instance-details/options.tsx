@@ -33,7 +33,7 @@ export function InstanceOptions({ instanceId }: { instanceId: string }) {
     <Card className="gap-4">
       <CardHeader className="px-8">
         <CardTitle className="flex items-center gap-2">
-          <IconSettings className="size-5 stroke-primary" />
+          <IconSettings className="stroke-primary size-5" />
           <p className="text-lg uppercase">Options</p>
         </CardTitle>
       </CardHeader>
@@ -73,7 +73,7 @@ export function InstanceOptions({ instanceId }: { instanceId: string }) {
 
           <Item className="w-auto shrink-0 items-start gap-2">
             <ItemMedia className="mt-1" variant="icon">
-              <IconWorld className="size-6 stroke-primary" />
+              <IconWorld className="stroke-primary size-6" />
             </ItemMedia>
             <div className="flex flex-col gap-2">
               <ItemActions>

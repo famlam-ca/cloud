@@ -151,7 +151,7 @@ export function GenerateSSHKeyModal({
         render={
           render || (
             <Button
-              className="hover:bg-transparent! hover:text-foreground! hover:no-underline"
+              className="hover:text-foreground! hover:bg-transparent! hover:no-underline"
               disabled={isDisabled}
               size="sm"
               type="button"
@@ -198,14 +198,14 @@ export function GenerateSSHKeyModal({
                 <Label className="mb-2 block font-medium">Private Key:</Label>
                 <InputGroup>
                   <InputGroupTextarea
-                    className="wrap-break-word field-sizing-fixed max-h-48 resize-none font-mono md:max-h-24"
+                    className="field-sizing-fixed max-h-48 resize-none font-mono wrap-break-word md:max-h-24"
                     readOnly
                     rows={6}
                     value={sshKey.privateKey}
                   />
                   <InputGroupAddon align="inline-end" className="items-start">
                     <InputGroupButton
-                      className="ml-auto text-foreground"
+                      className="text-foreground ml-auto"
                       onClick={handleCopyPrivateKey}
                       size="icon-xs"
                       type="button"
@@ -263,7 +263,7 @@ export function GenerateSSHKeyModal({
                     <FieldSet className="gap-3">
                       <FieldLegend className="relative" variant="label">
                         Key type
-                        <span className="absolute top-0 -right-2 text-destructive text-xs">
+                        <span className="text-destructive absolute top-0 -right-2 text-xs">
                           *
                         </span>
                       </FieldLegend>
@@ -279,7 +279,7 @@ export function GenerateSSHKeyModal({
                       >
                         {sshKeyTypes.map((type) => (
                           <FieldLabel
-                            className="cursor-pointer hover:has-data-checked:bg-primary/10!"
+                            className="hover:has-data-checked:bg-primary/10! cursor-pointer"
                             htmlFor={`ssh-key-type-${type}`}
                             key={type}
                             onClick={() => field.onChange(type)}
@@ -289,7 +289,7 @@ export function GenerateSSHKeyModal({
                               orientation="horizontal"
                             >
                               <FieldContent className="gap-1">
-                                <FieldTitle className="uppercase tracking-wide">
+                                <FieldTitle className="tracking-wide uppercase">
                                   {type}
                                 </FieldTitle>
                                 <FieldDescription>
@@ -321,7 +321,7 @@ export function GenerateSSHKeyModal({
                       <FieldLabel htmlFor={field.name}>
                         <div className="relative">
                           Name
-                          <span className="absolute top-0 -right-2 text-destructive text-xs">
+                          <span className="text-destructive absolute top-0 -right-2 text-xs">
                             *
                           </span>
                         </div>

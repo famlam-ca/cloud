@@ -18,7 +18,7 @@ export function CountryMap() {
   return (
     <div className="relative aspect-4/3 w-full">
       <ComposableMap
-        className="size-full fill-accent"
+        className="fill-accent size-full"
         projection="geoMercator"
         projectionConfig={{
           center: [-100, 60],

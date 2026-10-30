@@ -289,7 +289,7 @@ function StepperItem({
     >
       <div
         className={cn(
-          "group/step flex not-last:flex-1 items-center justify-center group-data-[orientation=horizontal]/stepper-nav:flex-row group-data-[orientation=vertical]/stepper-nav:flex-col",
+          "group/step flex items-center justify-center not-last:flex-1 group-data-[orientation=horizontal]/stepper-nav:flex-row group-data-[orientation=vertical]/stepper-nav:flex-col",
           className,
         )}
         data-slot="stepper-item"
@@ -436,12 +436,12 @@ function StepperIndicator({
     "relative flex size-8 shrink-0 items-center justify-center overflow-hidden transition-all duration-300 text-sm font-medium"
 
   const defaultClasses = cn(
-    "border-background bg-muted ring-offset-background data-[state=active]:bg-primary data-[state=completed]:bg-primary data-[state=active]:text-primary-foreground data-[state=completed]:text-primary-foreground group-data-[state=active]/step:ring-2 group-data-[state=active]/step:ring-primary/30 group-data-[state=active]/step:ring-offset-3",
+    "border-background bg-muted ring-offset-background data-[state=active]:bg-primary data-[state=completed]:bg-primary data-[state=active]:text-primary-foreground data-[state=completed]:text-primary-foreground group-data-[state=active]/step:ring-primary/30 group-data-[state=active]/step:ring-2 group-data-[state=active]/step:ring-offset-3",
     base,
   )
 
   const outlineClasses = cn(
-    "border border-primary/20 bg-transparent text-muted-foreground data-[state=active]:border-primary data-[state=completed]:border-foreground data-[state=active]:text-foreground data-[state=completed]:text-foreground",
+    "border-primary/20 text-muted-foreground data-[state=active]:border-primary data-[state=completed]:border-foreground data-[state=active]:text-foreground data-[state=completed]:text-foreground border bg-transparent",
     base,
   )
 
@@ -471,7 +471,7 @@ function StepperSeparator({ className }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "m-2 bg-muted transition-colors duration-500 group-data-[orientation=horizontal]/stepper-nav:h-0.5 group-data-[orientation=vertical]/stepper-nav:h-12 group-data-[orientation=vertical]/stepper-nav:w-0.5 group-data-[orientation=horizontal]/stepper-nav:flex-1 group-data-[state=completed]/step:bg-primary",
+        "bg-muted group-data-[state=completed]/step:bg-primary m-2 transition-colors duration-500 group-data-[orientation=horizontal]/stepper-nav:h-0.5 group-data-[orientation=horizontal]/stepper-nav:flex-1 group-data-[orientation=vertical]/stepper-nav:h-12 group-data-[orientation=vertical]/stepper-nav:w-0.5",
         className,
       )}
       data-slot="stepper-separator"
@@ -485,7 +485,7 @@ function StepperTitle({ children, className }: React.ComponentProps<"h3">) {
 
   return (
     <h3
-      className={cn("font-medium text-sm", className)}
+      className={cn("text-sm font-medium", className)}
       data-slot="stepper-title"
       data-state={state}
     >
@@ -502,7 +502,7 @@ function StepperDescription({
 
   return (
     <div
-      className={cn("font-medium text-muted-foreground text-xs", className)}
+      className={cn("text-muted-foreground text-xs font-medium", className)}
       data-slot="stepper-description"
       data-state={state}
     >

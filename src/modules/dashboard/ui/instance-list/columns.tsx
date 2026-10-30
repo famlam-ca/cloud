@@ -42,7 +42,7 @@ function ActionsCell({ instance }: { instance: Instance }) {
     <div className="flex justify-end">
       <DropdownMenu>
         <DropdownMenuTrigger render={<Button size="icon" variant="ghost" />}>
-          <IconDots className="size-6 stroke-muted-foreground" />
+          <IconDots className="stroke-muted-foreground size-6" />
           <span className="sr-only">Open menu</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -103,13 +103,13 @@ export const columns = columnHelper.columns([
             />
           </Hint>
           <Link href={`./instances/${id}` as Route}>
-            <p className="font-medium text-base text-primary">{hostname}</p>
+            <p className="text-primary text-base font-medium">{hostname}</p>
             <p className="text-sm">
-              <CpuIcon className="inline-block size-3.5 stroke-foreground/70" />{" "}
+              <CpuIcon className="stroke-foreground/70 inline-block size-3.5" />{" "}
               {cores} vCPUs |{" "}
-              <MemoryStickIcon className="inline-block size-3.5 stroke-foreground/70" />{" "}
+              <MemoryStickIcon className="stroke-foreground/70 inline-block size-3.5" />{" "}
               {(memory / 1024).toFixed(1)} GB |{" "}
-              <HardDriveIcon className="inline-block size-3.5 stroke-foreground/70" />{" "}
+              <HardDriveIcon className="stroke-foreground/70 inline-block size-3.5" />{" "}
               {disk} GB
             </p>
           </Link>

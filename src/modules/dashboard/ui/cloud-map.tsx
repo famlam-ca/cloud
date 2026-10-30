@@ -26,12 +26,12 @@ export function CloudMap(props: CloudMapProps) {
           longitude={location.lng}
         >
           <MarkerContent>
-            <div className="size-4 rounded-full border-2 border-foreground bg-primary shadow-lg" />
+            <div className="border-foreground bg-primary size-4 rounded-full border-2 shadow-lg" />
           </MarkerContent>
           <MarkerTooltip>{location.name}</MarkerTooltip>
           <MarkerPopup>
             <div className="space-y-1">
-              <p className="font-medium text-foreground">{location.name}</p>
+              <p className="text-foreground font-medium">{location.name}</p>
               <div className="flex items-center gap-2">
                 <p className="text-muted-foreground text-xs">
                   {location.location}

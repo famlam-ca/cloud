@@ -98,12 +98,9 @@
         "noUselessTernary": "warn"
       },
       "nursery": {
-        "useSortedClasses": {
+        "useTailwindSortedClasses": {
           "fix": "safe",
-          "level": "warn",
-          "options": {
-            "functions": ["clsx", "cva", "cn"]
-          }
+          "level": "warn"
         }
       },
       "preset": "recommended",
@@ -124,6 +121,11 @@
         "noShadowRestrictedNames": "info"
       }
     }
+  },
+  "tailwind": {
+    "attributes": ["class", "className", "tw"],
+    "mergeFunctions": ["clsx", "cva", "cn"],
+    "variantFunctions": ["cva"]
   },
   "vcs": {
     "clientKind": "git",

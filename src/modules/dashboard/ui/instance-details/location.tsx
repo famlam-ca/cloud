@@ -31,21 +31,21 @@ export function InstanceLocation({ instanceId }: { instanceId: string }) {
     <Card className="@container gap-4">
       <CardHeader className="px-8">
         <CardTitle className="flex items-center gap-2">
-          <IconMapPin className="size-5 stroke-primary" />
+          <IconMapPin className="stroke-primary size-5" />
           <p className="text-lg uppercase">Location</p>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex h-full @md:flex-row flex-col @md:items-center justify-between @md:gap-0 gap-4 px-4">
-        <div className="grid flex-2 @md:grid-cols-2 grid-cols-1 gap-4">
+      <CardContent className="flex h-full flex-col justify-between gap-4 px-4 @md:flex-row @md:items-center @md:gap-0">
+        <div className="grid flex-2 grid-cols-1 gap-4 @md:grid-cols-2">
           {LOCATION_DETAILS.map((detail) => (
             <Item key={detail.title}>
               <ItemContent>
-                <ItemTitle className="font-normal text-muted-foreground text-sm">
+                <ItemTitle className="text-muted-foreground text-sm font-normal">
                   {detail.title}
                 </ItemTitle>
                 {detail.description && (
                   <Hint label={detail.description} side="inline-start">
-                    <ItemDescription className="line-clamp-1 font-medium text-foreground">
+                    <ItemDescription className="text-foreground line-clamp-1 font-medium">
                       {detail.description}
                     </ItemDescription>
                   </Hint>
@@ -54,7 +54,7 @@ export function InstanceLocation({ instanceId }: { instanceId: string }) {
             </Item>
           ))}
         </div>
-        <div className="@md:inline-flex hidden h-full flex-1 items-center">
+        <div className="hidden h-full flex-1 items-center @md:inline-flex">
           <CountryMap />
         </div>
       </CardContent>

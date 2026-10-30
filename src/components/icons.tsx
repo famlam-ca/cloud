@@ -101,7 +101,7 @@ export const Icons = {
             transform="translate(128.56702)"
           >
             <rect
-              className="visible inline overflow-visible fill-[#932279] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#932279] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="16.075483"
@@ -112,7 +112,7 @@ export const Icons = {
               y="-1122.2047"
             />
             <rect
-              className="visible inline overflow-visible fill-[#efa724] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#efa724] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="16.004166"
@@ -123,7 +123,7 @@ export const Icons = {
               y="-12.326427"
             />
             <rect
-              className="visible inline overflow-visible fill-[#9ccd2a] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#9ccd2a] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="16.075483"
@@ -134,7 +134,7 @@ export const Icons = {
               y="-1141.5742"
             />
             <rect
-              className="visible inline overflow-visible fill-[#262577] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#262577] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="16.004166"
@@ -145,7 +145,7 @@ export const Icons = {
               y="-12.269588"
             />
             <rect
-              className="visible inline overflow-visible fill-[#efa724] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#efa724] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="15.406636"
@@ -155,7 +155,7 @@ export const Icons = {
               y="809.06543"
             />
             <rect
-              className="visible inline overflow-visible fill-[#932279] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#932279] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="15.329019"
@@ -165,7 +165,7 @@ export const Icons = {
               y="789.1712"
             />
             <rect
-              className="visible inline overflow-visible fill-[#262577] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#262577] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="15.975906"
@@ -175,7 +175,7 @@ export const Icons = {
               y="809.06598"
             />
             <rect
-              className="visible inline overflow-visible fill-[#9ccd2a] stroke-1 stroke-none text-black"
+              className="visible inline overflow-visible fill-[#9ccd2a] stroke-none stroke-1 text-black"
               clipRule="nonzero"
               fillRule="nonzero"
               height="15.883667"
@@ -185,7 +185,7 @@ export const Icons = {
               y="788.52313"
             />
             <path
-              className="visible isolation-auto inline overflow-visible whitespace-normal fill-white stroke-1 stroke-none text-start indent-0 font-[sans-serif] font-normal text-black leading-normal tracking-normal decoration-0 decoration-black decoration-solid opacity-100 mix-blend-normal"
+              className="visible isolation-auto inline overflow-visible fill-white stroke-none stroke-1 text-start indent-0 font-[sans-serif] leading-normal font-normal tracking-normal whitespace-normal text-black decoration-black decoration-solid decoration-0 opacity-100 mix-blend-normal"
               clipRule="nonzero"
               d="m 782.24587,781.00889 -6.9021,6.94429 h -11.96728 v 0.57019 11.17913 l -7.23825,7.12827 7.24009,7.13011 v 11.65239 h 11.61774 l 7.10232,6.99451 7.10232,-6.99451 h 11.73827 v -11.61941 l 7.08558,-7.12894 -6.98799,-7.03067 v -11.78933 h -11.79752 z m -5e-4,1.61797 5.38508,5.41806 H 783.976 v 0.57219 13.35239 l -1.73063,1.74118 -1.75172,-1.76244 v -13.99506 h -3.54229 z m -17.72835,6.46685 h 9.69308 l -4.0517,4.07648 9.19455,9.2508 v 1.4149 h -1.72193 l -9.22585,-9.08573 -3.88815,3.82905 z m 11.30067,0 h 3.53526 v 11.7068 l -7.58545,-7.63182 z m 9.30102,0.0937 h 3.64742 l 3.95712,3.98139 -7.60454,7.65091 z m 5.25601,0 h 9.52132 v 9.49923 l -3.95762,-3.98173 -9.16859,9.22468 h -1.65112 v -1.49158 l 9.21296,-9.26937 z m 5.56387,7.13564 3.95745,3.98172 v 3.62482 h -11.51779 z m -27.53191,0.0291 7.59901,7.48367 h -11.48867 v -3.65311 z m -5.03019,4.95368 v 3.67069 h 13.78747 l 1.88281,1.85418 -1.69096,1.66534 h -13.97748 v 0.57035 3.29101 l -5.61191,-5.5267 z m 37.66008,0.14648 5.37973,5.41271 -5.47732,5.5108 v -3.88179 h -13.85895 l -1.61931,-1.62918 1.7837,-1.79458 h 13.79215 z m -20.54292,2.11634 1.75072,1.76143 0.40344,-0.40596 1.32819,-1.33639 v 1.48254 h 1.66016 l -1.7837,1.79458 1.61931,1.62918 h -1.55235 v 0.57236 1.17334 l -1.82086,-1.79324 -1.6029,1.57863 v -1.52908 h -1.51452 l 1.69096,-1.66534 -0.40629,-0.4001 -1.47651,-1.45408 h 1.70435 z m -15.97462,6.06792 h 11.67867 l -7.79102,7.67267 -3.88765,-3.82855 z m 13.30384,0 h 1.53008 v 1.51384 l -9.52132,9.37669 4.00432,3.94356 h -9.31692 v -9.3864 l 3.88614,3.82705 z m 7.23725,0 h 1.54716 l 9.33131,9.38824 0.40194,-0.40445 3.45775,-3.47884 v 9.33115 h -9.43946 l 4.0065,-3.94557 -0.40629,-0.40027 -8.89891,-8.76381 z m 3.15541,0 h 11.58275 v 3.88698 l -3.85969,3.88329 z m -6.11563,0.41199 1.81952,1.7919 v 13.77274 h 3.65612 l -5.47564,5.39244 -5.47565,-5.39244 h 3.87141 v -13.98468 z m -2.74695,2.70526 v 11.71684 h -3.88882 l -4.00432,-3.94356 z m 5.70717,0.21009 7.67987,7.56319 -4.00634,3.94557 h -3.67353 z"
               fillRule="nonzero"

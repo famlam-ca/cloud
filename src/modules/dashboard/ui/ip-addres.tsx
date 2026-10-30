@@ -25,7 +25,7 @@ export function IPAddress({
       {showGlobe && (
         <GlobeIcon
           className={cn(
-            "size-4 stroke-primary group-hover/ipAddress:hidden",
+            "stroke-primary size-4 group-hover/ipAddress:hidden",
             isRevealed && "hidden",
             isCopied && "hidden",
             direction === "ltr" ? "order-1" : "order-2",
@@ -35,7 +35,7 @@ export function IPAddress({
       <Button
         className={cn(
           "hidden w-4 group-hover/ipAddress:inline-flex",
-          !showGlobe && "inline-flex! text-muted-foreground",
+          !showGlobe && "text-muted-foreground inline-flex!",
           isRevealed && "inline-flex",
           isCopied && "inline-flex",
           direction === "ltr" ? "order-1" : "order-2",

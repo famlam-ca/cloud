@@ -36,7 +36,7 @@ export function InfiniteScroll({
       <div className="h-1" ref={targetRef}>
         {hasNextPage && !isManual ? (
           <div className="flex items-center justify-center">
-            <Spinner className="size-7 text-muted-foreground" />
+            <Spinner className="text-muted-foreground size-7" />
           </div>
         ) : hasNextPage && isManual ? (
           <Button

@@ -102,10 +102,10 @@ export function SshKeysList({ new: newParam }: { new?: string }) {
       </CardHeader>
       <CardContent>
         {sshKeys.length === 0 ? (
-          <Empty className="mt-4 border bg-muted/20 py-16">
+          <Empty className="bg-muted/20 mt-4 border py-16">
             <EmptyHeader>
               <EmptyMedia variant="icon">
-                <IconKeyFilled className="size-6 text-muted-foreground" />
+                <IconKeyFilled className="text-muted-foreground size-6" />
               </EmptyMedia>
               <EmptyTitle>Add your first SSH key</EmptyTitle>
               <EmptyDescription>
@@ -164,7 +164,7 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
   }
 
   return (
-    <div className="group grid grid-cols-[minmax(0,1fr)_auto] gap-3 bg-card py-3 transition-colors hover:bg-muted/30 xl:grid-cols-[minmax(11rem,0.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
+    <div className="group bg-card hover:bg-muted/30 grid grid-cols-[minmax(0,1fr)_auto] gap-3 py-3 transition-colors xl:grid-cols-[minmax(11rem,0.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
       <Item size="sm">
         <ItemContent>
           <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
               {sshKey.type}
             </Badge>
             <span
-              className="shrink-0 whitespace-nowrap text-muted-foreground text-xs"
+              className="text-muted-foreground shrink-0 text-xs whitespace-nowrap"
               suppressHydrationWarning
             >
               Added{" "}
@@ -190,12 +190,12 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
         </ItemContent>
       </Item>
 
-      <div className="col-span-full row-start-2 grid gap-1 border bg-muted/20 p-1 xl:col-span-1 xl:row-start-auto xl:grid-cols-2">
-        <div className="flex items-center gap-2 overflow-hidden bg-background/60 px-2 py-1">
-          <span className="shrink-0 text-muted-foreground text-xs">
+      <div className="bg-muted/20 col-span-full row-start-2 grid gap-1 border p-1 xl:col-span-1 xl:row-start-auto xl:grid-cols-2">
+        <div className="bg-background/60 flex items-center gap-2 overflow-hidden px-2 py-1">
+          <span className="text-muted-foreground shrink-0 text-xs">
             Fingerprint
           </span>
-          <span className="flex-1 truncate font-mono text-muted-foreground text-xs">
+          <span className="text-muted-foreground flex-1 truncate font-mono text-xs">
             {sshKey.fingerprint}
           </span>
           <Button
@@ -209,11 +209,11 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
             <IconCopy />
           </Button>
         </div>
-        <div className="flex items-center gap-2 overflow-hidden bg-background/60 px-2 py-1">
-          <span className="shrink-0 text-muted-foreground text-xs">
+        <div className="bg-background/60 flex items-center gap-2 overflow-hidden px-2 py-1">
+          <span className="text-muted-foreground shrink-0 text-xs">
             Public key
           </span>
-          <span className="flex-1 truncate font-mono text-muted-foreground text-xs">
+          <span className="text-muted-foreground flex-1 truncate font-mono text-xs">
             {sshKey.publicKey}
           </span>
           <Button

@@ -73,8 +73,8 @@ export function OrgResources() {
   ]
 
   return (
-    <div className="flex w-full flex-col bg-card lg:max-w-sm dark:bg-card">
-      <div className="flex items-center justify-between border-b bg-muted px-4 py-2">
+    <div className="bg-card dark:bg-card flex w-full flex-col lg:max-w-sm">
+      <div className="bg-muted flex items-center justify-between border-b px-4 py-2">
         <p className="text-muted-foreground uppercase">Org Resources</p>
         <IconMap className="size-4" />
       </div>
@@ -95,10 +95,10 @@ export function OrgResources() {
                 }
                 type="button"
               >
-                <Icon className="size-7 stroke-[1.5] stroke-primary" />
+                <Icon className="stroke-primary size-7 stroke-[1.5]" />
                 <div className="flex flex-col">
-                  <p className="font-medium text-xl">{resource.value}</p>
-                  <p className="text-wrap text-[15px] text-muted-foreground">
+                  <p className="text-xl font-medium">{resource.value}</p>
+                  <p className="text-muted-foreground text-[15px] text-wrap">
                     {resource.name}
                   </p>
                 </div>

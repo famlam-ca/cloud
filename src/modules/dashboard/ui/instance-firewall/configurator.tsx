@@ -94,7 +94,7 @@ function SyncStatusBadge({ instanceId }: { instanceId: string }) {
   return (
     <div className="flex items-center gap-2">
       <Badge variant="destructive">
-        <span className="size-1.5 rounded-full bg-destructive" />
+        <span className="bg-destructive size-1.5 rounded-full" />
         Sync failed
       </Badge>
       <Button
@@ -204,7 +204,7 @@ function SortableRuleRow({
             {...listeners}
             aria-label="Drag to reorder"
             className={cn(
-              "cursor-grab touch-none text-muted-foreground hover:text-foreground active:cursor-grabbing",
+              "text-muted-foreground hover:text-foreground cursor-grab touch-none active:cursor-grabbing",
               isMobile && "hidden",
             )}
             type="button"
@@ -213,7 +213,7 @@ function SortableRuleRow({
           </button>
           <button
             aria-label="Move rule up"
-            className="cursor-pointer text-muted-foreground hover:text-foreground disabled:cursor-default disabled:opacity-30"
+            className="text-muted-foreground hover:text-foreground cursor-pointer disabled:cursor-default disabled:opacity-30"
             disabled={isFirst}
             onClick={() => onMove("up")}
             type="button"
@@ -222,7 +222,7 @@ function SortableRuleRow({
           </button>
           <button
             aria-label="Move rule down"
-            className="cursor-pointer text-muted-foreground hover:text-foreground disabled:cursor-default disabled:opacity-30"
+            className="text-muted-foreground hover:text-foreground cursor-pointer disabled:cursor-default disabled:opacity-30"
             disabled={isLast}
             onClick={() => onMove("down")}
             type="button"
@@ -233,7 +233,7 @@ function SortableRuleRow({
 
         <div className="flex-1 space-y-3">
           <Input
-            className="border-none bg-transparent text-foreground/70 placeholder:underline placeholder:underline-offset-5 focus-visible:ring-0"
+            className="text-foreground/70 border-none bg-transparent placeholder:underline placeholder:underline-offset-5 focus-visible:ring-0"
             onBlur={commitComment}
             onChange={(e) => setDraftComment(e.target.value)}
             onKeyDown={(e) => {
@@ -255,14 +255,14 @@ function SortableRuleRow({
             >
               <div className="group relative">
                 <Label
-                  className="absolute top-0 left-2 z-1 block -translate-y-1/2 bg-card px-1 pr-2.5 text-foreground text-xs"
+                  className="bg-card text-foreground absolute top-0 left-2 z-1 block -translate-y-1/2 px-1 pr-2.5 text-xs"
                   htmlFor="action"
                 >
                   Action
-                  <span className="absolute -top-1 text-destructive">*</span>
+                  <span className="text-destructive absolute -top-1">*</span>
                 </Label>
                 <SelectTrigger
-                  className="w-28 bg-card uppercase hover:cursor-pointer hover:bg-transparent!"
+                  className="bg-card w-28 uppercase hover:cursor-pointer hover:bg-transparent!"
                   id="action"
                 >
                   <SelectValue />
@@ -283,14 +283,14 @@ function SortableRuleRow({
             >
               <div className="group relative">
                 <Label
-                  className="absolute top-0 left-2 z-1 block -translate-y-1/2 bg-card px-1 pr-2.5 text-foreground text-xs"
+                  className="bg-card text-foreground absolute top-0 left-2 z-1 block -translate-y-1/2 px-1 pr-2.5 text-xs"
                   htmlFor="sourceType"
                 >
                   Source
-                  <span className="absolute -top-1 text-destructive">*</span>
+                  <span className="text-destructive absolute -top-1">*</span>
                 </Label>
                 <SelectTrigger
-                  className="w-36 bg-card uppercase hover:cursor-pointer hover:bg-transparent!"
+                  className="bg-card w-36 uppercase hover:cursor-pointer hover:bg-transparent!"
                   id="sourceType"
                 >
                   <SelectValue />
@@ -308,14 +308,14 @@ function SortableRuleRow({
             {draftSourceType === "cidr" && (
               <div className="group relative">
                 <Label
-                  className="absolute top-0 left-2 z-1 block -translate-y-1/2 bg-card px-1 pr-2.5 text-foreground text-xs"
+                  className="bg-card text-foreground absolute top-0 left-2 z-1 block -translate-y-1/2 px-1 pr-2.5 text-xs"
                   htmlFor="sourceCidr"
                 >
                   Source CIDR
-                  <span className="absolute -top-1 text-destructive">*</span>
+                  <span className="text-destructive absolute -top-1">*</span>
                 </Label>
                 <Input
-                  className="w-44 bg-card"
+                  className="bg-card w-44"
                   id="sourceCidr"
                   onBlur={commitCidr}
                   onChange={(e) => setDraftSourceCidr(e.target.value)}
@@ -339,14 +339,14 @@ function SortableRuleRow({
             >
               <div className="group relative">
                 <Label
-                  className="absolute top-0 left-2 z-1 block -translate-y-1/2 bg-card px-1 pr-2.5 text-foreground text-xs"
+                  className="bg-card text-foreground absolute top-0 left-2 z-1 block -translate-y-1/2 px-1 pr-2.5 text-xs"
                   htmlFor="protocol"
                 >
                   Protocol
-                  <span className="absolute -top-1 text-destructive">*</span>
+                  <span className="text-destructive absolute -top-1">*</span>
                 </Label>
                 <SelectTrigger
-                  className="w-28 bg-card uppercase hover:cursor-pointer hover:bg-transparent!"
+                  className="bg-card w-28 uppercase hover:cursor-pointer hover:bg-transparent!"
                   id="protocol"
                 >
                   <SelectValue />
@@ -364,13 +364,13 @@ function SortableRuleRow({
             {rule.protocol !== "icmp" && (
               <div className="group relative">
                 <Label
-                  className="absolute top-0 left-2 z-1 block -translate-y-1/2 bg-card px-1 text-foreground text-xs"
+                  className="bg-card text-foreground absolute top-0 left-2 z-1 block -translate-y-1/2 px-1 text-xs"
                   htmlFor="portRange"
                 >
                   Port or range
                 </Label>
                 <Input
-                  className="w-40 bg-card"
+                  className="bg-card w-40"
                   id="portRange"
                   onBlur={commitPortRange}
                   onChange={(e) => setDraftPortRange(e.target.value)}
@@ -402,7 +402,7 @@ function SortableRuleRow({
                   className={cn(
                     "size-5 transition",
                     rule.enabled
-                      ? "stroke-green-500 group-hover/disable:stroke-destructive"
+                      ? "group-hover/disable:stroke-destructive stroke-green-500"
                       : "group-hover/disable:stroke-green-500",
                   )}
                 />
@@ -627,7 +627,7 @@ export function InstanceFirewallConfigurator({
       >
         <Empty className="border-2 border-dashed p-10">
           <EmptyContent>
-            <p className="flex gap-2 text-lg text-muted-foreground">
+            <p className="text-muted-foreground flex gap-2 text-lg">
               <IconPlus /> Add rule
             </p>
           </EmptyContent>

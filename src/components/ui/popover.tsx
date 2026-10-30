@@ -35,7 +35,7 @@ function PopoverContent({
       >
         <PopoverPrimitive.Popup
           className={cn(
-            "data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95 z-50 flex w-72 origin-(--transform-origin) flex-col gap-4 rounded-none bg-popover p-4 text-popover-foreground text-sm shadow-md outline-hidden ring-1 ring-foreground/10 duration-100 data-closed:animate-out data-open:animate-in",
+            "data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95 bg-popover text-popover-foreground ring-foreground/10 data-closed:animate-out data-open:animate-in z-50 flex w-72 origin-(--transform-origin) flex-col gap-4 rounded-none p-4 text-sm shadow-md ring-1 outline-hidden duration-100",
             className,
           )}
           data-slot="popover-content"
@@ -59,7 +59,7 @@ function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
 function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   return (
     <PopoverPrimitive.Title
-      className={cn("font-semibold text-xs uppercase", className)}
+      className={cn("text-xs font-semibold uppercase", className)}
       data-slot="popover-title"
       {...props}
     />
@@ -73,7 +73,7 @@ function PopoverDescription({
   return (
     <PopoverPrimitive.Description
       className={cn(
-        "mt-0.5 text-muted-foreground text-sm leading-relaxed",
+        "text-muted-foreground mt-0.5 text-sm leading-relaxed",
         className,
       )}
       data-slot="popover-description"

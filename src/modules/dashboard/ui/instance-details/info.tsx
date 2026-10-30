@@ -290,11 +290,11 @@ export function InstanceDetailsInfo({ instanceId }: { instanceId: string }) {
               )}
             />
           </Hint>
-          <h1 className="peer/hostname font-medium text-2xl underline decoration-muted-foreground decoration-dotted underline-offset-4">
+          <h1 className="peer/hostname decoration-muted-foreground text-2xl font-medium underline decoration-dotted underline-offset-4">
             {instance.hostname}
           </h1>
           <Button
-            className="w-auto opacity-0 hover:opacity-100 peer-hover/hostname:opacity-100"
+            className="w-auto opacity-0 peer-hover/hostname:opacity-100 hover:opacity-100"
             onClick={() => copyToClipboard(instance.hostname)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {

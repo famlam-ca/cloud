@@ -49,7 +49,7 @@ export function UserMenu({ user }: { user: User }) {
           <AvatarFallback>{user.name.at(0)?.toUpperCase()}</AvatarFallback>
         </Avatar>
         <div className="hidden flex-col items-start gap-0.5 sm:flex">
-          <span className="font-medium text-sm">{user.name}</span>
+          <span className="text-sm font-medium">{user.name}</span>
           <span className="text-primary-foreground/80 text-xs capitalize">
             {user.role}
           </span>
@@ -65,13 +65,13 @@ export function UserMenu({ user }: { user: User }) {
                   {user.name.at(0)?.toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              <span className="absolute right-0 bottom-0 block size-2 rounded-full bg-green-600 ring-2 ring-card" />
+              <span className="ring-card absolute right-0 bottom-0 block size-2 rounded-full bg-green-600 ring-2" />
             </div>
             <div className="flex flex-1 flex-col items-start">
-              <span className="font-semibold text-foreground text-lg">
+              <span className="text-foreground text-lg font-semibold">
                 {user.name}
               </span>
-              <span className="text-base text-muted-foreground">
+              <span className="text-muted-foreground text-base">
                 {user.email}
               </span>
             </div>
@@ -87,29 +87,29 @@ export function UserMenu({ user }: { user: User }) {
             <IconSettings />
             <span>Settings</span>
           </DropdownMenuItem>
-          <div className="flex select-none items-center justify-between gap-2 px-3 py-2">
+          <div className="flex items-center justify-between gap-2 px-3 py-2 select-none">
             <div className="flex flex-1 items-center gap-2">
               <IconSunMoon className="size-4" />
               <span>Theme</span>
             </div>
-            <ToggleGroup className="overflow-hidden bg-primary/10 p-0.5">
+            <ToggleGroup className="bg-primary/10 overflow-hidden p-0.5">
               {THEME_TOGGLE_ITEMS.map((item) => {
                 const Icon = item.icon
                 return (
                   <ToggleGroupItem
                     aria-label={`Toggle ${item.label}`}
-                    className="relative inline-flex size-6 min-w-6 cursor-pointer items-center justify-center whitespace-nowrap px-0! outline-none hover:bg-transparent focus-visible:ring-[3px] data-pressed:bg-transparent! [&_svg]:pointer-events-none [&_svg]:shrink-0"
+                    className="relative inline-flex size-6 min-w-6 cursor-pointer items-center justify-center px-0! whitespace-nowrap outline-none hover:bg-transparent focus-visible:ring-[3px] data-pressed:bg-transparent! [&_svg]:pointer-events-none [&_svg]:shrink-0"
                     data-pressed={item.value === theme}
                     key={item.value}
                     onClick={() => setTheme(item.value)}
                     value={item.value}
                   >
                     <div
-                      className="flex h-full w-full items-center justify-center text-foreground **:data-[slot=active-toggle-group-item]:rounded-none **:data-[slot=active-toggle-group-item]:bg-background"
+                      className="text-foreground **:data-[slot=active-toggle-group-item]:bg-background flex h-full w-full items-center justify-center **:data-[slot=active-toggle-group-item]:rounded-none"
                       data-slot="toggle-group-item-motion"
                     >
                       <span className="z-1">
-                        <Icon className="size-3.5 text-primary" />
+                        <Icon className="text-primary size-3.5" />
                       </span>
                       <span
                         className="absolute inset-0 z-0"

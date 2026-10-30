@@ -42,13 +42,13 @@ export function InstanceAccessConnection({
   return (
     <Card className="overflow-hidden">
       <CardHeader>
-        <CardTitle className="font-medium text-muted-foreground text-sm">
+        <CardTitle className="text-muted-foreground text-sm font-medium">
           Connect
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center gap-2 border bg-background px-3 py-3">
-          <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-sm">
+        <div className="bg-background flex items-center gap-2 border px-3 py-3">
+          <code className="min-w-0 flex-1 overflow-x-auto font-mono text-sm whitespace-nowrap">
             <span className="text-muted-foreground">ssh -i</span>{" "}
             <span className="text-amber-500">~/.ssh/id_{keyName}</span>
             <span className="text-primary"> cloud-user@</span>
@@ -101,7 +101,7 @@ export function InstanceAccessConnection({
           <AlertTitle className="text-foreground/70! text-sm">
             Before connecting from the command line
           </AlertTitle>
-          <AlertDescription className="w-full text-foreground/60! text-xs">
+          <AlertDescription className="text-foreground/60! w-full text-xs">
             Your key file needs owner-only permissions, or OpenSSH will refuse
             it:{" "}
             <span className="bg-yellow-500/15 p-1 font-mono">

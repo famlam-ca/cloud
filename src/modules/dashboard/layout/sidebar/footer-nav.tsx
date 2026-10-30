@@ -15,7 +15,7 @@ import type { NavItem } from "./sidebar"
 export function FooterNav({ items }: { items: NavItem[] }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="px-2 uppercase tracking-wider">
+      <SidebarGroupLabel className="px-2 tracking-wider uppercase">
         Resources
       </SidebarGroupLabel>
       <SidebarMenu>

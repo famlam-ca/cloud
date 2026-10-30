@@ -68,7 +68,7 @@ export function ActivityCard({
       <CardContent className="flex flex-1 flex-col overflow-hidden">
         <CardHeader className="mb-4 flex items-center justify-between gap-2 px-0">
           <CardTitle className="flex items-center gap-2">
-            <IconBell className="size-5 stroke-primary" />
+            <IconBell className="stroke-primary size-5" />
             <p className="text-lg uppercase">Activity</p>
           </CardTitle>
           <Button
@@ -93,7 +93,7 @@ export function ActivityCard({
 
                   return (
                     <Item
-                      className="group/activity flex-row items-start @lg:px-4 px-1"
+                      className="group/activity flex-row items-start px-1 @lg:px-4"
                       key={item.id}
                       render={
                         <Link
@@ -119,7 +119,7 @@ export function ActivityCard({
                           side="top"
                           sideOffset={8}
                         >
-                          <ItemTitle className="line-clamp-1 text-left font-normal text-base">
+                          <ItemTitle className="line-clamp-1 text-left text-base font-normal">
                             {renderActivity(item)}
                           </ItemTitle>
                         </Hint>
@@ -143,7 +143,7 @@ export function ActivityCard({
                             )}
                           </ItemDescription>
                         </Hint>
-                        <ItemDescription className="text-right text-foreground/70">
+                        <ItemDescription className="text-foreground/70 text-right">
                           {item.actorType === "user" ? (
                             <HoverCard>
                               <HoverCardTrigger
@@ -197,7 +197,7 @@ export function ActivityCard({
                   )
                 })
             ) : (
-              <Item className="@lg:px-4 px-0">
+              <Item className="px-0 @lg:px-4">
                 <ItemMedia variant="icon">
                   <CircleQuestionMarkIcon />
                 </ItemMedia>
