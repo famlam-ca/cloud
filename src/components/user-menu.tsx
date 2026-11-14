@@ -6,6 +6,7 @@ import {
   IconLogout,
   IconMoon,
   IconSettings,
+  IconShield,
   IconSun,
   IconSunMoon,
   IconUser,
@@ -81,7 +82,7 @@ export function UserMenu({ user }: { user: User }) {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <IconUser />
-            <span>My account</span>
+            <span>Account</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <IconSettings />
@@ -135,6 +136,17 @@ export function UserMenu({ user }: { user: User }) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
+        {user.role === "admin" && (
+          <>
+            <DropdownMenuGroup>
+              <DropdownMenuItem render={<Link href="/admin" />}>
+                <IconShield />
+                <span>Admin</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuGroup>
           <DropdownMenuItem
             className="text-destructive focus:bg-destructive/10 focus:text-destructive dark:focus:bg-destructive/20 *:[svg]:text-destructive"
