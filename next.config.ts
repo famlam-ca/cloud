@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
         ? { exclude: ["error", "warn"] }
         : false,
   },
+  experimental: {
+    authInterrupts: true,
+  },
   reactCompiler: true,
   typedRoutes: true,
 }
