@@ -1,6 +1,5 @@
 "use client"
 
-import type { Icon as IconType } from "@tabler/icons-react"
 import {
   IconActivity,
   IconApi,
@@ -22,6 +21,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { Icons } from "@/components/icons"
+import { FooterNav } from "@/components/sidebar/footer-nav"
+import { MainNav } from "@/components/sidebar/main-nav"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,19 +42,7 @@ import {
 import { APP_NAME } from "@/constants/app"
 import { organizationPath } from "@/lib/organization-path"
 import { getApiVersion, getBaseUrl } from "@/lib/utils"
-
-import { FooterNav } from "./footer-nav"
-import { MainNav } from "./main-nav"
-
-export type NavItem = {
-  extra?: {
-    render: React.ReactNode
-  }
-  href: string
-  icon: IconType
-  isActive: boolean
-  label: string
-}
+import type { NavItem } from "@/schemas/nav-item"
 
 type NavItems = {
   main: NavItem[]
@@ -200,7 +189,7 @@ export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
         <MainNav items={NAV_ITEMS.settings} title="Settings" />
       </SidebarContent>
       <SidebarFooter className="px-0">
-        <FooterNav items={NAV_ITEMS.footer} />
+        <FooterNav items={NAV_ITEMS.footer} title="Resources" />
       </SidebarFooter>
     </Sidebar>
   )

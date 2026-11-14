@@ -8,8 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-
-import type { NavItem } from "./sidebar"
+import type { NavItem } from "@/schemas/nav-item"
 
 export function MainNav({ items, title }: { items: NavItem[]; title: string }) {
   return (

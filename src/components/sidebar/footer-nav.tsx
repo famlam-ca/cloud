@@ -9,14 +9,19 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import type { NavItem } from "@/schemas/nav-item"
 
-import type { NavItem } from "./sidebar"
-
-export function FooterNav({ items }: { items: NavItem[] }) {
+export function FooterNav({
+  items,
+  title,
+}: {
+  items: NavItem[]
+  title: string | null
+}) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel className="px-2 tracking-wider uppercase">
-        Resources
+        {title}
       </SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
