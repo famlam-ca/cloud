@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react"
 import { cn } from "cn"
 import type { Route } from "next"
-import { notFound, useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 import { Hint } from "@/components/hint"
@@ -275,7 +275,7 @@ export function InstanceDetailsInfo({ instanceId }: { instanceId: string }) {
     },
   )
 
-  if (!instance) return notFound()
+  if (!instance) return redirect("/404")
 
   return (
     <div className="mb-1 flex h-auto flex-col gap-4 md:h-20 md:flex-row md:items-center md:justify-between md:gap-0">

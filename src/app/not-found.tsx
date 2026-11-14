@@ -7,7 +7,9 @@ import { APP_NAME } from "@/constants/app"
 
 export const metadata: Metadata = {
   description: "The page you are looking for does not exist.",
-  title: "404 - Page Not Found",
+  title: {
+    absolute: "404 - Not Found",
+  },
 }
 
 function getSiteData(domain: string | null) {
@@ -25,7 +27,7 @@ export default async function NotFound() {
   const data = getSiteData(domain)
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden px-6 py-12">
+    <main className="bg-background relative flex min-h-dvh items-center justify-center overflow-hidden px-6 py-12">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] mask-[radial-gradient(ellipse_at_center,black_20%,transparent_75%)] bg-size-[5rem_5rem] opacity-60"

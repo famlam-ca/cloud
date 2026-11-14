@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { api, HydrateClient } from "@/lib/api/server"
 import { InstanceAccessConnection } from "@/modules/dashboard/ui/instance-access/connection"
@@ -12,7 +12,7 @@ export async function generateMetadata({
   await requireSession()
   const { id: instanceId } = await params
   const instance = await api.instance.get({ id: instanceId })
-  if (!instance) return notFound()
+  if (!instance) return redirect("/404")
   return {
     title: `${instance.hostname} Access`,
   }
@@ -23,7 +23,7 @@ export default async function Page({
 }: PageProps<"/orgs/[slug]/instances/[id]/access">) {
   const { id: instanceId } = await params
 
-  if (!instanceId) return notFound()
+  if (!instanceId) return redirect("/404")
 
   await api.instance.getSSHKeys.prefetch({ id: instanceId })
 

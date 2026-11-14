@@ -6,7 +6,7 @@ import {
   IconCopy,
   IconTerminal,
 } from "@tabler/icons-react"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -28,7 +28,7 @@ export function InstanceAccessConnection({
     id: instanceId,
   })
 
-  if (!instance) return notFound()
+  if (!instance) return redirect("/404")
 
   // TODO: handle multiple ssh keys, and IPs
   const keyName = instanceSSHKeys?.[0]?.name || "id_rsa"

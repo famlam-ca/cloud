@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
 import { api, HydrateClient } from "@/lib/api/server"
@@ -25,7 +25,7 @@ export default async function Page({
 }: PageProps<"/orgs/[slug]/instances/[id]">) {
   const { id: instanceId } = await params
 
-  if (!instanceId) return notFound()
+  if (!instanceId) return redirect("/404")
 
   await Promise.all([
     api.instance.get.prefetch({ id: instanceId }),

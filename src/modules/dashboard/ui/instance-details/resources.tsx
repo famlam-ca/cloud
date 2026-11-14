@@ -1,7 +1,7 @@
 "use client"
 
 import { CpuIcon, HardDriveIcon, MemoryStickIcon } from "lucide-react"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -16,7 +16,7 @@ import { api } from "@/lib/api/client"
 export function InstanceResources({ instanceId }: { instanceId: string }) {
   const { data: instance } = api.instance.get.useQuery({ id: instanceId })
 
-  if (!instance) return notFound()
+  if (!instance) return redirect("/404")
 
   const RESOURCES = [
     { icon: CpuIcon, label: "vCPUs", value: instance.cores.toString() },

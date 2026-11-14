@@ -1,7 +1,7 @@
 "use client"
 
 import { IconCheck, IconCopy } from "@tabler/icons-react"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -19,7 +19,7 @@ export function InstanceAccessDetails({ instanceId }: { instanceId: string }) {
     id: instanceId,
   })
 
-  if (!instance) return notFound()
+  if (!instance) return redirect("/404")
 
   // TODO: correctly handle multiple ssh keys, and IPs
   return (

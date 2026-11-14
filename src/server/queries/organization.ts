@@ -1,5 +1,5 @@
 import { and, eq } from "drizzle-orm"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { requireSession } from "@/server/auth/utils"
 import { db } from "@/server/db"
@@ -27,7 +27,7 @@ export async function getOrganizationForUser(slug: string) {
     )
     .where(eq(organizationTable.slug, slug))
 
-  if (!organization) notFound()
+  if (!organization) redirect("/404")
 
   return organization
 }

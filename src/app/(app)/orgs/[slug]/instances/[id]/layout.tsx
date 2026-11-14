@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { Card, CardContent } from "@/components/ui/card"
 import { api, HydrateClient } from "@/lib/api/server"
@@ -11,7 +11,7 @@ export default async function Layout({
 }: LayoutProps<"/orgs/[slug]/instances/[id]">) {
   const { id: instanceId } = await params
 
-  if (!instanceId) return notFound()
+  if (!instanceId) return redirect("/404")
 
   await api.instance.get.prefetch({ id: instanceId })
 
