@@ -134,8 +134,8 @@ export function buildOpenSSHRSAPrivateKey(
 }
 
 export function generateEd25519KeyPair(): Promise<{
-  publicKey: KeyObject
   privateKey: KeyObject
+  publicKey: KeyObject
 }> {
   return new Promise((resolve, reject) => {
     generateKeyPair("ed25519", {}, (err, publicKey, privateKey) => {
@@ -147,7 +147,7 @@ export function generateEd25519KeyPair(): Promise<{
 
 export function generateRsaKeyPair(
   modulusLength: number,
-): Promise<{ publicKey: KeyObject; privateKey: KeyObject }> {
+): Promise<{ privateKey: KeyObject; publicKey: KeyObject }> {
   return new Promise((resolve, reject) => {
     generateKeyPair("rsa", { modulusLength }, (err, publicKey, privateKey) => {
       if (err) reject(err)

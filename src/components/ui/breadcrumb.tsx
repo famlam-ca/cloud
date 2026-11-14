@@ -60,6 +60,7 @@ function BreadcrumbLink({
 
 function BreadcrumbPage({ className, ...props }: React.ComponentProps<"a">) {
   return (
+    // oxlint-disable-next-line jsx-a11y/anchor-has-content
     <a
       aria-current="page"
       aria-disabled="true"

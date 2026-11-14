@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { APP_DESCRIPTION, APP_NAME } from "@/constants/app"
 import { TRPCReactProvider } from "@/lib/api/client"
-
 import "@/styles/globals.css"
 
 const sourceCodePro = Source_Code_Pro({

@@ -1,11 +1,11 @@
 import * as React from "react"
 
 export function useCopyToClipboard({
-  timeout = 2000,
   onCopy,
+  timeout = 2000,
 }: {
-  timeout?: number
   onCopy?: () => void
+  timeout?: number
 } = {}) {
   const [isCopied, setIsCopied] = React.useState(false)
 

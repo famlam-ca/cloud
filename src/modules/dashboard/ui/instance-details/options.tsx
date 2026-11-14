@@ -23,7 +23,7 @@ export function InstanceOptions({ instanceId }: { instanceId: string }) {
         })
       },
       onSuccess(data) {
-        void utils.instance.get.setData({ id: data.id }, (old) =>
+        utils.instance.get.setData({ id: data.id }, (old) =>
           old ? { ...old, internetAccess: data.internetAccess } : old,
         )
       },

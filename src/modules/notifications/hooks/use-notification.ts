@@ -77,7 +77,7 @@ export function useMarkNotificationRead() {
   const { cancelAll, invalidateAll, restore, snapshot, utils } =
     useNotificationCache()
 
-  // biome-ignore assist/source/useSortedKeys: onMutate must appear before onError for TContext inference
+  // oxlint-disable perfectionist/sort-objects -- onMutate must appear before onError for TContext inference
   return api.notification.markRead.useMutation({
     async onMutate({ id }) {
       await cancelAll()
@@ -130,13 +130,14 @@ export function useMarkNotificationRead() {
       invalidateAll()
     },
   })
+  // oxlint-enable perfectionist/sort-objects
 }
 
 export function useMarkAllNotificationsRead() {
   const { cancelAll, invalidateAll, restore, snapshot, utils } =
     useNotificationCache()
 
-  // biome-ignore assist/source/useSortedKeys: onMutate must appear before onError for TContext inference
+  // oxlint-disable perfectionist/sort-objects -- onMutate must appear before onError for TContext inference
   return api.notification.markAllRead.useMutation({
     async onMutate() {
       await cancelAll()
@@ -184,4 +185,5 @@ export function useMarkAllNotificationsRead() {
       invalidateAll()
     },
   })
+  // oxlint-enable perfectionist/sort-objects
 }

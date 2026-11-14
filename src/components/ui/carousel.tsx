@@ -15,18 +15,18 @@ type CarouselPlugin = UseCarouselParameters[1]
 
 type CarouselProps = {
   opts?: CarouselOptions
-  plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
+  plugins?: CarouselPlugin
   setApi?: (api: CarouselApi) => void
 }
 
 type CarouselContextProps = {
-  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
   api: ReturnType<typeof useEmblaCarousel>[1]
-  scrollPrev: () => void
-  scrollNext: () => void
-  canScrollPrev: boolean
   canScrollNext: boolean
+  canScrollPrev: boolean
+  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
+  scrollNext: () => void
+  scrollPrev: () => void
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -42,12 +42,12 @@ function useCarousel() {
 }
 
 function Carousel({
-  orientation = "horizontal",
-  opts,
-  setApi,
-  plugins,
-  className,
   children,
+  className,
+  opts,
+  orientation = "horizontal",
+  plugins,
+  setApi,
   ...props
 }: React.ComponentProps<"section"> & CarouselProps) {
   const [carouselRef, api] = useEmblaCarousel(
@@ -94,6 +94,7 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
+    // oxlint-disable-next-line react/set-state-in-effect
     onSelect(api)
     api.on("reInit", onSelect)
     api.on("select", onSelect)
@@ -122,7 +123,7 @@ function Carousel({
         className={cn("relative", className)}
         data-slot="carousel"
         onKeyDownCapture={handleKeyDown}
-        role="region"
+
         {...props}
       >
         {children}
@@ -174,11 +175,11 @@ function CarouselItem({
 
 function CarouselPrevious({
   className,
-  variant = "outline",
   size = "icon-sm",
+  variant = "outline",
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const { canScrollPrev, orientation, scrollPrev } = useCarousel()
 
   return (
     <Button
@@ -204,11 +205,11 @@ function CarouselPrevious({
 
 function CarouselNext({
   className,
-  variant = "outline",
   size = "icon-sm",
+  variant = "outline",
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const { canScrollNext, orientation, scrollNext } = useCarousel()
 
   return (
     <Button

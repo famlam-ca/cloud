@@ -4,7 +4,7 @@ import { ThemeProvider as NextThemeProvider, useTheme } from "next-themes"
 import * as React from "react"
 
 function ThemeShortcut() {
-  const { setTheme, resolvedTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {

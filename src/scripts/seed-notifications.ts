@@ -1,5 +1,5 @@
-import { randomUUID } from "node:crypto"
 import { asc, eq } from "drizzle-orm"
+import { randomUUID } from "node:crypto"
 
 import type { NotificationType } from "@/schemas/notification"
 import { db } from "@/server/db"

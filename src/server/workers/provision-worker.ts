@@ -1,5 +1,5 @@
 import type { Job } from "bullmq"
-import { createNodeRedisClient, Worker } from "bullmq"
+import { Worker, createNodeRedisClient } from "bullmq"
 import { eq } from "drizzle-orm"
 
 import { env } from "@/env"
@@ -16,8 +16,8 @@ import {
 } from "@/server/services/instance"
 
 import {
-  addProvisionJobSchema,
   PROVISION_QUEUE_KEY,
+  addProvisionJobSchema,
 } from "../queues/provision-queue"
 
 const redis = getRedisClient()
@@ -133,4 +133,4 @@ provisionWorker.on("failed", async (job, error) => {
   })
 })
 
-provisionWorker.run()
+void provisionWorker.run()

@@ -1,15 +1,15 @@
 import * as React from "react"
 
 interface UseControllableStateParams<T> {
-  prop?: T
   defaultProp?: T
   onChange?: (value: T) => void
+  prop?: T
 }
 
 export function useControllableState<T>({
-  prop,
   defaultProp,
   onChange,
+  prop,
 }: UseControllableStateParams<T>): [T, (value: T) => void] {
   const [internalValue, setInternalValue] = React.useState<T>(defaultProp as T)
 

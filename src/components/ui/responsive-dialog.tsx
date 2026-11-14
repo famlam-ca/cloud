@@ -42,9 +42,9 @@ import { useIsBreakpoint } from "@/hooks/use-media-query"
 type Variant = "default" | "alert"
 
 interface ResponsiveDialogContextValue {
+  close: () => void
   isMobile: boolean
   variant: Variant
-  close: () => void
 }
 
 const ResponsiveDialogContext =
@@ -61,29 +61,30 @@ function useResponsiveDialogContext(
 }
 
 interface ResponsiveDialogProps
-  extends Omit<React.ComponentProps<typeof Dialog>, "children">,
+  extends
+    Omit<React.ComponentProps<typeof Dialog>, "children">,
     Pick<
       React.ComponentProps<typeof Drawer>,
       "showSwipeHandle" | "snapPoints" | "swipeDirection"
     > {
+  breakpoint?: Breakpoint | number
   children: React.ReactNode
-  open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
-  breakpoint?: Breakpoint | number
+  open?: boolean
   variant?: Variant
 }
 
 function ResponsiveDialog({
   breakpoint = "md",
-  variant = "default",
-  swipeDirection,
-  snapPoints,
-  showSwipeHandle,
   children,
-  open: openProp,
   defaultOpen = false,
   onOpenChange,
+  open: openProp,
+  showSwipeHandle,
+  snapPoints,
+  swipeDirection,
+  variant = "default",
   ...props
 }: ResponsiveDialogProps) {
   const isMobile = useIsBreakpoint(breakpoint)
@@ -204,13 +205,12 @@ const CONTENT_SIZE_CLASSNAME = {
 type ContentSize = keyof typeof CONTENT_SIZE_CLASSNAME
 
 interface ResponsiveDialogContentProps {
-  className?: string
-  children: React.ReactNode
-  size?: ContentSize
   alertDialogProps?: Omit<
     React.ComponentProps<typeof AlertDialogContent>,
     "className" | "children" | "size"
   >
+  children: React.ReactNode
+  className?: string
   dialogProps?: Omit<
     React.ComponentProps<typeof DialogContent>,
     "children" | "className"
@@ -219,15 +219,16 @@ interface ResponsiveDialogContentProps {
     React.ComponentProps<typeof DrawerContent>,
     "children" | "className"
   >
+  size?: ContentSize
 }
 
 function ResponsiveDialogContent({
-  className,
-  children,
-  size = "md",
   alertDialogProps,
+  children,
+  className,
   dialogProps,
   drawerProps,
+  size = "md",
 }: ResponsiveDialogContentProps) {
   const { isMobile, variant } = useResponsiveDialogContext(
     "ResponsiveDialogContent",

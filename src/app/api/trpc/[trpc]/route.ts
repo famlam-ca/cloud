@@ -15,7 +15,7 @@ const handler = (req: NextRequest) =>
     endpoint: "/api/trpc",
     onError:
       env.NODE_ENV === "development"
-        ? ({ path, error }) => {
+        ? ({ error, path }) => {
             console.error(
               `[tRPC] Error on ${path ?? "<no-path>"}: ${error.message}`,
             )

@@ -1,4 +1,4 @@
-import { createNodeRedisClient, Worker } from "bullmq"
+import { Worker, createNodeRedisClient } from "bullmq"
 import { eq } from "drizzle-orm"
 
 import { getProxmoxClient } from "@/lib/proxmox"
@@ -16,8 +16,8 @@ import {
 } from "@/server/services/instance"
 
 import {
-  addPowerActionSchema,
   POWER_ACTION_QUEUE_KEY,
+  addPowerActionSchema,
 } from "../queues/power-action-queue"
 
 const redis = getRedisClient()
@@ -51,7 +51,7 @@ const powerActionWorker = new Worker(
           break
         default:
           data.action satisfies never
-          throw new Error(`Unhandled power action: ${data.action}`)
+          throw new Error("Unhandled power action:" + data.action)
       }
     } catch (error) {
       if (isVmNotFoundError(error)) {
@@ -151,4 +151,4 @@ powerActionWorker.on("failed", async (job, err) => {
   })
 })
 
-powerActionWorker.run()
+void powerActionWorker.run()

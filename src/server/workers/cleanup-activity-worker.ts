@@ -1,4 +1,4 @@
-import { createNodeRedisClient, Worker } from "bullmq"
+import { Worker, createNodeRedisClient } from "bullmq"
 import { inArray, lt } from "drizzle-orm"
 
 import { env } from "@/env"
@@ -85,5 +85,5 @@ cleanupActivityWorker.on("failed", async (job, err) => {
   })
 })
 
-cleanupActivityWorker.run()
+void cleanupActivityWorker.run()
 getCleanupActivityQueue()

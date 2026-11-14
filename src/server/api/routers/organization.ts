@@ -104,6 +104,7 @@ export const organizationRouter = createTRPCRouter({
         snapshotCount,
         sshKeyCount,
       ] = await Promise.all([
+        // oxlint-disable-next-line typescript/await-thenable
         [{ count: 0 }],
         ctx.db
           .select({ count: count() })
@@ -139,6 +140,7 @@ export const organizationRouter = createTRPCRouter({
               orgInstanceIds.map((instance) => instance.id),
             ),
           ),
+        // oxlint-disable-next-line typescript/await-thenable
         [{ count: 0 }],
         ctx.db
           .select({ count: count() })

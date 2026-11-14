@@ -2,10 +2,10 @@
 
 import type { DragEndEvent } from "@dnd-kit/core"
 import {
-  closestCenter,
   DndContext,
   KeyboardSensor,
   PointerSensor,
+  closestCenter,
   useSensor,
   useSensors,
 } from "@dnd-kit/core"
@@ -145,15 +145,18 @@ function SortableRuleRow({
   )
 
   React.useEffect(() => {
+    // oxlint-disable-next-line react/set-state-in-effect
     setDraftComment(rule.comment ?? "")
   }, [rule.comment])
 
   React.useEffect(() => {
+    // oxlint-disable-next-line react/set-state-in-effect
     setDraftSourceType(rule.sourceType)
     setDraftSourceCidr(rule.sourceCidr ?? "")
   }, [rule.sourceType, rule.sourceCidr])
 
   React.useEffect(() => {
+    // oxlint-disable-next-line react/set-state-in-effect
     setDraftPortRange(rule.portRange ?? "")
   }, [rule.portRange])
 
@@ -441,8 +444,8 @@ export function InstanceFirewallConfigurator({
 
   const { data: rules } = api.firewallRule.list.useQuery({ instanceId })
 
-  // biome-ignore assist/source/useSortedKeys: onMutate must appear before onError for TContext inference
   const update = api.firewallRule.update.useMutation({
+    // oxlint-disable perfectionist/sort-objects -- onMutate must appear before onError for TContext inference
     async onMutate(patch) {
       void utils.firewallRule.list.cancel({ instanceId })
       const prevData = utils.firewallRule.list.getData({ instanceId })
@@ -470,7 +473,6 @@ export function InstanceFirewallConfigurator({
       void utils.instance.firewallStatus.invalidate({ instanceId })
     },
   })
-  // biome-ignore assist/source/useSortedKeys: onMutate must appear before onError for TContext inference
   const remove = api.firewallRule.delete.useMutation({
     async onMutate({ id }) {
       void utils.firewallRule.list.cancel({ instanceId })
@@ -497,7 +499,6 @@ export function InstanceFirewallConfigurator({
       void utils.instance.firewallStatus.invalidate({ instanceId })
     },
   })
-  // biome-ignore assist/source/useSortedKeys: onMutate must appear before onError for TContext inference
   const create = api.firewallRule.create.useMutation({
     async onMutate(input) {
       void utils.firewallRule.list.cancel({ instanceId })
@@ -540,6 +541,7 @@ export function InstanceFirewallConfigurator({
       void utils.firewallRule.list.invalidate({ instanceId })
       void utils.instance.firewallStatus.invalidate({ instanceId })
     },
+    // oxlint-enable perfectionist/sort-objects
   })
 
   const sensors = useSensors(
@@ -564,7 +566,7 @@ export function InstanceFirewallConfigurator({
     const next = [...orderedIds]
     next.splice(oldIndex, 1)
     next.splice(newIndex, 0, String(active.id))
-    debouncedReorder(next)
+    void debouncedReorder(next)
   }
 
   function moveRule(index: number, direction: "up" | "down") {
@@ -574,7 +576,7 @@ export function InstanceFirewallConfigurator({
 
     const next = [...orderedIds]
     ;[next[index], next[targetIndex]] = [next[targetIndex], next[index]]
-    debouncedReorder(next)
+    void debouncedReorder(next)
   }
 
   if (!rules) return null
@@ -612,6 +614,7 @@ export function InstanceFirewallConfigurator({
       </DndContext>
 
       <button
+        aria-label="Add rule"
         className="w-full cursor-pointer"
         onClick={() =>
           create.mutate({

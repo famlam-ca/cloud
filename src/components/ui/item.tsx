@@ -58,9 +58,9 @@ const itemVariants = cva(
 
 function Item({
   className,
-  variant = "default",
-  size = "default",
   render,
+  size = "default",
+  variant = "default",
   ...props
 }: useRender.ComponentProps<"div"> & VariantProps<typeof itemVariants>) {
   return useRender({

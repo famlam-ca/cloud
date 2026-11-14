@@ -11,7 +11,7 @@ type HintProps = React.ComponentProps<typeof TooltipTrigger> &
     label: string
   }
 
-export function Hint({ label, children, render, ...props }: HintProps) {
+export function Hint({ children, label, render, ...props }: HintProps) {
   return (
     <Tooltip>
       {render ? (

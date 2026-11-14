@@ -1,6 +1,23 @@
 {
-  "clx2aMetadata": {
-    "initVersion": "0.12.0"
+  "name": "cloud",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "auth:generate": "npx @better-auth/cli@latest generate --config ./src/server/auth/index.ts --yes",
+    "build": "bun --bun next build",
+    "clean": "rm -rf .next node_modules bun.lock && bun install",
+    "db:clean": "bun db:reset && bun db:seed",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:reset": "bun ./src/scripts/reset-db.ts",
+    "db:seed": "bun ./src/scripts/seed-db.ts",
+    "db:seed:notifications": "bun ./src/scripts/seed-notifications.ts",
+    "db:studio": "drizzle-kit studio",
+    "dev": "bun --bun next dev",
+    "shadcn": "bunx --bun shadcn@latest",
+    "start": "bun run db:migrate && bun run db:seed && bun --bun next start"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -53,39 +70,22 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.6",
     "@tailwindcss/postcss": "^4.3.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "drizzle-kit": "^0.31.11",
+    "eslint-plugin-perfectionist": "^5.13.0",
     "tailwindcss": "^4.3.5",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.6.0",
+    "vite-plus": "1.6.0"
   },
-  "name": "cloud",
-  "private": true,
-  "scripts": {
-    "auth:generate": "npx @better-auth/cli@latest generate --config ./src/server/auth/index.ts --yes",
-    "build": "bun --bun next build",
-    "clean": "rm -rf .next node_modules bun.lock && bun install",
-    "db:clean": "bun db:reset && bun db:seed",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push",
-    "db:reset": "bun ./src/scripts/reset-db.ts",
-    "db:seed": "bun ./src/scripts/seed-db.ts",
-    "db:seed:notifications": "bun ./src/scripts/seed-notifications.ts",
-    "db:studio": "drizzle-kit studio",
-    "dev": "bun --bun next dev",
-    "fallow": "bunx --bun fallow",
-    "format": "biome format --write .",
-    "lint": "biome check .",
-    "lint:unsafe": "biome check --write --unsafe .",
-    "lint:write": "biome check --write .",
-    "shadcn": "bunx --bun shadcn@latest",
-    "start": "bun run db:migrate && bun run db:seed && bun --bun next start"
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.6.0"
   },
-  "type": "module",
-  "version": "0.1.0"
+  "clx2aMetadata": {
+    "initVersion": "0.12.0"
+  }
 }

@@ -24,33 +24,33 @@ type StepIndicators = {
 }
 
 type StepDefinition = {
-  id: string
-  title?: string
   description?: string
   icon?: React.ReactElement
+  id: string
+  title?: string
 }
 
 interface StepperContextValue {
-  stepper: ReturnType<ReturnType<typeof Stepperize.defineStepper>["useStepper"]>
-  steps: readonly StepDefinition[]
-  orientation: StepperOrientation
   configOrientation: StepperOrientation
-  responsive?: boolean
-  registerTrigger: (node: HTMLButtonElement | null, remove?: boolean) => void
-  triggerNodes: HTMLButtonElement[]
-  focusNext: (currentIdx: number) => void
-  focusPrev: (currentIdx: number) => void
   focusFirst: () => void
   focusLast: () => void
+  focusNext: (currentIdx: number) => void
+  focusPrev: (currentIdx: number) => void
   indicators: StepIndicators
+  orientation: StepperOrientation
+  registerTrigger: (node: HTMLButtonElement | null, remove?: boolean) => void
+  responsive?: boolean
+  stepper: ReturnType<ReturnType<typeof Stepperize.defineStepper>["useStepper"]>
+  steps: readonly StepDefinition[]
+  triggerNodes: HTMLButtonElement[]
 }
 
 interface StepItemContextValue {
-  step: StepDefinition
   index: number
-  state: StepState
   isDisabled: boolean
   isLoading: boolean
+  state: StepState
+  step: StepDefinition
 }
 
 const StepperContext = createContext<StepperContextValue | undefined>(undefined)
@@ -76,25 +76,25 @@ function useStepItem() {
 }
 
 interface StepperProps extends HTMLAttributes<HTMLDivElement> {
-  steps: readonly StepDefinition[]
   defaultValue?: string
+  indicators?: StepIndicators
+  onValueChange?: (value: string) => void
   orientation?: StepperOrientation
   responsive?: boolean
-  indicators?: StepIndicators
+  steps: readonly StepDefinition[]
   value?: string
-  onValueChange?: (value: string) => void
 }
 
 function Stepper({
-  steps,
+  children,
+  className,
   defaultValue,
+  indicators = {},
+  onValueChange,
   orientation = "horizontal",
   responsive = false,
-  className,
-  children,
-  indicators = {},
+  steps,
   value,
-  onValueChange,
   ...props
 }: StepperProps) {
   // Define stepper once — steps are expected to be stable references
@@ -223,17 +223,17 @@ function Stepper({
   )
 
   // Controlled behavior: if `value` is provided, navigate to it when it changes
-  // biome-ignore lint/correctness/useExhaustiveDependencies: stepper is stable and doesn't change between renders
   useEffect(() => {
     if (typeof value === "string" && value !== stepper.id) {
-      stepper.goTo(value)
+      void stepper.goTo(value)
     }
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 
   // Notify parent when internal step changes
-  // biome-ignore lint/correctness/useExhaustiveDependencies: stepper is stable and doesn't change between renders
   useEffect(() => {
     onValueChange?.(stepper.id)
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [stepper.id])
 
   return (
@@ -253,25 +253,24 @@ function Stepper({
 }
 
 interface StepperItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  stepId: string
   completed?: boolean
   disabled?: boolean
   loading?: boolean
+  stepId: string
 }
 
 function StepperItem({
-  stepId,
+  children,
+  className,
   completed = false,
   disabled = false,
   loading = false,
-  className,
-  children,
+  stepId,
   ...props
 }: StepperItemProps) {
   const { stepper, steps } = useStepper()
   const stepIndex = stepper.steps.findIndex((step) => step.id === stepId)
   const currentIndex = stepper.index
-  // biome-ignore lint/style/noNonNullAssertion: stepId is expected to be valid and present in steps
   const step = steps.find((s) => s.id === stepId)!
 
   const state: StepState =
@@ -303,30 +302,29 @@ function StepperItem({
   )
 }
 
-interface StepperTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface StepperTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean
 }
 
 function StepperTrigger({
   asChild = false,
-  className,
   children,
+  className,
   tabIndex,
   ...props
 }: StepperTriggerProps) {
-  const { state, isLoading } = useStepItem()
+  const { isLoading, state } = useStepItem()
   const {
-    stepper,
-    registerTrigger,
-    triggerNodes,
-    focusNext,
-    focusPrev,
     focusFirst,
     focusLast,
+    focusNext,
+    focusPrev,
+    registerTrigger,
+    stepper,
+    triggerNodes,
   } = useStepper()
 
-  const { step, isDisabled } = useStepItem()
+  const { isDisabled, step } = useStepItem()
   const isSelected = stepper.id === step.id
   const id = `stepper-tab-${step.id}`
   const panelId = `stepper-panel-${step.id}`
@@ -350,6 +348,7 @@ function StepperTrigger({
   // Find our index among triggers for navigation
   const myIdx = useMemo(
     () =>
+      // oxlint-disable-next-line react/refs
       triggerNodes.findIndex((n: HTMLButtonElement) => n === btnRef.current),
     [triggerNodes],
   )
@@ -377,7 +376,7 @@ function StepperTrigger({
       case "Enter":
       case " ":
         e.preventDefault()
-        stepper.goTo(step.id)
+        void stepper.goTo(step.id)
         break
     }
   }
@@ -429,7 +428,7 @@ function StepperIndicator({
   className,
   variant = "default",
 }: StepperIndicatorProps) {
-  const { state, isLoading, step } = useStepItem()
+  const { isLoading, state, step } = useStepItem()
   const { indicators } = useStepper()
 
   const base =
@@ -512,7 +511,7 @@ function StepperDescription({
 }
 
 function StepperNav({ children, className }: React.ComponentProps<"nav">) {
-  const { stepper, orientation, configOrientation, responsive } = useStepper()
+  const { configOrientation, orientation, responsive, stepper } = useStepper()
 
   const responsiveNavClasses =
     responsive && configOrientation === "horizontal"
@@ -550,15 +549,15 @@ function StepperPanel({ children, className }: React.ComponentProps<"div">) {
 }
 
 interface StepperContentProps extends React.ComponentProps<"div"> {
-  value: string
   forceMount?: boolean
+  value: string
 }
 
 function StepperContent({
-  value,
-  forceMount,
   children,
   className,
+  forceMount,
+  value,
 }: StepperContentProps) {
   const { stepper } = useStepper()
   const isActive = value === stepper.id

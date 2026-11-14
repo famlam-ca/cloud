@@ -6,7 +6,7 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { organizationPath } from "@/lib/organization-path"
 import { getApiVersion, getBaseUrl } from "@/lib/utils"
 import { ActivityCard } from "@/modules/dashboard/ui/activity"
@@ -16,11 +16,11 @@ import { requireSession } from "@/server/auth/utils"
 
 interface ActionButtonProps {
   href: React.ComponentProps<typeof Link>["href"]
-  label: string
   icon: IconType
+  label: string
 }
 
-function ActionButton({ href, label, icon: Icon }: ActionButtonProps) {
+function ActionButton({ href, icon: Icon, label }: ActionButtonProps) {
   return (
     <Button
       className="bg-card h-14 w-full justify-start gap-4 pl-6 hover:bg-[color-mix(in_oklch,var(--card),var(--foreground)_5%)] lg:h-16"

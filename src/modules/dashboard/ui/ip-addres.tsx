@@ -7,18 +7,18 @@ import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { useRevealOnClick } from "@/hooks/use-reveal-on-click"
 
 interface IPAddressProps {
-  ipAddress: string
   direction?: "ltr" | "rtl"
+  ipAddress: string
   showGlobe?: boolean
 }
 
 export function IPAddress({
-  ipAddress,
   direction = "ltr",
+  ipAddress,
   showGlobe = true,
 }: IPAddressProps) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard()
-  const { isRevealed, handleReveal, getDisplayText } = useRevealOnClick()
+  const { copyToClipboard, isCopied } = useCopyToClipboard()
+  const { getDisplayText, handleReveal, isRevealed } = useRevealOnClick()
 
   return (
     <div className="group/ipAddress flex items-center gap-2">
@@ -44,7 +44,7 @@ export function IPAddress({
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault()
-            copyToClipboard(ipAddress)
+            void copyToClipboard(ipAddress)
           }
         }}
         size="icon-sm"

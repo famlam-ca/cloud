@@ -18,19 +18,19 @@ import type { Notification } from "@/schemas/notification"
 import { NotificationItem } from "./notification-item"
 
 interface NotificationListViewProps {
-  unreadItems: Notification[]
-  readItems: Notification[]
-  unreadCount: number
-  isLoadingUnread: boolean
-  isLoadingRead: boolean
-  hasNextUnreadPage: boolean
   hasNextReadPage: boolean
-  isFetchingNextUnreadPage: boolean
+  hasNextUnreadPage: boolean
   isFetchingNextReadPage: boolean
-  onLoadMoreUnread: () => void
+  isFetchingNextUnreadPage: boolean
+  isLoadingRead: boolean
+  isLoadingUnread: boolean
   onLoadMoreRead: () => void
+  onLoadMoreUnread: () => void
   onMarkAllRead: () => void
   onSelect: (item: Notification) => void
+  readItems: Notification[]
+  unreadCount: number
+  unreadItems: Notification[]
 }
 
 function EmptyNotifications() {
@@ -50,19 +50,19 @@ function EmptyNotifications() {
 }
 
 export function NotificationListView({
-  unreadItems,
-  readItems,
-  unreadCount,
-  isLoadingUnread,
-  isLoadingRead,
-  hasNextUnreadPage,
   hasNextReadPage,
-  isFetchingNextUnreadPage,
+  hasNextUnreadPage,
   isFetchingNextReadPage,
-  onLoadMoreUnread,
+  isFetchingNextUnreadPage,
+  isLoadingRead,
+  isLoadingUnread,
   onLoadMoreRead,
+  onLoadMoreUnread,
   onMarkAllRead,
   onSelect,
+  readItems,
+  unreadCount,
+  unreadItems,
 }: NotificationListViewProps) {
   return (
     <Tabs

@@ -174,8 +174,8 @@ function FieldSeparator({
 }
 
 function FieldError({
-  className,
   children,
+  className,
   errors,
   ...props
 }: React.ComponentProps<"div"> & {

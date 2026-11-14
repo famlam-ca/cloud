@@ -25,12 +25,12 @@ function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
 }
 
 function TooltipContent({
-  className,
-  side = "top",
-  sideOffset = 4,
   align = "center",
   alignOffset = 0,
   children,
+  className,
+  side = "top",
+  sideOffset = 4,
   ...props
 }: TooltipPrimitive.Popup.Props &
   Pick<

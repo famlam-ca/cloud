@@ -1,4 +1,4 @@
-import { createNodeRedisClient, Queue } from "bullmq"
+import { Queue, createNodeRedisClient } from "bullmq"
 import * as z from "zod"
 
 import { getRedisClient } from "@/lib/redis"

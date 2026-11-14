@@ -14,8 +14,8 @@ export function useDebouncedReorder(instanceId: string, delay: number = 400) {
     ReturnType<typeof utils.firewallRule.list.getData> | undefined
   >(undefined)
 
-  // biome-ignore assist/source/useSortedKeys: onMutate must appear before onError for TContext inference
   const reorder = api.firewallRule.reorder.useMutation({
+    // oxlint-disable perfectionist/sort-objects -- onMutate must appear before onError for TContext inference
     onMutate: () => ({ prevData: prevDataRef.current }),
     async onSettled() {
       void utils.firewallRule.list.invalidate({ instanceId })
@@ -27,6 +27,7 @@ export function useDebouncedReorder(instanceId: string, delay: number = 400) {
       }
       console.log("Reorder failed:", error)
     },
+    // oxlint-enable perfectionist/sort-objects
   })
 
   return async (orderedRuleIds: string[]) => {

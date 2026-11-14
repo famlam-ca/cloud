@@ -1,0 +1,75 @@
+import { defineConfig } from "vite-plus"
+
+export default defineConfig({
+  fmt: {
+    arrowParens: "always",
+    bracketSpacing: true,
+    ignorePatterns: [
+      ".next/**",
+      "dist/**",
+      "build/**",
+      "out/**",
+      "drizzle/**",
+      "package-lock.json",
+      "pnpm-lock.yaml",
+      "bun.lock",
+      "yarn.lock",
+    ],
+    jsxSingleQuote: false,
+    objectWrap: "preserve",
+    printWidth: 80,
+    semi: false,
+    singleQuote: false,
+    sortImports: {
+      groups: [
+        ["builtin", "external"],
+        "internal",
+        ["parent", "sibling", "index"],
+      ],
+      newlinesBetween: true,
+      order: "asc",
+    },
+    sortTailwindcss: {
+      attributes: ["class", "className", "tw"],
+      functions: ["clsx", "cva", "cn"],
+      stylesheet: "./styles/globals.css",
+    },
+    tabWidth: 2,
+    trailingComma: "all",
+    useTabs: false,
+  },
+  lint: {
+    categories: { correctness: "error" },
+    ignorePatterns: [".next/**", "dist/**", "build/**", "out/**", "drizzle/**"],
+    jsPlugins: [
+      { name: "vite-plus", specifier: "vite-plus/oxlint-plugin" },
+      { name: "perfectionist", specifier: "eslint-plugin-perfectionist" },
+    ],
+    options: { typeAware: true, typeCheck: true },
+    plugins: ["react", "jsx-a11y", "typescript"],
+    rules: {
+      "jsx-a11y/label-has-associated-control": "warn",
+      "no-extra-boolean-cast": "warn",
+      "no-lonely-if": "error",
+      "no-shadow-restricted-names": "warn",
+      "no-unneeded-ternary": "warn",
+      "operator-assignment": ["error", "always"],
+      "perfectionist/sort-interfaces": ["warn", { type: "natural" }],
+      "perfectionist/sort-jsx-props": ["warn", { type: "natural" }],
+      "perfectionist/sort-object-types": ["warn", { type: "natural" }],
+      "perfectionist/sort-objects": ["warn", { type: "natural" }],
+      "prefer-const": "error",
+      "react/jsx-no-useless-fragment": "warn",
+      "react/no-array-index-key": "off",
+      "sort-imports": ["warn", { ignoreDeclarationSort: true }],
+      "typescript/consistent-type-imports": [
+        "warn",
+        { fixStyle: "separate-type-imports", prefer: "type-imports" },
+      ],
+      "vite-plus/prefer-vite-plus-imports": "error",
+    },
+  },
+  staged: {
+    "*": "vp check --fix",
+  },
+})

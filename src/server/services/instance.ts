@@ -17,9 +17,9 @@ const TASK_TIMEOUT_MS = 180_000
 export async function cloneInstance(
   proxmox: Proxmox.Api,
   data: {
-    osVmid: number
     hostname: string
     nextVmid: number
+    osVmid: number
   },
 ): Promise<void> {
   const upid = await proxmox.nodes
@@ -38,14 +38,14 @@ export async function cloneInstance(
 export async function configureInstance(
   proxmox: Proxmox.Api,
   data: {
-    nextVmid: number
+    macAddress: string
     network: {
       gateway: string
       ip: string
     }
+    nextVmid: number
     plan: ResourcePlan
     sshKeyId: string
-    macAddress: string
   },
 ): Promise<void> {
   const [sshKey] = await db

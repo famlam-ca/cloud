@@ -3,8 +3,8 @@ import type * as z from "zod"
 
 import type {
   ActivityType,
-  activityUserSchema,
   InsertActivity,
+  activityUserSchema,
 } from "@/schemas/activity"
 import { activityRegistry } from "@/schemas/activity"
 import { activityTable } from "@/server/db/schema"
@@ -12,14 +12,14 @@ import type { DB } from "@/server/db/utils"
 
 type ActorFields =
   | {
-      actorType: "user"
       actorId: string
       actorSnapshot: z.infer<typeof activityUserSchema>
+      actorType: "user"
     }
   | {
-      actorType: "system" | "external"
       actorId?: null
       actorSnapshot?: null
+      actorType: "system" | "external"
     }
 
 export async function logActivity<T extends ActivityType>(

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { ActivityCard } from "@/modules/dashboard/ui/activity"
 import { InstanceLocation } from "@/modules/dashboard/ui/instance-details/location"
 import { InstanceOptions } from "@/modules/dashboard/ui/instance-details/options"

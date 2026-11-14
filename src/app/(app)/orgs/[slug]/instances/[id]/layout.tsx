@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { InstanceDetailsInfo } from "@/modules/dashboard/ui/instance-details/info"
 import { InstanceDetailsTabs } from "@/modules/dashboard/ui/instance-details/tabs"
 

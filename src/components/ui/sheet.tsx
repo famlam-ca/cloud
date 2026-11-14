@@ -37,14 +37,14 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
 }
 
 function SheetContent({
-  className,
   children,
-  side = "right",
+  className,
   showCloseButton = true,
+  side = "right",
   ...props
 }: SheetPrimitive.Popup.Props & {
-  side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
+  side?: "top" | "right" | "bottom" | "left"
 }) {
   return (
     <SheetPortal>

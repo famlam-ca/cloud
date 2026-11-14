@@ -97,8 +97,8 @@ function DrawerSwipeHandle({
 }
 
 function DrawerContent({
-  className,
   children,
+  className,
   ...props
 }: DrawerPrimitive.Popup.Props) {
   const { hasSnapPoints, modal, showSwipeHandle, swipeDirection } = useDrawer()

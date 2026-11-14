@@ -20,8 +20,8 @@ export function InstanceAccessConnection({
 }: {
   instanceId: string
 }) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard()
-  const { handleReveal, getDisplayText } = useRevealOnClick()
+  const { copyToClipboard, isCopied } = useCopyToClipboard()
+  const { getDisplayText, handleReveal } = useRevealOnClick()
 
   const { data: instance } = api.instance.get.useQuery({ id: instanceId })
   const { data: instanceSSHKeys } = api.instance.getSSHKeys.useQuery({

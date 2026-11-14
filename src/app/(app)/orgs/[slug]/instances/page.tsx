@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { DEFAULT_PAGE_SIZE } from "@/constants/app"
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { InstanceList } from "@/modules/dashboard/ui/instance-list/list"
 import { requireSession } from "@/server/auth/utils"
 

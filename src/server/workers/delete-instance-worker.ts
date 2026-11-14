@@ -1,5 +1,5 @@
 import type { Job } from "bullmq"
-import { createNodeRedisClient, Worker } from "bullmq"
+import { Worker, createNodeRedisClient } from "bullmq"
 import { eq } from "drizzle-orm"
 
 import { getProxmoxClient } from "@/lib/proxmox"
@@ -20,7 +20,7 @@ const proxmox = getProxmoxClient()
 
 const deleteInstanceWorker = new Worker(
   DELETE_INSTANCE_QUEUE_KEY,
-  async (job: Job): Promise<{ status: string; instanceId: string }> => {
+  async (job: Job): Promise<{ instanceId: string; status: string }> => {
     const { instanceId } = job.data
 
     const instance = await db.query.instanceTable.findFirst({
@@ -114,4 +114,4 @@ deleteInstanceWorker.on("failed", async (job, error) => {
   })
 })
 
-deleteInstanceWorker.run()
+void deleteInstanceWorker.run()

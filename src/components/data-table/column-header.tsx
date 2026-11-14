@@ -18,16 +18,18 @@ import {
 
 import type { DataTableFeatures } from "./features"
 
-interface DataTableColumnHeaderProps<TData extends RowData, TValue>
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface DataTableColumnHeaderProps<
+  TData extends RowData,
+  TValue,
+> extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<DataTableFeatures, TData, TValue>
   title: string
 }
 
 export function DataTableColumnHeader<TData extends RowData, TValue>({
+  className,
   column,
   title,
-  className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>

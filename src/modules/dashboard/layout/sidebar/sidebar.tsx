@@ -45,8 +45,8 @@ import { getApiVersion, getBaseUrl } from "@/lib/utils"
 import type { NavItem } from "@/schemas/nav-item"
 
 type NavItems = {
-  main: NavItem[]
   footer: NavItem[]
+  main: NavItem[]
   settings: NavItem[]
 }
 

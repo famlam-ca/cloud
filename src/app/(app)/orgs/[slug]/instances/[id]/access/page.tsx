@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { InstanceAccessConnection } from "@/modules/dashboard/ui/instance-access/connection"
 import { InstanceAccessDetails } from "@/modules/dashboard/ui/instance-access/details"
 import { requireSession } from "@/server/auth/utils"

@@ -12,8 +12,8 @@ import {
   IconUser,
   IconUsers,
 } from "@tabler/icons-react"
-import Link from "next/link"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -36,7 +36,7 @@ const THEME_TOGGLE_ITEMS = [
 ]
 
 export function UserMenu({ user }: { user: User }) {
-  const { theme, setTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
 
   async function handleSignOut() {
     await authClient.signOut()

@@ -1,5 +1,5 @@
 import type { Job } from "bullmq"
-import { createNodeRedisClient, Worker } from "bullmq"
+import { Worker, createNodeRedisClient } from "bullmq"
 import { eq } from "drizzle-orm"
 
 import { env } from "@/env"
@@ -92,8 +92,8 @@ firewallSyncWorker.on("completed", async (job) => {
   const [instance] = await db
     .update(instanceTable)
     .set({
-      firewallSyncError: null,
       firewallSyncedAt: new Date(),
+      firewallSyncError: null,
       firewallSyncStatus: "synced",
     })
     .where(eq(instanceTable.id, job.data.instanceId))
@@ -134,4 +134,4 @@ firewallSyncWorker.on("failed", async (job, error) => {
   })
 })
 
-firewallSyncWorker.run()
+void firewallSyncWorker.run()

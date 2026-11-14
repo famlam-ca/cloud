@@ -262,7 +262,7 @@ function InstanceActions({ instance }: { instance: Instance }) {
 }
 
 export function InstanceDetailsInfo({ instanceId }: { instanceId: string }) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard()
+  const { copyToClipboard, isCopied } = useCopyToClipboard()
 
   const { data: instance } = api.instance.get.useQuery(
     { id: instanceId },
@@ -299,7 +299,7 @@ export function InstanceDetailsInfo({ instanceId }: { instanceId: string }) {
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault()
-                copyToClipboard(instance.hostname)
+                void copyToClipboard(instance.hostname)
               }
             }}
             size="icon"

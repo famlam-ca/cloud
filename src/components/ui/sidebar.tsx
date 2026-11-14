@@ -34,12 +34,12 @@ const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
 type SidebarContextProps = {
-  state: "expanded" | "collapsed"
-  open: boolean
-  setOpen: (open: boolean) => void
-  openMobile: boolean
-  setOpenMobile: (open: boolean) => void
   isMobile: boolean
+  open: boolean
+  openMobile: boolean
+  setOpen: (open: boolean) => void
+  setOpenMobile: (open: boolean) => void
+  state: "expanded" | "collapsed"
   toggleSidebar: () => void
 }
 
@@ -55,17 +55,17 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
-  open: openProp,
-  onOpenChange: setOpenProp,
-  className,
-  style,
   children,
+  className,
+  defaultOpen = true,
+  onOpenChange: setOpenProp,
+  open: openProp,
+  style,
   ...props
 }: React.ComponentProps<"div"> & {
   defaultOpen?: boolean
-  open?: boolean
   onOpenChange?: (open: boolean) => void
+  open?: boolean
 }) {
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
@@ -84,14 +84,12 @@ function SidebarProvider({
       }
 
       // This sets the cookie to keep the sidebar state.
-      // biome-ignore lint/suspicious/noDocumentCookie: We want to directly assign to document.cookie
       document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
     },
     [setOpenProp, open],
   )
 
   // Helper to toggle the sidebar.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore exhaustive deps for setOpenMobile
   const toggleSidebar = React.useCallback(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
   }, [isMobile, setOpen, setOpenMobile])
@@ -116,7 +114,6 @@ function SidebarProvider({
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? "expanded" : "collapsed"
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Ignore exhaustive deps for setOpenMobile
   const contextValue = React.useMemo<SidebarContextProps>(
     () => ({
       isMobile,
@@ -154,19 +151,19 @@ function SidebarProvider({
 }
 
 function Sidebar({
+  children,
+  className,
+  collapsible = "offcanvas",
+  dir,
   side = "left",
   variant = "sidebar",
-  collapsible = "offcanvas",
-  className,
-  children,
-  dir,
   ...props
 }: React.ComponentProps<"div"> & {
+  collapsible?: "offcanvas" | "icon" | "none"
   side?: "left" | "right"
   variant?: "sidebar" | "floating" | "inset"
-  collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, openMobile, setOpenMobile, state } = useSidebar()
 
   if (collapsible === "none") {
     return (
@@ -504,12 +501,12 @@ const sidebarMenuButtonVariants = cva(
 )
 
 function SidebarMenuButton({
-  render,
+  className,
   isActive = false,
-  variant = "default",
+  render,
   size = "default",
   tooltip,
-  className,
+  variant = "default",
   ...props
 }: useRender.ComponentProps<"button"> &
   React.ComponentProps<"button"> & {
@@ -671,15 +668,15 @@ function SidebarMenuSubItem({
 }
 
 function SidebarMenuSubButton({
+  className,
+  isActive = false,
   render,
   size = "md",
-  isActive = false,
-  className,
   ...props
 }: useRender.ComponentProps<"a"> &
   React.ComponentProps<"a"> & {
-    size?: "sm" | "md"
     isActive?: boolean
+    size?: "sm" | "md"
   }) {
   return useRender({
     defaultTagName: "a",

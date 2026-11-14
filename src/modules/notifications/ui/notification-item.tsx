@@ -60,7 +60,7 @@ export function NotificationItem({ item, onSelect }: NotificationItemProps) {
   const render = item.href ? (
     notificationLink(item.href)
   ) : (
-    <button type="button" />
+    <button aria-label="View notification" type="button" />
   )
 
   return (

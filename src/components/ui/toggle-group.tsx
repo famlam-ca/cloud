@@ -10,8 +10,8 @@ import { toggleVariants } from "@/components/ui/toggle"
 
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants> & {
-    spacing?: number
     orientation?: "horizontal" | "vertical"
+    spacing?: number
   }
 >({
   orientation: "horizontal",
@@ -21,17 +21,17 @@ const ToggleGroupContext = React.createContext<
 })
 
 function ToggleGroup({
+  children,
   className,
-  variant,
+  orientation = "horizontal",
   size,
   spacing = 2,
-  orientation = "horizontal",
-  children,
+  variant,
   ...props
 }: ToggleGroupPrimitive.Props &
   VariantProps<typeof toggleVariants> & {
-    spacing?: number
     orientation?: "horizontal" | "vertical"
+    spacing?: number
   }) {
   return (
     <ToggleGroupPrimitive
@@ -57,10 +57,10 @@ function ToggleGroup({
 }
 
 function ToggleGroupItem({
-  className,
   children,
-  variant = "default",
+  className,
   size = "default",
+  variant = "default",
   ...props
 }: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
   const context = React.useContext(ToggleGroupContext)

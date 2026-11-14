@@ -37,15 +37,15 @@ import {
 import { activityRegistry, renderActivity } from "@/schemas/activity"
 
 interface ActivityCardProps {
-  scope: RouterInputs["activity"]["list"]["scope"]
-  instanceId?: string
   className?: string
+  instanceId?: string
+  scope: RouterInputs["activity"]["list"]["scope"]
 }
 
 export function ActivityCard({
-  scope,
-  instanceId,
   className,
+  instanceId,
+  scope,
 }: ActivityCardProps) {
   const pathname = usePathname()
   const slug = pathname ? organizationSlugFromPath(pathname) : undefined

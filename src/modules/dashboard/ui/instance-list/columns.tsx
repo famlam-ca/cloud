@@ -89,7 +89,7 @@ export const columns = columnHelper.columns([
   }),
   columnHelper.accessor("hostname", {
     cell({ row }) {
-      const { id, hostname, status, cores, memory, disk } = row.original
+      const { cores, disk, hostname, id, memory, status } = row.original
 
       return (
         <div className="flex items-center gap-4">

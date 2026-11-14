@@ -6,21 +6,21 @@ import { Spinner } from "@/components/ui/spinner"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 
 interface InfiniteScrollProps {
+  className?: string
   fetchNextPage: () => void
   hasNextPage: boolean
   isFetchingNextPage: boolean
   isManual?: boolean
-  className?: string
 }
 
 export function InfiniteScroll({
+  className,
   fetchNextPage,
   hasNextPage,
   isFetchingNextPage,
   isManual = false,
-  className,
 }: InfiniteScrollProps) {
-  const { targetRef, isIntersecting } = useIntersectionObserver({
+  const { isIntersecting, targetRef } = useIntersectionObserver({
     rootMargin: "100px",
     threshold: 0.5,
   })

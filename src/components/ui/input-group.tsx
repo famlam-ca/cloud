@@ -42,12 +42,13 @@ const inputGroupAddonVariants = cva(
 )
 
 function InputGroupAddon({
-  className,
   align = "inline-start",
+  className,
   ...props
 }: React.ComponentProps<"fieldset"> &
   VariantProps<typeof inputGroupAddonVariants>) {
   return (
+    // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <fieldset
       className={cn(inputGroupAddonVariants({ align }), className)}
       data-align={align}
@@ -90,9 +91,9 @@ const inputGroupButtonVariants = cva(
 
 function InputGroupButton({
   className,
+  size = "xs",
   type = "button",
   variant = "ghost",
-  size = "xs",
   ...props
 }: Omit<React.ComponentProps<typeof Button>, "size" | "type"> &
   VariantProps<typeof inputGroupButtonVariants> & {

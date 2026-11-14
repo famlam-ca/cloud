@@ -334,8 +334,8 @@ export const instanceTable = createTable(
     createdAt: d.timestamp("created_at").defaultNow().notNull(),
     deletedAt: d.timestamp("deleted_at"),
     disk: d.integer("disk").notNull(),
-    firewallSyncError: d.text("firewall_sync_error"),
     firewallSyncedAt: d.timestamp("firewall_synced_at"),
+    firewallSyncError: d.text("firewall_sync_error"),
     firewallSyncStatus: firewallSyncStatusEnum("firewall_sync_status")
       .default("synced")
       .notNull(),
@@ -648,7 +648,7 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
   }),
 }))
 
-export const sshKeyRelations = relations(sshKeyTable, ({ one, many }) => ({
+export const sshKeyRelations = relations(sshKeyTable, ({ many, one }) => ({
   instanceSSHKeys: many(instanceSSHKeyTable),
   organization: one(organization, {
     fields: [sshKeyTable.organizationId],
@@ -660,7 +660,7 @@ export const sshKeyRelations = relations(sshKeyTable, ({ one, many }) => ({
   }),
 }))
 
-export const instanceRelations = relations(instanceTable, ({ one, many }) => ({
+export const instanceRelations = relations(instanceTable, ({ many, one }) => ({
   instanceSSHKeys: many(instanceSSHKeyTable),
   ipAllocations: many(ipAllocationTable),
   network: one(networkTable, {
@@ -705,7 +705,7 @@ export const operatingSystemCategoryRelations = relations(
 
 export const operatingSystemReleaseRelations = relations(
   operatingSystemReleaseTable,
-  ({ one, many }) => ({
+  ({ many, one }) => ({
     category: one(operatingSystemCategoryTable, {
       fields: [operatingSystemReleaseTable.categoryId],
       references: [operatingSystemCategoryTable.id],

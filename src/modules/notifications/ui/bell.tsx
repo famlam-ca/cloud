@@ -30,11 +30,11 @@ import { NotificationListView } from "./notification-list"
 const POLL_INTERVAL_MS = 60_000
 
 function NotificationPanel({
-  open,
   onClose,
+  open,
 }: {
-  open: boolean
   onClose: () => void
+  open: boolean
 }) {
   const { data: unread } = api.notification.unreadCount.useQuery(undefined, {
     refetchInterval: POLL_INTERVAL_MS,

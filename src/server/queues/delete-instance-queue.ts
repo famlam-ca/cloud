@@ -1,5 +1,5 @@
 import type { Job } from "bullmq"
-import { createNodeRedisClient, Queue } from "bullmq"
+import { Queue, createNodeRedisClient } from "bullmq"
 
 import { env } from "@/env"
 import { getRedisClient } from "@/lib/redis"

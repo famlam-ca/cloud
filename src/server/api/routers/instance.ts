@@ -1,9 +1,9 @@
-import { randomUUID } from "node:crypto"
 import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import type { inferProcedureBuilderResolverOptions } from "@trpc/server"
 import { TRPCError } from "@trpc/server"
 import { and, eq, inArray, isNull, lt, or, sql } from "drizzle-orm"
+import { randomUUID } from "node:crypto"
 import * as z from "zod"
 
 import { env } from "@/env"
@@ -100,7 +100,7 @@ export const instanceRouter = createTRPCRouter({
       const macAddress = generateMacAddress()
 
       const plan = await ctx.db.query.resourcePlanTable.findFirst({
-        where: (plan, { or, eq }) =>
+        where: (plan, { eq, or }) =>
           or(
             eq(plan.id, input.resourcePlanId),
             eq(plan.slug, input.resourcePlanId),
@@ -366,8 +366,8 @@ export const instanceRouter = createTRPCRouter({
     .input(z.object({ instanceId: z.string() }))
     .output(
       z.object({
-        firewallSyncError: z.string().nullable(),
         firewallSyncedAt: z.date().nullable(),
+        firewallSyncError: z.string().nullable(),
         firewallSyncStatus: z.enum(firewallSyncStatusEnum.enumValues),
       }),
     )
@@ -379,8 +379,8 @@ export const instanceRouter = createTRPCRouter({
       )
 
       return {
-        firewallSyncError: instance.firewallSyncError,
         firewallSyncedAt: instance.firewallSyncedAt,
+        firewallSyncError: instance.firewallSyncError,
         firewallSyncStatus: instance.firewallSyncStatus,
       }
     }),

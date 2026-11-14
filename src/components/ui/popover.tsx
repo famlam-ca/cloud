@@ -13,9 +13,9 @@ function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
 }
 
 function PopoverContent({
-  className,
   align = "center",
   alignOffset = 0,
+  className,
   side = "bottom",
   sideOffset = 4,
   ...props

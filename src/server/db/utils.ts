@@ -1,7 +1,9 @@
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js"
 import type postgres from "postgres"
 
-export type DB = PostgresJsDatabase<typeof import("@/server/db/schema")> & {
+import type * as schema from "@/server/db/schema"
+
+export type DB = PostgresJsDatabase<typeof schema> & {
   $client: postgres.Sql<Record<string, never>>
 }
 

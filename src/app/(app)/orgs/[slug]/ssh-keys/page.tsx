@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { SshKeysList } from "@/modules/ssh-keys/ui/ssh-key-list/list"
 
 export const metadata: Metadata = {

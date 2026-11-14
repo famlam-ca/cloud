@@ -10,6 +10,7 @@ function useMediaQuery(query: string): boolean {
 
     const result = matchMedia(query)
     result.addEventListener("change", onChange)
+    // oxlint-disable-next-line react/set-state-in-effect
     setValue(result.matches)
 
     return () => result.removeEventListener("change", onChange)

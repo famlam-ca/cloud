@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { api, HydrateClient } from "@/lib/api/server"
+import { HydrateClient, api } from "@/lib/api/server"
 import { InstanceFirewallConfigurator } from "@/modules/dashboard/ui/instance-firewall/configurator"
 import { requireSession } from "@/server/auth/utils"
 

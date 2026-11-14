@@ -65,6 +65,7 @@ export function SshKeysList({ new: newParam }: { new?: string }) {
 
   React.useEffect(() => {
     if (newParam !== "generate" && newParam !== "import") return
+    // oxlint-disable-next-line react/set-state-in-effect
     setOpenModal(newParam)
     const url = new URL(window.location.href)
     if (!url.searchParams.has("new")) return
@@ -154,12 +155,12 @@ function SshKeyRow({ sshKey }: { sshKey: SSHKey }) {
   })
 
   function copyPublicKey() {
-    copyToClipboard(sshKey.publicKey)
+    void copyToClipboard(sshKey.publicKey)
     toast.success("Public key copied")
   }
 
   function copyFingerprint() {
-    copyToClipboard(sshKey.fingerprint)
+    void copyToClipboard(sshKey.fingerprint)
     toast.success("Fingerprint copied")
   }
 

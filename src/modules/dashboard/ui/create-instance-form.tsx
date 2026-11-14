@@ -112,9 +112,9 @@ function BasicInfoForm({
 
   const { data: sshKeys } = api.sshKey.list.useQuery()
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: only re-sync when defaultValues changes
   React.useEffect(() => {
     form.reset(defaultValues)
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues])
 
   return (
@@ -298,9 +298,9 @@ function OperatingSystemForm({
     api.operatingSystem.category.list.useQuery()
   const { data: operatingSystems } = api.operatingSystem.list.useQuery()
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: only re-sync when defaultValues changes
   React.useEffect(() => {
     form.reset(defaultValues)
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues])
 
   return (
@@ -541,9 +541,9 @@ function ResourcePlanForm({
 
   const { data: resourcePlans } = api.resourcePlan.list.useQuery()
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: only re-sync when defaultValues changes
   React.useEffect(() => {
     form.reset(defaultValues)
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues])
 
   return (
@@ -701,13 +701,13 @@ function ReviewAndCreateForm({
     mutation.mutate(data)
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: only re-sync when defaultValues changes
   React.useEffect(() => {
     form.reset({
       ...defaultValues?.basics,
       ...defaultValues?.operatingSystem,
       ...defaultValues?.resources,
     })
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues])
 
   return (

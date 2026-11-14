@@ -20,8 +20,8 @@ function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
 }
 
 function ComboboxTrigger({
-  className,
   children,
+  className,
   ...props
 }: ComboboxPrimitive.Trigger.Props) {
   return (
@@ -50,15 +50,15 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
 }
 
 function ComboboxInput({
-  className,
   children,
+  className,
   disabled = false,
-  showTrigger = true,
   showClear = false,
+  showTrigger = true,
   ...props
 }: ComboboxPrimitive.Input.Props & {
-  showTrigger?: boolean
   showClear?: boolean
+  showTrigger?: boolean
 }) {
   return (
     <InputGroup className={cn("w-auto", className)}>
@@ -85,12 +85,12 @@ function ComboboxInput({
 }
 
 function ComboboxContent({
-  className,
-  side = "bottom",
-  sideOffset = 6,
   align = "start",
   alignOffset = 0,
   anchor,
+  className,
+  side = "bottom",
+  sideOffset = 6,
   ...props
 }: ComboboxPrimitive.Popup.Props &
   Pick<
@@ -135,8 +135,8 @@ function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
 }
 
 function ComboboxItem({
-  className,
   children,
+  className,
   ...props
 }: ComboboxPrimitive.Item.Props) {
   return (
@@ -236,8 +236,8 @@ function ComboboxChips({
 }
 
 function ComboboxChip({
-  className,
   children,
+  className,
   showRemove = true,
   ...props
 }: ComboboxPrimitive.Chip.Props & {

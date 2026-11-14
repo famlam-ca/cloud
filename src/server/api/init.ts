@@ -1,6 +1,6 @@
 import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
-import { initTRPC, TRPCError } from "@trpc/server"
+import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import * as z from "zod"
 import { ZodError } from "zod"
@@ -22,7 +22,7 @@ export async function createTRPCContext(opts: { headers: Headers }) {
 }
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
-  errorFormatter({ shape, error }) {
+  errorFormatter({ error, shape }) {
     return {
       ...shape,
       data: {

@@ -11,7 +11,7 @@ import { api } from "@/lib/api/client"
 import { IPAddress } from "@/modules/dashboard/ui/ip-addres"
 
 export function InstanceAccessDetails({ instanceId }: { instanceId: string }) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard()
+  const { copyToClipboard, isCopied } = useCopyToClipboard()
 
   const { data: instance } = api.instance.get.useQuery({ id: instanceId })
 
@@ -55,7 +55,7 @@ export function InstanceAccessDetails({ instanceId }: { instanceId: string }) {
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault()
-                  copyToClipboard("cloud-user")
+                  void copyToClipboard("cloud-user")
                 }
               }}
               size="icon-sm"

@@ -53,20 +53,20 @@ import type { SSHKey } from "@/schemas/ssh-key"
 import { generateSSHKeySchema, sshKeyTypes } from "@/schemas/ssh-key"
 
 export function GenerateSSHKeyModal({
+  children,
+  className,
   onOpenChange,
   open,
   render,
-  children,
-  className,
 }: {
+  children?: React.ReactNode
+  className?: string
   onOpenChange?: (open: boolean) => void
   open?: boolean
   render?: React.ReactElement
-  children?: React.ReactNode
-  className?: string
 }) {
   const utils = api.useUtils()
-  const { isCopied, copyToClipboard } = useCopyToClipboard()
+  const { copyToClipboard, isCopied } = useCopyToClipboard()
 
   const [sshKey, setSSHKey] = React.useState<
     (SSHKey & { privateKey: string }) | null
@@ -108,7 +108,7 @@ export function GenerateSSHKeyModal({
   }
 
   function handleCopyPrivateKey() {
-    copyToClipboard(sshKey?.privateKey || "")
+    void copyToClipboard(sshKey?.privateKey || "")
   }
 
   function handleDownloadKey(
@@ -120,7 +120,7 @@ export function GenerateSSHKeyModal({
     const zip = new JSZip()
     zip.file(`id_${slug}`, privateKey)
     zip.file(`id_${slug}.pub`, publicKey)
-    zip.generateAsync({ type: "blob" }).then((content: Blob) => {
+    void zip.generateAsync({ type: "blob" }).then((content: Blob) => {
       const url = URL.createObjectURL(content)
       const a = document.createElement("a")
       a.href = url
@@ -253,7 +253,7 @@ export function GenerateSSHKeyModal({
                 id="generate-ssh-key-form"
                 onSubmit={(e) => {
                   e.stopPropagation()
-                  form.handleSubmit(onSubmit)(e)
+                  void form.handleSubmit(onSubmit)(e)
                 }}
               >
                 <Controller

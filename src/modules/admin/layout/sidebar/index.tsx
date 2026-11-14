@@ -36,13 +36,13 @@ import { api } from "@/lib/api/client"
 import type { NavItem } from "@/schemas/nav-item"
 
 type NavItems = {
-  main: NavItem[]
-  compute: NavItem[]
-  networking: NavItem[]
-  tenancy: NavItem[]
   access: NavItem[]
-  operations: NavItem[]
+  compute: NavItem[]
   footer: NavItem[]
+  main: NavItem[]
+  networking: NavItem[]
+  operations: NavItem[]
+  tenancy: NavItem[]
 }
 
 export function AdminSidebar() {

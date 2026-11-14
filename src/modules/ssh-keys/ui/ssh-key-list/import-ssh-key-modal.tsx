@@ -30,17 +30,17 @@ import { api } from "@/lib/api/client"
 import { importSSHKeySchema } from "@/schemas/ssh-key"
 
 export function ImportSSHKeyModal({
+  children,
+  className,
   onOpenChange,
   open,
   render,
-  children,
-  className,
 }: {
+  children?: React.ReactNode
+  className?: string
   onOpenChange: (open: boolean) => void
   open: boolean
   render?: React.ReactElement
-  children?: React.ReactNode
-  className?: string
 }) {
   const utils = api.useUtils()
 
