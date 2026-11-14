@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { HydrateClient, api } from "@/lib/api/server"
 import { DashboardHeader } from "@/modules/dashboard/layout/header"
-import { DashboardSidebar } from "@/modules/dashboard/layout/sidebar/sidebar"
+import { DashboardSidebar } from "@/modules/dashboard/layout/sidebar"
 import { NotificationBanner } from "@/modules/notifications/ui/banner"
 import { requireSession } from "@/server/auth/utils"
 
