@@ -1,5 +1,6 @@
 import { toORPCRouter } from "@orpc/trpc"
 
+import { adminInstanceRouter } from "@/modules/admin/api/routers/instance"
 import { activityRouter } from "@/server/api/routers/activity"
 import { firewallRuleRouter } from "@/server/api/routers/firewall-rule"
 import { instanceRouter } from "@/server/api/routers/instance"
@@ -15,6 +16,9 @@ import { createCallerFactory, createTRPCRouter } from "./init"
 
 export const appRouter = createTRPCRouter({
   activity: activityRouter,
+  admin: createTRPCRouter({
+    instance: adminInstanceRouter,
+  }),
   firewallRule: firewallRuleRouter,
   instance: instanceRouter,
   ipAllocation: ipAllocationRouter,

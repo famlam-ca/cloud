@@ -84,3 +84,17 @@ export const protectedProcedure = t.procedure
       }),
     ),
   )
+
+function isPlatformAdmin(role: string | null | undefined) {
+  return !!role?.split(",").some((r) => r.trim() === "admin")
+}
+
+export const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
+  if (!isPlatformAdmin(ctx.session.user.role)) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Platform admin access required",
+    })
+  }
+  return next()
+})
