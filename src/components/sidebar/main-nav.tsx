@@ -1,3 +1,4 @@
+import { cn } from "cn"
 import Link from "next/link"
 
 import {
@@ -10,12 +11,22 @@ import {
 } from "@/components/ui/sidebar"
 import type { NavItem } from "@/schemas/nav-item"
 
-export function MainNav({ items, title }: { items: NavItem[]; title: string }) {
+export function MainNav({
+  className,
+  items,
+  title,
+}: {
+  className?: string
+  items: NavItem[]
+  title?: string
+}) {
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel className="px-2 tracking-wider uppercase">
-        {title}
-      </SidebarGroupLabel>
+    <SidebarGroup className={cn(className)}>
+      {title && (
+        <SidebarGroupLabel className="px-2 tracking-wider uppercase">
+          {title}
+        </SidebarGroupLabel>
+      )}
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => {
