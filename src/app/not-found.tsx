@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
-import { headers } from "next/headers"
-import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
+import { NotFoundButtons } from "@/components/not-found-buttons"
 import { APP_NAME } from "@/constants/app"
 
 export const metadata: Metadata = {
@@ -12,20 +10,7 @@ export const metadata: Metadata = {
   },
 }
 
-function getSiteData(domain: string | null) {
-  if (!domain) {
-    return { name: "Unknown" }
-  }
-  const parts = domain.split(".")
-  const name = parts[0] || "Unknown"
-  return { name }
-}
-
-export default async function NotFound() {
-  const headersList = await headers()
-  const domain = headersList.get("host")
-  const data = getSiteData(domain)
-
+export default function NotFound() {
   return (
     <main className="bg-background relative flex min-h-dvh items-center justify-center overflow-hidden px-6 py-12">
       <div
@@ -46,11 +31,9 @@ export default async function NotFound() {
         <div className="relative -mt-5 sm:-mt-8">
           <h1 className="text-3xl sm:text-4xl">This page does not exist</h1>
           <p className="text-muted-foreground mx-auto mt-5 max-w-md text-lg text-balance md:text-pretty">
-            The page you are looking for does not exist on {data.name}.
+            The page you are looking for does not exist on {APP_NAME}.
           </p>
-          <Button className="mt-8" render={<Link href="/" />} size="lg">
-            Return to {APP_NAME}
-          </Button>
+          <NotFoundButtons />
         </div>
       </div>
     </main>
