@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button"
 import { useSidebar } from "@/components/ui/sidebar"
 import { UserMenu } from "@/components/user-menu"
 import { APP_NAME } from "@/constants/app"
+import { useHydrated } from "@/hooks/use-hydrated"
 import { getDashboardWelcomeMessage } from "@/lib/utils"
 import { NotificationBell } from "@/modules/notifications/ui/bell"
 import type { Session } from "@/server/auth/utils"
 
 export function DashboardHeader({ session }: { session: Session }) {
+  const isHydrated = useHydrated()
   const { toggleSidebar } = useSidebar()
 
   return (
@@ -27,7 +29,8 @@ export function DashboardHeader({ session }: { session: Session }) {
           </Button>
           <div className="hidden @sm:flex @sm:flex-col @sm:items-start">
             <p className="text-lg font-semibold">
-              {getDashboardWelcomeMessage()}, {session.user.name}
+              {isHydrated ? getDashboardWelcomeMessage() : "Welcome"},{" "}
+              {session.user.name}
             </p>
             <p className="text-primary-foreground/80">{APP_NAME} Dashboard</p>
           </div>
