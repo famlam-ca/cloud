@@ -16,7 +16,12 @@ import { useTheme } from "next-themes"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Avatar,
+  AvatarBadge,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,8 +59,8 @@ export function UserMenuContent({ user }: { user: User }) {
             <Avatar size="lg">
               <AvatarImage alt={user.name} src={user.image || ""} />
               <AvatarFallback>{user.name.at(0)?.toUpperCase()}</AvatarFallback>
+              <AvatarBadge className="bg-green-600" />
             </Avatar>
-            <span className="ring-card absolute right-0 bottom-0 block size-2 rounded-full bg-green-600 ring-2" />
           </div>
           <div className="flex flex-1 flex-col items-start">
             <span className="text-foreground text-lg font-semibold">
