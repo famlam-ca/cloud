@@ -153,7 +153,7 @@ export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
     ],
     settings: [
       {
-        href: orgPath("settings"),
+        href: "/u/settings",
         icon: IconSettings2,
         isActive: pathname.startsWith(orgPath("settings")),
         label: "General Settings",
