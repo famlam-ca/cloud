@@ -36,7 +36,7 @@ function ActionButton({ href, icon: Icon, label }: ActionButtonProps) {
 
 export async function generateMetadata(): Promise<Metadata> {
   const org = await api.organization.get()
-  return { title: `Dashboard - ${org.name}` }
+  return { title: org.name }
 }
 
 const INFO_CARDS = [
