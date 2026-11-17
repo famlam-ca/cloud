@@ -16,6 +16,7 @@ import {
   IconUpload,
   IconUsers,
 } from "@tabler/icons-react"
+import type { Organization } from "better-auth/plugins"
 import type { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -42,6 +43,7 @@ import {
 import { APP_NAME } from "@/constants/app"
 import { organizationPath } from "@/lib/organization-path"
 import { getApiVersion, getBaseUrl } from "@/lib/utils"
+import { OrgSwitcher } from "@/modules/dashboard/layout/sidebar/org-switcher"
 import type { NavItem } from "@/schemas/nav-item"
 
 type NavItems = {
@@ -50,9 +52,13 @@ type NavItems = {
   settings: NavItem[]
 }
 
-export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
+interface DashboardSidebarProps {
+  org: Pick<Organization, "id" | "name" | "slug" | "logo">
+}
+
+export function DashboardSidebar({ org }: DashboardSidebarProps) {
   const pathname = usePathname()
-  const orgPath = (path = "") => organizationPath(orgSlug, path)
+  const orgPath = (path = "") => organizationPath(org.slug, path)
 
   const NAV_ITEMS: NavItems = {
     footer: [
@@ -185,6 +191,7 @@ export function DashboardSidebar({ orgSlug }: { orgSlug: string }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className="group-data-[collapsible=icon]:overflow-y-auto">
+        <OrgSwitcher org={org} />
         <MainNav items={NAV_ITEMS.main} title="Organization" />
         <MainNav items={NAV_ITEMS.settings} title="Settings" />
       </SidebarContent>

@@ -25,7 +25,7 @@ export default async function Layout({ children }: LayoutProps<"/">) {
           } as React.CSSProperties
         }
       >
-        <DashboardSidebar orgSlug={organization.slug} />
+        <DashboardSidebar org={organization} />
         <SidebarInset className="z-1 bg-transparent px-4 max-md:py-4 md:mt-1! md:pr-2 md:pl-0">
           <HydrateClient>
             <NotificationBanner />
