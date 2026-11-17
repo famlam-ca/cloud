@@ -29,12 +29,19 @@ export const organizationRouter = createTRPCRouter({
       ),
     )
     .input(z.object({ id: z.string().optional() }).optional())
-    .output(selectOrganizationSchema.pick({ id: true, name: true, slug: true }))
+    .output(
+      selectOrganizationSchema.pick({
+        id: true,
+        logo: true,
+        name: true,
+        slug: true,
+      }),
+    )
     .query(async ({ ctx, input }) => {
       const organizationId = input?.id || ctx.organizationId
 
       const organization = await ctx.db.query.organization.findFirst({
-        columns: { id: true, name: true, slug: true },
+        columns: { id: true, logo: true, name: true, slug: true },
         where: (org, { eq }) =>
           and(
             eq(org.id, organizationId),
