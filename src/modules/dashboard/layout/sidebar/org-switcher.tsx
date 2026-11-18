@@ -132,7 +132,7 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
               <DropdownMenuContent
                 align="start"
                 className="w-(--anchor-width) md:w-[min(20rem,calc(100vw-2rem))]"
-                side="right"
+                side={isMobile ? "bottom" : "right"}
               >
                 {error && (
                   <DropdownMenuItem className="text-destructive cursor-not-allowed">
