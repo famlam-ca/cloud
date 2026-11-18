@@ -37,6 +37,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuAction,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
@@ -81,6 +82,9 @@ export function DashboardSidebar({ org }: DashboardSidebarProps) {
         label: "Roadmap",
       },
       {
+        extra: {
+          render: <SidebarMenuBadge>v{getApiVersion()}</SidebarMenuBadge>,
+        },
         href: `${getBaseUrl()}/api/v${getApiVersion()}`,
         icon: IconApi,
         isActive: false,
