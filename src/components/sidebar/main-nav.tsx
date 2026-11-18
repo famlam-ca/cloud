@@ -1,3 +1,4 @@
+import { IconExternalLink } from "@tabler/icons-react"
 import { cn } from "cn"
 import Link from "next/link"
 
@@ -6,8 +7,10 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import type { NavItem } from "@/schemas/nav-item"
 
@@ -20,6 +23,8 @@ export function MainNav({
   items: NavItem[]
   title?: string
 }) {
+  const { isMobile, setOpenMobile } = useSidebar()
+
   return (
     <SidebarGroup className={cn(className)}>
       {title && (
@@ -32,18 +37,36 @@ export function MainNav({
           {items.map((item) => {
             const Icon = item.icon
 
+            const isExternalLink =
+              item.href.startsWith("https://") ||
+              item.href.startsWith("http://")
+
             return (
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                   isActive={item.isActive}
-                  // @ts-expect-error: cannot use typedRoutes here
-                  render={<Link href={item.href} />}
+                  onClick={() => {
+                    if (isMobile && !isExternalLink) setOpenMobile(false)
+                  }}
+                  render={
+                    <Link
+                      // @ts-expect-error: cannot use typedRoutes here
+                      href={item.href}
+                      target={isExternalLink ? "_blank" : "_self"}
+                    />
+                  }
                   tooltip={item.label}
                 >
                   <Icon />
                   <span>{item.label}</span>
                 </SidebarMenuButton>
-                {item.extra?.render}
+                {item.extra?.render
+                  ? item.extra.render
+                  : isExternalLink && (
+                      <SidebarMenuBadge>
+                        <IconExternalLink className="size-3.5!" />
+                      </SidebarMenuBadge>
+                    )}
               </SidebarMenuItem>
             )
           })}
