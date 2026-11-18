@@ -14,11 +14,9 @@ import {
 } from "@/constants/auth"
 import { env } from "@/env"
 import { getRedisClient } from "@/lib/redis"
+import { getInitialOrganizationSlug } from "@/lib/slugify"
 import { ac, adminRole, memberRole } from "@/server/auth/ac"
-import {
-  getInitialOrganizationId,
-  getInitialOrganizationSlug,
-} from "@/server/auth/organization"
+import { getInitialOrganizationId } from "@/server/auth/organization"
 import { db } from "@/server/db"
 import { user as userTable } from "@/server/db/schema"
 import { logActivity } from "@/server/services/activity"
