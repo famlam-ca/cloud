@@ -516,18 +516,14 @@ export const verification = createTable(
   (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
-export const organization = createTable(
-  "organization",
-  (d) => ({
-    createdAt: d.timestamp("created_at").defaultNow().notNull(),
-    id: d.text("id").primaryKey(),
-    logo: d.text("logo"),
-    metadata: d.text("metadata"),
-    name: d.text("name").notNull(),
-    slug: d.text("slug").notNull().unique(),
-  }),
-  (t) => [index("organization_slug_uidx").on(t.slug)],
-)
+export const organization = createTable("organization", (d) => ({
+  createdAt: d.timestamp("created_at").defaultNow().notNull(),
+  id: d.text("id").primaryKey(),
+  logo: d.text("logo"),
+  metadata: d.text("metadata"),
+  name: d.text("name").notNull(),
+  slug: d.text("slug").notNull().unique(),
+}))
 
 export const member = createTable(
   "member",
