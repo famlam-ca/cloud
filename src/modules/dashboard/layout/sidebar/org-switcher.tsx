@@ -21,10 +21,12 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { Spinner } from "@/components/ui/spinner"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { api } from "@/lib/api/client"
 import { authClient } from "@/lib/auth/client"
+import { CreateOrgModal } from "@/modules/dashboard/ui/create-org-modal"
 
-type OrganizationSummary = Pick<Organization, "id" | "name" | "slug" | "logo">
+type OrganizationSummary = Pick<Organization, "name" | "slug" | "logo">
 
 interface OrgSwitcherProps {
   activeOrg?: OrganizationSummary
@@ -43,8 +45,10 @@ function OrgInfo({ activeOrg, org }: OrgSwitcherProps) {
       <div className="flex flex-col gap-0.5 leading-none">
         <span className="font-medium line-clamp-1">
           {org.name}{" "}
-          {activeOrg?.id === org.id && (
-            <span className="text-muted-foreground text-xs">(Active)</span>
+          {activeOrg?.slug === org.slug && (
+            <span className="text-muted-foreground text-xs uppercase">
+              (Active)
+            </span>
           )}
         </span>
         <span className="text-muted-foreground line-clamp-1">{org.slug}</span>
@@ -56,55 +60,51 @@ function OrgInfo({ activeOrg, org }: OrgSwitcherProps) {
 export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
   const router = useRouter()
   const utils = api.useUtils()
-  const loaded = React.useRef(false)
+  const isMobile = useIsMobile()
 
   const [open, setOpen] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
-  const [orgs, setOrgs] = React.useState<OrganizationSummary[]>([])
+  const [openCreateOrg, setOpenCreateOrg] = React.useState(false)
   const [activeOrg, setActiveOrg] =
     React.useState<OrganizationSummary>(activeOrgFromProps)
 
-  async function lazyLoadOrganizations() {
-    if (loaded.current || isLoading) return
+  const {
+    data: organizations,
+    error: queryError,
+    isPending,
+  } = api.organization.list.useQuery(undefined, {
+    enabled: open,
+  })
 
-    setIsLoading(true)
-    setError(null)
+  const orgs = organizations || []
 
-    const { data, error } = await authClient.organization.list()
-
-    if (error) {
-      setError(error.message || "Failed to load organizations")
-    } else {
-      setOrgs(data)
-      loaded.current = true
-    }
-
-    setIsLoading(false)
-  }
-
-  async function switchOrganization(orgId: string, orgSlug: string) {
-    if (orgId === activeOrg?.id) return
+  async function switchOrganization(orgSlug: string) {
+    if (orgSlug === activeOrg?.slug) return
 
     setIsLoading(true)
     setError(null)
 
     const { error } = await authClient.organization.setActive({
       fetchOptions: { cache: "no-store" },
-      organizationId: orgId,
       organizationSlug: orgSlug,
     })
 
     if (error) {
       setError(error.message || "Failed to switch organization")
     } else {
-      const nextOrg = orgs.find((org) => org.id === orgId)
+      const nextOrg = orgs.find((org) => org.slug === orgSlug)
       if (nextOrg) setActiveOrg(nextOrg)
       // TODO: Scope this correctly if it causes load time issues.
       await utils.invalidate()
       router.push(`/orgs/${orgSlug}`)
     }
   }
+
+  React.useEffect(() => {
+    // oxlint-disable-next-line react/set-state-in-effect
+    if (activeOrgFromProps) setActiveOrg(activeOrgFromProps)
+  }, [activeOrgFromProps])
 
   return (
     <SidebarGroup>
@@ -114,7 +114,7 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
             <DropdownMenu
               onOpenChange={(next) => {
                 setOpen(next)
-                if (next) void lazyLoadOrganizations()
+                if (!next) setError(null)
               }}
               open={open}
             >
@@ -134,12 +134,14 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
                 className="w-(--anchor-width) md:w-[min(20rem,calc(100vw-2rem))]"
                 side={isMobile ? "bottom" : "right"}
               >
-                {error && (
+                {(error || queryError) && (
                   <DropdownMenuItem className="text-destructive cursor-not-allowed">
-                    {error}
+                    {error ||
+                      queryError?.message ||
+                      "Failed to load organizations"}
                   </DropdownMenuItem>
                 )}
-                {orgs.length === 0 && isLoading && (
+                {orgs.length === 0 && (isLoading || isPending) && (
                   <DropdownMenuItem className="cursor-not-allowed justify-center">
                     <Spinner className="size-8" />
                   </DropdownMenuItem>
@@ -147,28 +149,34 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
                 {orgs.length > 0 &&
                   orgs.map((org) => (
                     <DropdownMenuItem
-                      key={org.id}
-                      onClick={() => void switchOrganization(org.id, org.slug)}
+                      className="normal-case"
+                      key={org.slug}
+                      onClick={() => void switchOrganization(org.slug)}
                     >
                       <OrgInfo activeOrg={activeOrg} org={org} />
                     </DropdownMenuItem>
                   ))}
 
-                <DropdownMenuItem className="border-t border-t-border mt-2">
-                  <button
-                    className="flex items-center gap-2"
-                    onClick={() => alert("Coming soon!")}
-                  >
-                    <span className="flex items-center justify-center size-5 rounded bg-sidebar-primary text-sidebar-primary-foreground">
-                      <IconPlus />
-                    </span>
-                    <p className="text-sm text-muted-foreground">
-                      Create Organization
-                    </p>
-                  </button>
+                <DropdownMenuItem
+                  className="border-t border-t-border mt-2"
+                  closeOnClick={false}
+                  onClick={() => setOpenCreateOrg(true)}
+                >
+                  <span className="flex items-center justify-center size-5 rounded bg-sidebar-primary text-sidebar-primary-foreground">
+                    <IconPlus />
+                  </span>
+                  <p className="text-sm text-muted-foreground">
+                    Create Organization
+                  </p>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            <CreateOrgModal
+              onOpenChange={(next) => setOpenCreateOrg(next)}
+              open={openCreateOrg}
+              showTrigger={false}
+            />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
