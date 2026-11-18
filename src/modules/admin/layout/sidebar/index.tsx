@@ -81,7 +81,7 @@ function UserNav({ user }: { user: User }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-80"
+            className="w-(--anchor-width) min-w-80"
             side={isMobile ? "bottom" : "right"}
             sideOffset={4}
           >

@@ -131,7 +131,7 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="start"
-                className="w-(--radix-dropdown-menu-trigger-width)"
+                className="w-(--anchor-width) md:w-[min(20rem,calc(100vw-2rem))]"
                 side="right"
               >
                 {error && (
