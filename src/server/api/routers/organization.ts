@@ -1,11 +1,17 @@
 import { openapi } from "@orpc/openapi"
 import { toTRPCMeta } from "@orpc/trpc"
 import { TRPCError } from "@trpc/server"
+import { APIError } from "better-auth"
 import { and, count, eq, exists, inArray, isNull } from "drizzle-orm"
 import * as z from "zod"
 
-import { selectOrganizationSchema } from "@/schemas/organization"
+import { slugify } from "@/lib/slugify"
+import {
+  createOrganizationSchema,
+  selectOrganizationSchema,
+} from "@/schemas/organization"
 import { createTRPCRouter, protectedProcedure } from "@/server/api/init"
+import { auth } from "@/server/auth"
 import {
   instanceFirewallRuleTable,
   instanceTable,
@@ -15,8 +21,75 @@ import {
   member as organizationMemberTable,
   sshKeyTable,
 } from "@/server/db/schema"
+import { isUniqueConstraintError } from "@/server/db/utils"
 
 export const organizationRouter = createTRPCRouter({
+  create: protectedProcedure
+    .meta(
+      toTRPCMeta(
+        openapi({
+          method: "POST",
+          path: "/organization/create",
+          summary: "Create a new organization",
+          tags: ["Organization"],
+        }),
+      ),
+    )
+    .input(createOrganizationSchema.pick({ logo: true, name: true }))
+    .output(
+      selectOrganizationSchema.pick({ logo: true, name: true, slug: true }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const slug = slugify(input.name)
+
+      if (!slug) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message:
+            "Organization name must contain at least one letter or number",
+        })
+      }
+
+      let org
+      try {
+        org = await auth.api.createOrganization({
+          body: {
+            keepCurrentActiveOrganization: false,
+            logo: input.logo,
+            name: input.name,
+            slug,
+            userId: ctx.session.user.id,
+          },
+          headers: ctx.headers,
+        })
+      } catch (error) {
+        if (
+          isUniqueConstraintError(error, "organization_slug_unique") ||
+          (error instanceof APIError &&
+            error.body?.code === "ORGANIZATION_SLUG_ALREADY_TAKEN")
+        ) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: `Organization with slug "${slug}" already exists`,
+          })
+        }
+        throw error
+      }
+
+      if (!org) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create organization",
+        })
+      }
+
+      return {
+        logo: org.logo ?? null,
+        name: org.name,
+        slug: org.slug,
+      }
+    }),
+
   get: protectedProcedure
     .meta(
       toTRPCMeta(
@@ -28,7 +101,14 @@ export const organizationRouter = createTRPCRouter({
         }),
       ),
     )
-    .input(z.object({ id: z.string().optional() }).optional())
+    .input(
+      z
+        .object({
+          id: z.string().optional(),
+          slug: z.string().optional(),
+        })
+        .optional(),
+    )
     .output(
       selectOrganizationSchema.pick({
         id: true,
@@ -44,7 +124,7 @@ export const organizationRouter = createTRPCRouter({
         columns: { id: true, logo: true, name: true, slug: true },
         where: (org, { eq }) =>
           and(
-            eq(org.id, organizationId),
+            input?.slug ? eq(org.slug, input.slug) : eq(org.id, organizationId),
             exists(
               ctx.db
                 .select({ id: memberTable.id })
@@ -67,6 +147,40 @@ export const organizationRouter = createTRPCRouter({
       }
 
       return organization
+    }),
+
+  list: protectedProcedure
+    .meta(
+      toTRPCMeta(
+        openapi({
+          method: "GET",
+          path: "/organization/list",
+          summary: "List all organizations the user is a member of",
+          tags: ["Organization"],
+        }),
+      ),
+    )
+    .output(
+      z.array(
+        selectOrganizationSchema.pick({
+          id: true,
+          logo: true,
+          name: true,
+          slug: true,
+        }),
+      ),
+    )
+    .query(async ({ ctx }) => {
+      const data = await auth.api.listOrganizations({
+        headers: ctx.headers,
+      })
+
+      return data.map((org) => ({
+        id: org.id,
+        logo: org.logo ?? null,
+        name: org.name,
+        slug: org.slug,
+      }))
     }),
 
   resourceSummary: protectedProcedure
