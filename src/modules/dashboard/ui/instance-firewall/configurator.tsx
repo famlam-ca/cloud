@@ -44,7 +44,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { FIREWALL_RULE_PRIORITY_STEP } from "@/constants/app"
-import { useIsMobile } from "@/hooks/use-is-mobile"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { api } from "@/lib/api/client"
 import { useDebouncedReorder } from "@/modules/dashboard/hooks/use-debounced-reorder"
 import type { InstanceFirewallRule } from "@/schemas/firewall-rule"

@@ -15,7 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { useIsMobile } from "@/hooks/use-is-mobile"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { api } from "@/lib/api/client"
 import type { Notification } from "@/schemas/notification"
 
