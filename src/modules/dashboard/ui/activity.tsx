@@ -1,6 +1,6 @@
 "use client"
 
-import { IconBell, IconChevronRight } from "@tabler/icons-react"
+import { IconActivity, IconChevronRight } from "@tabler/icons-react"
 import { cn } from "cn"
 import { formatDate, formatDistanceToNowStrict } from "date-fns"
 import { CircleQuestionMarkIcon } from "lucide-react"
@@ -64,11 +64,11 @@ export function ActivityCard({
   )
 
   return (
-    <Card className={cn("@container pb-2", className)}>
-      <CardContent className="flex flex-1 flex-col overflow-hidden">
-        <CardHeader className="mb-4 flex items-center justify-between gap-2 px-0">
+    <Card className={cn("@container pb-2 pt-6", className)}>
+      <CardContent className="flex px-2 flex-1 flex-col overflow-hidden">
+        <CardHeader className="mb-4 flex items-center justify-between gap-2 px-2.5">
           <CardTitle className="flex items-center gap-2">
-            <IconBell className="stroke-primary size-5" />
+            <IconActivity className="stroke-primary size-5" />
             <p className="text-lg uppercase">Activity</p>
           </CardTitle>
           <Button
@@ -81,7 +81,7 @@ export function ActivityCard({
             View All <IconChevronRight />
           </Button>
         </CardHeader>
-        <ScrollArea className="-mx-4 min-h-0 flex-1">
+        <ScrollArea className="min-h-0 flex-1">
           <ItemGroup className="gap-y-0!">
             {activity.pages.flatMap((page) => page.items).length ? (
               activity.pages
