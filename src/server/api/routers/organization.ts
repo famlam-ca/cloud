@@ -6,6 +6,7 @@ import { and, count, eq, exists, inArray, isNull } from "drizzle-orm"
 import * as z from "zod"
 
 import { slugify } from "@/lib/slugify"
+import { toTRPCError } from "@/lib/to-trpc-error"
 import {
   createOrganizationSchema,
   selectOrganizationSchema,
@@ -35,7 +36,7 @@ export const organizationRouter = createTRPCRouter({
         }),
       ),
     )
-    .input(createOrganizationSchema.pick({ logo: true, name: true }))
+    .input(createOrganizationSchema)
     .output(
       selectOrganizationSchema.pick({ logo: true, name: true, slug: true }),
     )
@@ -73,6 +74,7 @@ export const organizationRouter = createTRPCRouter({
             message: `Organization with slug "${slug}" already exists`,
           })
         }
+        if (error instanceof APIError) throw toTRPCError(error)
         throw error
       }
 
