@@ -15,11 +15,12 @@ import {
 import { env } from "@/env"
 import { getRedisClient } from "@/lib/redis"
 import { getInitialOrganizationSlug } from "@/lib/slugify"
-import { ac, adminRole, memberRole } from "@/server/auth/ac"
-import { getInitialOrganizationId } from "@/server/auth/organization"
 import { db } from "@/server/db"
 import { user as userTable } from "@/server/db/schema"
 import { logActivity } from "@/server/services/activity"
+
+import { ac, adminRole, memberRole, ownerRole } from "./ac"
+import { getInitialOrganizationId } from "./organization"
 
 const incrementScript = `
 local value = redis.call("INCR", KEYS[1])
@@ -146,6 +147,7 @@ export const auth = betterAuth({
       roles: {
         admin: adminRole,
         member: memberRole,
+        owner: ownerRole,
       },
     }),
     apiKey({
