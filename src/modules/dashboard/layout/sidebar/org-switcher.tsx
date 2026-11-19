@@ -1,12 +1,14 @@
 "use client"
 
-import { IconPlus } from "@tabler/icons-react"
+import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react"
 import type { Organization } from "better-auth/plugins"
+import { cn } from "cn"
 import { ChevronsUpDown } from "lucide-react"
 import { useRouter } from "next/navigation"
 import * as React from "react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,18 +27,23 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { api } from "@/lib/api/client"
 import { authClient } from "@/lib/auth/client"
 import { CreateOrgModal } from "@/modules/dashboard/ui/org/create-modal"
+import { DeleteOrgModal } from "@/modules/dashboard/ui/org/delete-modal"
+import { UpdateOrgModal } from "@/modules/dashboard/ui/org/update-modal"
 
-type OrganizationSummary = Pick<Organization, "name" | "slug" | "logo">
+type OrganizationSummary = Pick<Organization, "id" | "name" | "slug" | "logo">
 
 interface OrgSwitcherProps {
   org: OrganizationSummary
+  showControls?: boolean
 }
 
-function OrgInfo({ org }: OrgSwitcherProps) {
+function OrgInfo({ org, showControls = false }: OrgSwitcherProps) {
   const isMobile = useIsMobile()
+  const [openUpdateOrg, setOpenUpdateOrg] = React.useState(false)
+  const [openDeleteOrg, setOpenDeleteOrg] = React.useState(false)
 
   return (
-    <>
+    <div className="flex items-center gap-2 w-full">
       <Avatar className="[--radius:0.625rem]">
         <AvatarImage alt={org.name} src={org.logo || undefined} />
         <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground">
@@ -47,7 +54,50 @@ function OrgInfo({ org }: OrgSwitcherProps) {
         <span className="font-medium line-clamp-1">{org.name}</span>
         <span className="text-muted-foreground line-clamp-1">{org.slug}</span>
       </div>
-    </>
+      {showControls && (
+        <span
+          className={cn(
+            "group-hover:opacity-100 ml-auto shrink-0 opacity-0",
+            isMobile && "opacity-100",
+          )}
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+          onPointerDown={(e) => e.stopPropagation()}
+          role="presentation"
+        >
+          <UpdateOrgModal
+            onOpenChange={setOpenUpdateOrg}
+            open={openUpdateOrg}
+            org={{
+              id: org.id,
+              logo: org.logo,
+              name: org.name,
+            }}
+            render={
+              <Button size="icon-sm" variant="ghost">
+                <IconEdit />
+                <span className="sr-only">Update Organization</span>
+              </Button>
+            }
+          />
+          <DeleteOrgModal
+            onOpenChange={setOpenDeleteOrg}
+            open={openDeleteOrg}
+            org={{ id: org.id }}
+            render={
+              <Button
+                className="text-destructive! dark:text-destructive! hover:text-destructive hover:bg-destructive/10 focus:text-destructive focus:bg-destructive/10 dark:hover:bg-destructive/20 dark:focus:text-destructive dark:focus:bg-destructive/20"
+                size="icon-sm"
+                variant="ghost"
+              >
+                <IconTrash />
+                <span className="sr-only">Delete Organization</span>
+              </Button>
+            }
+          />
+        </span>
+      )}
+    </div>
   )
 }
 
