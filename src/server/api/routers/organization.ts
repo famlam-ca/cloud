@@ -9,6 +9,7 @@ import { slugify } from "@/lib/slugify"
 import { toTRPCError } from "@/lib/to-trpc-error"
 import {
   createOrganizationSchema,
+  deleteOrganizationSchema,
   selectOrganizationSchema,
   updateOrganizationSchema,
 } from "@/schemas/organization"
@@ -83,6 +84,47 @@ export const organizationRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to create organization",
+        })
+      }
+
+      return {
+        logo: org.logo ?? null,
+        name: org.name,
+        slug: org.slug,
+      }
+    }),
+
+  delete: protectedProcedure
+    .meta(
+      toTRPCMeta(
+        openapi({
+          method: "DELETE",
+          path: "/organization/delete",
+          summary: "Delete an organization",
+          tags: ["Organization"],
+        }),
+      ),
+    )
+    .input(deleteOrganizationSchema)
+    .output(
+      selectOrganizationSchema.pick({ logo: true, name: true, slug: true }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      let org
+      try {
+        org = await auth.api.deleteOrganization({
+          body: { organizationId: input.id },
+          headers: ctx.headers,
+        })
+      } catch (error) {
+        if (error instanceof APIError) throw toTRPCError(error)
+        throw error
+      }
+
+      if (!org) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Organization not found",
         })
       }
 
@@ -290,7 +332,7 @@ export const organizationRouter = createTRPCRouter({
         openapi({
           method: "PATCH",
           path: "/organization/update",
-          summary: "Update the active organization",
+          summary: "Update an organization",
           tags: ["Organization"],
         }),
       ),

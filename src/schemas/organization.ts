@@ -21,10 +21,18 @@ export const createOrganizationSchema = insertOrganizationSchema.pick({
   name: true,
 })
 
-export const updateOrganizationSchema = createOrganizationSchema
+export const updateOrganizationSchema = selectOrganizationSchema
+  .pick({
+    logo: true,
+    name: true,
+  })
   .partial()
   .extend({ id: z.string().min(1) })
   .refine(
     (data) => data.name !== undefined || data.logo !== undefined,
     "At least one of 'name' or 'logo' must be provided",
   )
+
+export const deleteOrganizationSchema = selectOrganizationSchema.pick({
+  id: true,
+})
