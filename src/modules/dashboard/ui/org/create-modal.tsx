@@ -200,7 +200,7 @@ export function CreateOrgModal({
           )}
         </ResponsiveDialogTrigger>
       )}
-      <ResponsiveDialogContent className="max-md:h-1/2" size="xl">
+      <ResponsiveDialogContent className="max-md:h-1/2 mb-8 md:mb-0" size="xl">
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>Create Organization</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
