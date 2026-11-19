@@ -1,10 +1,14 @@
 import { apiKey } from "@better-auth/api-key"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { createAuthMiddleware, getSessionFromCtx } from "better-auth/api"
+import {
+  APIError,
+  createAuthMiddleware,
+  getSessionFromCtx,
+} from "better-auth/api"
 import { nextCookies } from "better-auth/next-js"
 import { admin, genericOAuth, organization } from "better-auth/plugins"
-import { eq } from "drizzle-orm"
+import { and, eq, isNotNull } from "drizzle-orm"
 
 import { APP_NAME } from "@/constants/app"
 import {
@@ -16,7 +20,7 @@ import { env } from "@/env"
 import { getRedisClient } from "@/lib/redis"
 import { getInitialOrganizationSlug } from "@/lib/slugify"
 import { db } from "@/server/db"
-import { user as userTable } from "@/server/db/schema"
+import { apikey, instanceTable, user as userTable } from "@/server/db/schema"
 import { logActivity } from "@/server/services/activity"
 
 import { ac, adminRole, memberRole, ownerRole } from "./ac"
@@ -144,6 +148,32 @@ export const auth = betterAuth({
     }),
     organization({
       ac,
+      organizationHooks: {
+        async afterDeleteOrganization({ organization }) {
+          await db.delete(apikey).where(eq(apikey.referenceId, organization.id))
+        },
+        async beforeDeleteOrganization({ organization }) {
+          const live = await db.query.instanceTable.findFirst({
+            columns: { id: true },
+            where: (i, { and, eq, isNull }) =>
+              and(eq(i.organizationId, organization.id), isNull(i.deletedAt)),
+          })
+          if (live) {
+            throw new APIError("BAD_REQUEST", {
+              message: "Delete all instances before deleting this organization",
+            })
+          }
+
+          await db
+            .delete(instanceTable)
+            .where(
+              and(
+                eq(instanceTable.organizationId, organization.id),
+                isNotNull(instanceTable.deletedAt),
+              ),
+            )
+        },
+      },
       roles: {
         admin: adminRole,
         member: memberRole,
