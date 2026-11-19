@@ -10,6 +10,7 @@ import { toTRPCError } from "@/lib/to-trpc-error"
 import {
   createOrganizationSchema,
   selectOrganizationSchema,
+  updateOrganizationSchema,
 } from "@/schemas/organization"
 import { createTRPCRouter, protectedProcedure } from "@/server/api/init"
 import { auth } from "@/server/auth"
@@ -280,6 +281,54 @@ export const organizationRouter = createTRPCRouter({
         primaryIpCount: primaryIpCount[0].count,
         snapshotCount: snapshotCount[0].count,
         sshKeyCount: sshKeyCount[0].count,
+      }
+    }),
+
+  update: protectedProcedure
+    .meta(
+      toTRPCMeta(
+        openapi({
+          method: "PATCH",
+          path: "/organization/update",
+          summary: "Update the active organization",
+          tags: ["Organization"],
+        }),
+      ),
+    )
+    .input(updateOrganizationSchema)
+    .output(
+      selectOrganizationSchema.pick({ logo: true, name: true, slug: true }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      let org
+      try {
+        org = await auth.api.updateOrganization({
+          body: {
+            data: {
+              logo: input.logo,
+              name: input.name,
+            },
+            organizationId: input.id,
+          },
+          headers: ctx.headers,
+        })
+      } catch (error) {
+        console.log(error)
+        if (error instanceof APIError) throw toTRPCError(error)
+        throw error
+      }
+
+      if (!org) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No active organization to update",
+        })
+      }
+
+      return {
+        logo: org.logo ?? null,
+        name: org.name,
+        slug: org.slug,
       }
     }),
 })
