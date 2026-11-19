@@ -29,11 +29,12 @@ import { CreateOrgModal } from "@/modules/dashboard/ui/org/create-modal"
 type OrganizationSummary = Pick<Organization, "name" | "slug" | "logo">
 
 interface OrgSwitcherProps {
-  activeOrg?: OrganizationSummary
   org: OrganizationSummary
 }
 
-function OrgInfo({ activeOrg, org }: OrgSwitcherProps) {
+function OrgInfo({ org }: OrgSwitcherProps) {
+  const isMobile = useIsMobile()
+
   return (
     <>
       <Avatar className="[--radius:0.625rem]">
@@ -43,14 +44,7 @@ function OrgInfo({ activeOrg, org }: OrgSwitcherProps) {
         </AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-0.5 leading-none">
-        <span className="font-medium line-clamp-1">
-          {org.name}{" "}
-          {activeOrg?.slug === org.slug && (
-            <span className="text-muted-foreground text-xs uppercase">
-              (Active)
-            </span>
-          )}
-        </span>
+        <span className="font-medium line-clamp-1">{org.name}</span>
         <span className="text-muted-foreground line-clamp-1">{org.slug}</span>
       </div>
     </>
@@ -150,15 +144,15 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
                   {orgs.length > 0 &&
                     orgs.map((org) => (
                       <DropdownMenuItem
-                        className="normal-case group"
+                        className={cn(
+                          "normal-case group",
+                          org.slug === activeOrg?.slug &&
+                            "bg-sidebar-accent text-sidebar-accent-foreground",
+                        )}
                         key={org.slug}
                         onClick={() => void switchOrganization(org.slug)}
                       >
-                        <OrgInfo
-                          activeOrg={activeOrg}
-                          org={org}
-                          showControls={true}
-                        />
+                        <OrgInfo org={org} showControls={true} />
                       </DropdownMenuItem>
                     ))}
                 </div>
