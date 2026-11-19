@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/input-group"
 import {
   ResponsiveDialog,
+  ResponsiveDialogClose,
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
@@ -140,16 +141,15 @@ export function CreateOrgForm({ onOpenChange }: CreateOrgFormProps) {
       />
 
       <div className="flex items-center justify-end gap-2">
-        <Button
-          disabled={isDisabled}
-          onClick={() => onOpenChange?.(false)}
-          type="button"
-          variant="outline"
-        >
-          Cancel
-        </Button>
+        <ResponsiveDialogClose
+          render={
+            <Button disabled={isDisabled} type="button" variant="outline">
+              Cancel
+            </Button>
+          }
+        />
         <Button disabled={isDisabled} type="submit">
-          {createOrganization.isPending ? <Spinner /> : <IconPlus />}
+          {createOrganization.isPending && <Spinner />}
           Create <span className="hidden md:inline">Organization</span>
         </Button>
       </div>
