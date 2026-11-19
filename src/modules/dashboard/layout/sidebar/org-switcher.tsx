@@ -134,28 +134,34 @@ export function OrgSwitcher({ org: activeOrgFromProps }: OrgSwitcherProps) {
                 className="w-(--anchor-width) md:w-[min(20rem,calc(100vw-2rem))]"
                 side={isMobile ? "bottom" : "right"}
               >
-                {(error || queryError) && (
-                  <DropdownMenuItem className="text-destructive cursor-not-allowed">
-                    {error ||
-                      queryError?.message ||
-                      "Failed to load organizations"}
-                  </DropdownMenuItem>
-                )}
-                {orgs.length === 0 && (isLoading || isPending) && (
-                  <DropdownMenuItem className="cursor-not-allowed justify-center">
-                    <Spinner className="size-8" />
-                  </DropdownMenuItem>
-                )}
-                {orgs.length > 0 &&
-                  orgs.map((org) => (
-                    <DropdownMenuItem
-                      className="normal-case"
-                      key={org.slug}
-                      onClick={() => void switchOrganization(org.slug)}
-                    >
-                      <OrgInfo activeOrg={activeOrg} org={org} />
+                <div className="max-h-72 scroll-fade scrollbar-none overflow-y-auto">
+                  {(error || queryError) && (
+                    <DropdownMenuItem className="text-destructive cursor-not-allowed">
+                      {error ||
+                        queryError?.message ||
+                        "Failed to load organizations"}
                     </DropdownMenuItem>
-                  ))}
+                  )}
+                  {orgs.length === 0 && (isLoading || isPending) && (
+                    <DropdownMenuItem className="cursor-not-allowed justify-center">
+                      <Spinner className="size-8" />
+                    </DropdownMenuItem>
+                  )}
+                  {orgs.length > 0 &&
+                    orgs.map((org) => (
+                      <DropdownMenuItem
+                        className="normal-case group"
+                        key={org.slug}
+                        onClick={() => void switchOrganization(org.slug)}
+                      >
+                        <OrgInfo
+                          activeOrg={activeOrg}
+                          org={org}
+                          showControls={true}
+                        />
+                      </DropdownMenuItem>
+                    ))}
+                </div>
 
                 <DropdownMenuItem
                   className="border-t border-t-border mt-2"
