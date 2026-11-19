@@ -24,7 +24,7 @@ import { Spinner } from "@/components/ui/spinner"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { api } from "@/lib/api/client"
 import { authClient } from "@/lib/auth/client"
-import { CreateOrgModal } from "@/modules/dashboard/ui/create-org-modal"
+import { CreateOrgModal } from "@/modules/dashboard/ui/org/create-modal"
 
 type OrganizationSummary = Pick<Organization, "name" | "slug" | "logo">
 
